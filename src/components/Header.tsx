@@ -63,7 +63,7 @@ export const Header = () => {
             to="/"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <img src="/Logo-35.png" alt="MindBreakers Logo" className="h-10 md:h-12" />
+            <img src="/images/logos/Logo-35.png" alt="MindBreakers Logo" className="h-10 md:h-12 object-contain" />
           </Link>
         </div>
         

@@ -27,9 +27,9 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <img
-              src="https://uploadthingy.s3.us-west-1.amazonaws.com/j4KwKME8Sszn3RKxeLHnDw/Logo-35.png"
+              src="/images/logos/Logo-35.png"
               alt="MindBreakers Logo"
-              className="h-10 mb-4"
+              className="h-10 mb-4 object-contain"
             />
             <p className="text-gray-400 mb-4">
               {t('footer.description')}
@@ -123,7 +123,12 @@ export const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-          <p className="text-gray-500">
+          <p className="text-gray-500 flex items-center justify-center">
+            <img
+              src="/images/logos/Face-18.png"
+              alt="MindBreakers"
+              className="h-5 w-5 mr-2 opacity-70 object-contain"
+            />
             {t('footer.copyright').replace('{year}', new Date().getFullYear().toString())}
           </p>
         </div>
