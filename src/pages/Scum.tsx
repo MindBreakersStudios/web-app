@@ -44,6 +44,7 @@ interface ServerData {
 
 export const Scum: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [gameData, setGameData] = useState<GameData | null>(null);
   const [serverData, setServerData] = useState<ServerData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -53,6 +54,18 @@ export const Scum: React.FC = () => {
     setIsVisible(true);
     fetchScumData();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const fetchScumData = async () => {
     try {
@@ -468,7 +481,11 @@ export const Scum: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-md font-bold text-lg transition-all transform hover:scale-105 flex items-center justify-center group">
-              <Users className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
+              <img
+                src="/images/logos/Face-19.png"
+                alt="MindBreakers"
+                className="h-5 w-5 mr-2 object-contain group-hover:rotate-12 transition-transform"
+              />
               {t('scum.cta.joinDiscord')}
             </button>
             <a
@@ -484,14 +501,34 @@ export const Scum: React.FC = () => {
       {/* Footer Note */}
       <div className="bg-gray-900 border-t border-gray-800 py-6">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm flex items-center justify-center">
+            <img
+              src="/images/logos/Face-18.png"
+              alt="MindBreakers"
+              className="h-5 w-5 mr-2 opacity-70 object-contain"
+            />
             {t('scum.footer.copyright')}{' '}
-            <span className="text-red-500">❤</span> {t('scum.footer.copyrightSuffix')}
+            <span className="text-red-500 mx-1">❤</span> {t('scum.footer.copyrightSuffix')}
           </p>
         </div>
       </div>
 
       <Footer />
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 bg-gray-800 border border-gray-700 hover:border-lime-400 rounded-full p-3 transition-all duration-300 z-50 ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+        aria-label="Scroll to top"
+      >
+        <img
+          src="/images/logos/Face-18.png"
+          alt="Scroll to top"
+          className="h-8 w-8 object-contain"
+        />
+      </button>
 
       <style>{`
         @keyframes fadeInUp {
