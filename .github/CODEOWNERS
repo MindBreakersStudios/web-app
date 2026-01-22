@@ -1,0 +1,10 @@
+# CODEOWNERS - Define who must approve PRs
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+* @lmpallotti
+
+# Critical files require owner approval
+/.github/ @lmpallotti
+/supabase/ @lmpallotti
+package.json @lmpallotti
