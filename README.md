@@ -15,7 +15,7 @@ Plataforma gaming para la comunidad MindBreakers LATAM. Servidores de juegos sur
 
 ## Tech Stack
 
-- React 19 + TypeScript
+- React 18 + TypeScript
 - Vite
 - Tailwind CSS
 - Supabase (opcional para desarrollo local)
