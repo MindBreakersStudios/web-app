@@ -19,17 +19,19 @@ const STORAGE_KEY = 'mindbreakers-locale';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<SupportedLocale>(() => {
-    // Get from localStorage or browser language, fallback to default
+    // Get from localStorage or browser language, fallback to default (Spanish)
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem(STORAGE_KEY) as SupportedLocale;
       if (stored && (stored === 'en' || stored === 'es')) {
         return stored;
       }
-      // Try to detect from browser
+      // Try to detect from browser, but default to Spanish
       const browserLang = navigator.language.split('-')[0];
-      if (browserLang === 'es') {
-        return 'es';
+      if (browserLang === 'en') {
+        return 'en';
       }
+      // Default to Spanish for all other cases
+      return 'es';
     }
     return defaultLocale;
   });

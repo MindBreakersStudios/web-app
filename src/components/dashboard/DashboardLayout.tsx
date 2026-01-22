@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LayoutDashboardIcon, UsersIcon, SettingsIcon, LogOutIcon, TrophyIcon, GamepadIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DashboardHeader } from './DashboardHeader';
+import { useTranslation } from '../../hooks/useTranslation';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -13,21 +14,26 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   currentPage
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const t = useTranslation();
 
   const navigationItems = [{
-    name: 'Dashboard',
+    name: t('dashboard.navigation.dashboard'),
+    key: 'dashboard',
     icon: <LayoutDashboardIcon className="h-5 w-5" />,
     href: '/dashboard'
   }, {
-    name: 'Leaderboards',
+    name: t('dashboard.navigation.leaderboards'),
+    key: 'leaderboards',
     icon: <TrophyIcon className="h-5 w-5" />,
     href: '/dashboard/leaderboards'
   }, {
-    name: 'Community',
+    name: t('dashboard.navigation.community'),
+    key: 'community',
     icon: <UsersIcon className="h-5 w-5" />,
     href: '/dashboard/community'
   }, {
-    name: 'Settings',
+    name: t('dashboard.navigation.settings'),
+    key: 'settings',
     icon: <SettingsIcon className="h-5 w-5" />,
     href: '/dashboard/settings'
   }];
@@ -62,17 +68,17 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium">GamerTag123</p>
-                <p className="text-xs text-blue-400">Premium Member</p>
+                <p className="text-xs text-blue-400">{t('dashboard.sidebar.premiumMember')}</p>
               </div>
             </div>
           </div>
 
           <nav className="mt-4 px-4 space-y-1">
             {navigationItems.map((item) => {
-              const isActive = currentPage === item.name.toLowerCase();
+              const isActive = currentPage === item.key;
               return (
                 <Link
-                  key={item.name}
+                  key={item.key}
                   to={item.href}
                   className={`
                     flex items-center px-4 py-3 rounded-md text-sm font-medium transition
@@ -95,11 +101,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             <div className="bg-gray-700/50 rounded-lg p-4">
               <div className="flex items-center mb-3">
                 <GamepadIcon className="h-5 w-5 text-blue-400 mr-2" />
-                <h3 className="font-medium text-sm">Game Stats</h3>
+                <h3 className="font-medium text-sm">{t('dashboard.sidebar.gameStats')}</h3>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-gray-400">Level</span>
+                  <span className="text-gray-400">{t('dashboard.sidebar.level')}</span>
                   <span>24</span>
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-1.5">
@@ -109,11 +115,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                   ></div>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-gray-400">Total Kills</span>
+                  <span className="text-gray-400">{t('dashboard.sidebar.totalKills')}</span>
                   <span>1,487</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-gray-400">Playtime</span>
+                  <span className="text-gray-400">{t('dashboard.sidebar.playtime')}</span>
                   <span>124h 35m</span>
                 </div>
               </div>
@@ -127,7 +133,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                 className="flex items-center px-4 py-3 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
               >
                 <LogOutIcon className="mr-3 h-5 w-5 text-gray-400" />
-                Back to Home
+                {t('dashboard.sidebar.backToHome')}
               </Link>
             </div>
           </div>

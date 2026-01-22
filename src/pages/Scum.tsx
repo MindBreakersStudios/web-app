@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { VIPPlans } from '../components/VIPPlans';
 import { images } from '../config/images';
 import { supabase } from '../lib/supabase';
+import { useTranslation } from '../hooks/useTranslation';
 import {
   Users,
   Shield,
@@ -46,6 +47,7 @@ export const Scum: React.FC = () => {
   const [gameData, setGameData] = useState<GameData | null>(null);
   const [serverData, setServerData] = useState<ServerData | null>(null);
   const [loading, setLoading] = useState(true);
+  const t = useTranslation();
 
   useEffect(() => {
     setIsVisible(true);
@@ -107,76 +109,70 @@ export const Scum: React.FC = () => {
   const gameFeatures = [
     {
       icon: <Skull className="h-8 w-8" />,
-      title: 'SURVIVAL OF THE FITTEST',
-      description:
-        "Master the complex metabolism system, manage your character's needs, and survive in a brutal open-world environment.",
+      title: t('scum.gameFeatures.features.survival.title'),
+      description: t('scum.gameFeatures.features.survival.description'),
     },
     {
       icon: <Crosshair className="h-8 w-8" />,
-      title: 'INTENSE PVP COMBAT',
-      description:
-        'Engage in tactical combat with realistic ballistics, weapon customization, and strategic base building.',
+      title: t('scum.gameFeatures.features.combat.title'),
+      description: t('scum.gameFeatures.features.combat.description'),
     },
     {
       icon: <Zap className="h-8 w-8" />,
-      title: 'ADVANCED CRAFTING',
-      description:
-        'Craft weapons, tools, and structures using a detailed crafting system with hundreds of recipes.',
+      title: t('scum.gameFeatures.features.crafting.title'),
+      description: t('scum.gameFeatures.features.crafting.description'),
     },
     {
       icon: <Shield className="h-8 w-8" />,
-      title: 'BASE BUILDING',
-      description:
-        'Build and fortify your base with advanced construction mechanics. Protect your loot and survive raids.',
+      title: t('scum.gameFeatures.features.baseBuilding.title'),
+      description: t('scum.gameFeatures.features.baseBuilding.description'),
     },
     {
       icon: <Globe className="h-8 w-8" />,
-      title: 'MASSIVE OPEN WORLD',
-      description:
-        'Explore a 144 km² island with diverse biomes, military installations, and hidden locations to discover.',
+      title: t('scum.gameFeatures.features.openWorld.title'),
+      description: t('scum.gameFeatures.features.openWorld.description'),
     },
     {
       icon: <Heart className="h-8 w-8" />,
-      title: 'ACTIVE COMMUNITY',
-      description:
-        'Join a thriving community of survivors. Form alliances, trade resources, and compete in events.',
+      title: t('scum.gameFeatures.features.community.title'),
+      description: t('scum.gameFeatures.features.community.description'),
     },
   ];
 
   const serverStats = serverData
     ? [
         {
-          label: 'MAX PLAYERS',
+          label: t('scum.serverInfo.stats.maxPlayers'),
           value: serverData.max_players.toString(),
         },
         {
-          label: 'REGION',
+          label: t('scum.serverInfo.stats.region'),
           value: serverData.region.toUpperCase(),
         },
         {
-          label: 'STATUS',
+          label: t('scum.serverInfo.stats.status'),
           value: serverData.status.toUpperCase(),
         },
         {
-          label: 'UPTIME',
+          label: t('scum.serverInfo.stats.uptime'),
           value: '24/7',
         },
       ]
     : [
         {
-          label: 'MAX PLAYERS',
+          label: t('scum.serverInfo.stats.maxPlayers'),
           value: '64',
         },
         {
-          label: 'REGION',
+          label: t('scum.serverInfo.stats.region'),
           value: 'LATAM',
         },
         {
-          label: 'STATUS',
+          label: t('scum.serverInfo.stats.status'),
           value: 'ONLINE',
         },
         {
-          label: 'UPTIME',
+          label: t('scum.serverInfo.stats.uptime'),
           value: '24/7',
         },
       ];
@@ -213,7 +209,7 @@ export const Scum: React.FC = () => {
                 transition: 'all 0.6s ease-out 0.2s',
               }}
             >
-              ◄ COMING SOON — MAY 2026 ►
+              {t('scum.hero.badge')}
             </div>
 
             <h1
@@ -224,7 +220,7 @@ export const Scum: React.FC = () => {
                 transition: 'all 0.8s ease-out 0.4s',
               }}
             >
-              <span className="text-lime-400">SCUM</span>
+              <span className="text-lime-400">{t('scum.hero.title')}</span>
             </h1>
 
             <p
@@ -235,7 +231,7 @@ export const Scum: React.FC = () => {
                 transition: 'all 0.8s ease-out 0.6s',
               }}
             >
-              SURVIVAL. COMBAT. DOMINATION.
+              {t('scum.hero.subtitle')}
             </p>
 
             {gameData && (
@@ -260,10 +256,10 @@ export const Scum: React.FC = () => {
               }}
             >
               <p className="text-sm text-gray-500 mb-2">
-                SERVER LAUNCH
+                {t('scum.hero.launchDate.label')}
               </p>
               <p className="text-3xl md:text-5xl font-bold text-lime-400">
-                MAY 2026
+                {t('scum.hero.launchDate.date')}
               </p>
             </div>
 
@@ -276,7 +272,7 @@ export const Scum: React.FC = () => {
                 transition: 'all 0.8s ease-out 1s',
               }}
             >
-              EXPLORE SERVER
+              {t('scum.hero.exploreButton')}
               <ChevronDown className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
             </button>
           </div>
@@ -295,7 +291,7 @@ export const Scum: React.FC = () => {
         <section className="py-20 bg-gray-800">
           <div className="container mx-auto px-4 text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mx-auto"></div>
-            <p className="mt-4 text-gray-400">Loading server information...</p>
+            <p className="mt-4 text-gray-400">{t('scum.serverInfo.loading')}</p>
           </div>
         </section>
       ) : (
@@ -304,7 +300,7 @@ export const Scum: React.FC = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
               <div>
                 <h2 className="text-4xl md:text-5xl font-black mb-6">
-                  OUR <span className="text-blue-400">SCUM SERVER</span>
+                  {t('scum.serverInfo.title')} <span className="text-blue-400">{t('scum.serverInfo.titleHighlight')}</span>
                 </h2>
 
                 {serverData ? (
@@ -326,7 +322,7 @@ export const Scum: React.FC = () => {
                           }`}
                         />
                         <span>
-                          Status:{' '}
+                          {t('scum.serverInfo.status')}{' '}
                           <span className="font-bold capitalize">
                             {serverData.status}
                           </span>
@@ -335,13 +331,13 @@ export const Scum: React.FC = () => {
                       <div className="flex items-center">
                         <Users className="h-5 w-5 mr-3 text-blue-400" />
                         <span>
-                          Max Players: <span className="font-bold">{serverData.max_players}</span>
+                          {t('scum.serverInfo.maxPlayers')} <span className="font-bold">{serverData.max_players}</span>
                         </span>
                       </div>
                       <div className="flex items-center">
                         <MapPin className="h-5 w-5 mr-3 text-green-400" />
                         <span>
-                          Region: <span className="font-bold uppercase">{serverData.region}</span>
+                          {t('scum.serverInfo.region')} <span className="font-bold uppercase">{serverData.region}</span>
                         </span>
                       </div>
                     </div>
@@ -350,31 +346,31 @@ export const Scum: React.FC = () => {
                     {Object.keys(serverSettings).length > 0 && (
                       <div className="mt-6 p-4 bg-gray-900 rounded-lg">
                         <h3 className="font-bold mb-3 text-blue-400">
-                          Server Configuration
+                          {t('scum.serverInfo.serverConfiguration')}
                         </h3>
                         <div className="grid grid-cols-2 gap-2 text-sm">
                           {serverSettings.pvp !== undefined && (
                             <div className="flex items-center">
                               <CheckCircle className="h-4 w-4 text-green-400 mr-2" />
-                              <span>PvP: {serverSettings.pvp ? 'Enabled' : 'Disabled'}</span>
+                              <span>{t('scum.serverInfo.pvp.label')} {serverSettings.pvp ? t('scum.serverInfo.pvp.enabled') : t('scum.serverInfo.pvp.disabled')}</span>
                             </div>
                           )}
                           {serverSettings.whitelist !== undefined && (
                             <div className="flex items-center">
                               <Shield className="h-4 w-4 text-blue-400 mr-2" />
-                              <span>Whitelist: {serverSettings.whitelist ? 'Active' : 'Open'}</span>
+                              <span>{t('scum.serverInfo.whitelist.label')} {serverSettings.whitelist ? t('scum.serverInfo.whitelist.active') : t('scum.serverInfo.whitelist.open')}</span>
                             </div>
                           )}
                           {serverSettings.high_loot !== undefined && (
                             <div className="flex items-center">
                               <Crosshair className="h-4 w-4 text-lime-400 mr-2" />
-                              <span>Loot: {serverSettings.high_loot ? 'High' : 'Standard'}</span>
+                              <span>{t('scum.serverInfo.loot.label')} {serverSettings.high_loot ? t('scum.serverInfo.loot.high') : t('scum.serverInfo.loot.standard')}</span>
                             </div>
                           )}
                           {serverSettings.hardcore !== undefined && (
                             <div className="flex items-center">
                               <Skull className="h-4 w-4 text-red-400 mr-2" />
-                              <span>Mode: {serverSettings.hardcore ? 'Hardcore' : 'Standard'}</span>
+                              <span>{t('scum.serverInfo.mode.label')} {serverSettings.hardcore ? t('scum.serverInfo.mode.hardcore') : t('scum.serverInfo.mode.standard')}</span>
                             </div>
                           )}
                         </div>
@@ -384,16 +380,14 @@ export const Scum: React.FC = () => {
                 ) : (
                   <div className="space-y-4 text-gray-300">
                     <p>
-                      Our SCUM server is launching in May 2026. We're preparing a
-                      balanced survival experience with active PvP, whitelist protection,
-                      and a dedicated community.
+                      {t('scum.serverInfo.fallback.description')}
                     </p>
                     <p className="text-blue-400 font-bold">
-                      Join the MindBreakers SCUM community and be ready for launch day!
+                      {t('scum.serverInfo.fallback.cta')}
                     </p>
                     <div className="mt-6 p-4 bg-gray-900 rounded-lg border border-blue-500/20">
-                      <p className="text-sm text-gray-400 mb-2">Launch Date:</p>
-                      <p className="text-xl font-bold text-lime-400">May 2026</p>
+                      <p className="text-sm text-gray-400 mb-2">{t('scum.serverInfo.fallback.launchDateLabel')}</p>
+                      <p className="text-xl font-bold text-lime-400">{t('scum.serverInfo.fallback.launchDate')}</p>
                     </div>
                   </div>
                 )}
@@ -428,11 +422,10 @@ export const Scum: React.FC = () => {
       <section className="py-20 bg-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-black text-center mb-4">
-            WHY <span className="text-blue-400">SCUM</span>?
+            {t('scum.gameFeatures.title')} <span className="text-blue-400">{t('scum.gameFeatures.titleHighlight')}</span>{t('scum.gameFeatures.titleSuffix')}
           </h2>
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Discover what makes SCUM one of the most immersive survival
-            experiences available
+            {t('scum.gameFeatures.description')}
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -466,24 +459,23 @@ export const Scum: React.FC = () => {
       <section className="py-20 bg-gray-800 border-t border-gray-700">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-6xl font-black mb-6">
-            READY TO <span className="text-blue-400">SURVIVE</span>?
+            {t('scum.cta.title')} <span className="text-blue-400">{t('scum.cta.titleHighlight')}</span>{t('scum.cta.titleSuffix')}
           </h2>
 
           <p className="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
-            Join our Discord to get whitelisted and start your survival journey
-            on the MindBreakers SCUM server
+            {t('scum.cta.description')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-md font-bold text-lg transition-all transform hover:scale-105 flex items-center justify-center group">
               <Users className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
-              JOIN DISCORD
+              {t('scum.cta.joinDiscord')}
             </button>
             <a
               href="/"
               className="border-2 border-gray-700 hover:border-blue-500 text-white px-8 py-4 rounded-md font-bold text-lg transition-all inline-block hover:bg-gray-700/50"
             >
-              BACK TO HOME
+              {t('scum.cta.backToHome')}
             </a>
           </div>
         </div>
@@ -493,9 +485,8 @@ export const Scum: React.FC = () => {
       <div className="bg-gray-900 border-t border-gray-800 py-6">
         <div className="container mx-auto px-4 text-center">
           <p className="text-gray-500 text-sm">
-            © 2025-2026 Mind Breakers. Made with{' '}
-            <span className="text-red-500">❤</span> for the LATAM gaming
-            community.
+            {t('scum.footer.copyright')}{' '}
+            <span className="text-red-500">❤</span> {t('scum.footer.copyrightSuffix')}
           </p>
         </div>
       </div>

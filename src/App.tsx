@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { GameServers } from './components/GameServers';
@@ -18,15 +19,32 @@ import { SteamCallback } from './pages/SteamCallback';
 import { SteamLinkCallback } from './pages/SteamLinkCallback';
 import { AuthCallback } from './pages/AuthCallback';
 
-const HomePage = () => (
-  <>
-    <Hero />
-    <GameServers />
-    <Features />
-    <Stats />
-    <CTA />
-  </>
-);
+const HomePage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash navigation when component mounts or hash changes
+    if (location.hash) {
+      const hash = location.hash.substring(1); // Remove the #
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location.hash]);
+
+  return (
+    <>
+      <Hero />
+      <GameServers />
+      <Features />
+      <Stats />
+      <CTA />
+    </>
+  );
+};
 
 export default function App() {
   return (
