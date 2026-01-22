@@ -3,14 +3,16 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Loader, CheckCircle, XCircle, Link as LinkIcon } from 'lucide-react';
 import { steamAPI } from '../lib/api';
 import { useAuth } from '../lib/auth';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const SteamLinkCallback = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const t = useTranslation();
   
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [message, setMessage] = useState('Processing Steam authentication...');
+  const [message, setMessage] = useState(t('callbacks.steamLink.processing'));
   const [steamInfo, setSteamInfo] = useState<{
     steam_id: string;
     profile_name?: string;
@@ -48,7 +50,7 @@ export const SteamLinkCallback = () => {
         if (success === 'true') {
           // Backend successfully linked the account
           setStatus('success');
-          setMessage(message ? decodeURIComponent(message) : 'Steam account linked successfully!');
+          setMessage(message ? decodeURIComponent(message) : t('callbacks.steamLink.linkedSuccessfully'));
           
           // Use data from URL parameters if available
           if (steamId) {
@@ -87,7 +89,7 @@ export const SteamLinkCallback = () => {
           // Check if it's an "already linked" error
           if (errorMessage.includes('already linked')) {
             setStatus('success');
-            setMessage('Steam account is already linked to your account!');
+            setMessage(t('callbacks.steamLink.alreadyLinked'));
             
             // Extract Steam ID from error message if possible
             const steamIdMatch = errorMessage.match(/(\d{17})/);
@@ -106,7 +108,7 @@ export const SteamLinkCallback = () => {
             }, 2000);
           } else {
             setStatus('error');
-            setMessage(`Steam linking failed: ${errorMessage}`);
+            setMessage(t('callbacks.steamLink.linkingFailed').replace('{error}', errorMessage));
           }
         } else {
           // No clear success/error, check linking status
@@ -115,7 +117,7 @@ export const SteamLinkCallback = () => {
             
             if (steamStatus.is_linked) {
               setStatus('success');
-              setMessage('Steam account linked successfully!');
+              setMessage(t('callbacks.steamLink.linkedSuccessfully'));
               setSteamInfo({
                 steam_id: steamStatus.steam_id,
                 profile_name: steamStatus.steam_name,
@@ -128,17 +130,17 @@ export const SteamLinkCallback = () => {
               }, 2000);
             } else {
               setStatus('error');
-              setMessage('Steam account linking was not completed');
+              setMessage(t('callbacks.steamLink.notCompleted'));
             }
           } catch (statusError) {
             setStatus('error');
-            setMessage('Failed to verify Steam linking status');
+            setMessage(t('callbacks.steamLink.verifyFailed'));
           }
         }
       } catch (error) {
         console.error('Steam linking error:', error);
         setStatus('error');
-        setMessage('An error occurred while linking your Steam account');
+        setMessage(t('callbacks.steamLink.errorOccurred'));
       }
     };
 
@@ -184,9 +186,9 @@ export const SteamLinkCallback = () => {
           </div>
           
           <h1 className={`text-2xl font-bold mb-4 ${getStatusColor()}`}>
-            {status === 'loading' && 'Linking Steam Account'}
-            {status === 'success' && 'Account Linked!'}
-            {status === 'error' && 'Linking Failed'}
+            {status === 'loading' && t('callbacks.steamLink.loading')}
+            {status === 'success' && t('callbacks.steamLink.success')}
+            {status === 'error' && t('callbacks.steamLink.error')}
           </h1>
           
           <p className="text-gray-300 mb-6">
@@ -195,22 +197,22 @@ export const SteamLinkCallback = () => {
 
           {steamInfo && status === 'success' && (
             <div className="bg-gray-700 rounded-lg p-4 mb-6 text-left">
-              <h3 className="font-semibold mb-2 text-green-400">Steam Account</h3>
+              <h3 className="font-semibold mb-2 text-green-400">{t('callbacks.steamLink.steamAccount')}</h3>
               <div className="space-y-1 text-sm">
                 {steamInfo.profile_name && (
-                  <div><span className="text-gray-400">Steam Name:</span> {steamInfo.profile_name}</div>
+                  <div><span className="text-gray-400">{t('callbacks.steamLink.steamName')}</span> {steamInfo.profile_name}</div>
                 )}
-                <div><span className="text-gray-400">Steam ID:</span> {steamInfo.steam_id}</div>
+                <div><span className="text-gray-400">{t('callbacks.steamLink.steamId')}</span> {steamInfo.steam_id}</div>
                 {steamInfo.profile_url && (
                   <div>
-                    <span className="text-gray-400">Profile:</span>{' '}
+                    <span className="text-gray-400">{t('callbacks.steamLink.profile')}</span>{' '}
                     <a 
                       href={steamInfo.profile_url} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-blue-400 hover:text-blue-300"
                     >
-                      View on Steam
+                      {t('callbacks.steamLink.viewOnSteam')}
                     </a>
                   </div>
                 )}
@@ -218,7 +220,7 @@ export const SteamLinkCallback = () => {
               {steamInfo.avatar_url && (
                 <img 
                   src={steamInfo.avatar_url} 
-                  alt="Steam Avatar" 
+                  alt={t('callbacks.steamLink.steamAvatar')} 
                   className="w-16 h-16 rounded-full mt-3"
                 />
               )}
@@ -227,7 +229,7 @@ export const SteamLinkCallback = () => {
 
           {status === 'success' && (
             <div className="text-gray-400 text-sm">
-              Redirecting to your profile...
+              {t('callbacks.steamLink.redirecting')}
             </div>
           )}
 
@@ -237,13 +239,13 @@ export const SteamLinkCallback = () => {
                 onClick={handleRetry}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition"
               >
-                Back to Profile
+                {t('callbacks.steamLink.backToProfile')}
               </button>
               <button 
                 onClick={() => window.location.reload()}
                 className="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition"
               >
-                Try Again
+                {t('callbacks.steamLink.tryAgain')}
               </button>
             </div>
           )}
@@ -253,14 +255,14 @@ export const SteamLinkCallback = () => {
               onClick={() => navigate('/')}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition mt-3"
             >
-              Go to Login
+              {t('callbacks.steamLink.goToLogin')}
             </button>
           )}
         </div>
 
         {status === 'loading' && (
           <div className="mt-4 text-gray-500 text-sm">
-            This may take a few seconds...
+            {t('callbacks.steamLink.mayTakeSeconds')}
           </div>
         )}
       </div>

@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader, CheckCircle, XCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const AuthCallback = () => {
   const navigate = useNavigate();
+  const t = useTranslation();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [message, setMessage] = useState('Processing authentication...');
+  const [message, setMessage] = useState(t('callbacks.auth.processing'));
 
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
         if (!supabase || !supabase.auth) {
           setStatus('error');
-          setMessage('Supabase is not configured. Please configure your environment variables.');
+          setMessage(t('callbacks.auth.notConfigured'));
           return;
         }
 
@@ -22,13 +24,13 @@ export const AuthCallback = () => {
         if (error) {
           console.error('Auth callback error:', error);
           setStatus('error');
-          setMessage('Authentication failed: ' + error.message);
+          setMessage(t('callbacks.auth.failed').replace('{error}', error.message));
           return;
         }
 
         if (data.session) {
           setStatus('success');
-          setMessage('Authentication successful! Redirecting...');
+          setMessage(t('callbacks.auth.successful'));
           
           // Redirect to dashboard after a short delay
           setTimeout(() => {
@@ -36,12 +38,12 @@ export const AuthCallback = () => {
           }, 1500);
         } else {
           setStatus('error');
-          setMessage('No authentication session found');
+          setMessage(t('callbacks.auth.noSession'));
         }
       } catch (err) {
         console.error('Unexpected auth callback error:', err);
         setStatus('error');
-        setMessage('An unexpected error occurred during authentication');
+        setMessage(t('callbacks.auth.errorOccurred'));
       }
     };
 
@@ -79,9 +81,9 @@ export const AuthCallback = () => {
           </div>
           
           <h1 className={`text-2xl font-bold mb-4 ${getStatusColor()}`}>
-            {status === 'loading' && 'Processing Authentication'}
-            {status === 'success' && 'Authentication Successful!'}
-            {status === 'error' && 'Authentication Failed'}
+            {status === 'loading' && t('callbacks.auth.loading')}
+            {status === 'success' && t('callbacks.auth.success')}
+            {status === 'error' && t('callbacks.auth.error')}
           </h1>
           
           <p className="text-gray-300 mb-6">
@@ -90,7 +92,7 @@ export const AuthCallback = () => {
 
           {status === 'success' && (
             <div className="text-gray-400 text-sm">
-              Redirecting to dashboard...
+              {t('callbacks.auth.redirecting')}
             </div>
           )}
 
@@ -100,13 +102,13 @@ export const AuthCallback = () => {
                 onClick={() => navigate('/')}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition"
               >
-                Return to Home
+                {t('callbacks.auth.returnHome')}
               </button>
               <button 
                 onClick={() => window.location.reload()}
                 className="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition"
               >
-                Try Again
+                {t('callbacks.auth.tryAgain')}
               </button>
             </div>
           )}
@@ -114,7 +116,7 @@ export const AuthCallback = () => {
 
         {status === 'loading' && (
           <div className="mt-4 text-gray-500 text-sm">
-            This may take a few seconds...
+            {t('callbacks.auth.mayTakeSeconds')}
           </div>
         )}
       </div>
