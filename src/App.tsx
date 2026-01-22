@@ -7,7 +7,8 @@ import { Stats } from './components/Stats';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { DebugInfo } from './components/DebugInfo';
-import { Dashboard } from './pages/Dashboard';
+// TODO: Uncomment to enable dashboard development
+// import { Dashboard } from './pages/Dashboard';
 import { AuthProvider } from './lib/auth';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { Profile } from './pages/Profile';
@@ -42,13 +43,14 @@ export default function App() {
                 <Footer />
               </>
             } />
-            <Route path="/dashboard" element={
+            {/* TODO: Uncomment to enable dashboard development */}
+            {/* <Route path="/dashboard" element={
               <>
                 <Header />
                 <Dashboard />
                 <Footer />
               </>
-            } />
+            } /> */}
             <Route path="/profile" element={
               <>
                 <Header />
