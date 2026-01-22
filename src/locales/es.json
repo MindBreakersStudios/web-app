@@ -1,0 +1,23 @@
+{
+  "about": {
+    "headline": "Experiencias Hardcore para LATAM",
+    "body": "Desde 2020, MindBreakers ha construido una de las comunidades gaming más sólidas de Latinoamérica. Comenzamos con DayZ, evolucionamos con V Rising, y seguimos expandiendo nuestro universo.\n\nNo somos solo servidores—somos experiencias diseñadas para jugadores que buscan desafíos reales, comunidades activas y rendimiento sin excusas. Ping optimizado para LATAM, protección anti-cheat de nivel profesional, y un equipo que entiende lo que los verdaderos gamers necesitan.\n\n2026 marca nuestra mayor expansión: HumanitZ en febrero y SCUM en mayo.",
+    "statsLine": "5+ años de operación · Múltiples títulos · Miles de jugadores activos",
+    "cta": {
+      "question": "¿Sos creador de contenido o querés colaborar?",
+      "discord": "Únete a Discord",
+      "email": "business@mindbreakers.net"
+    }
+  },
+  "common": {
+    "home": "Inicio",
+    "servers": "Servidores",
+    "features": "Características",
+    "about": "Acerca de",
+    "dashboard": "Panel",
+    "profile": "Perfil",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "joinCommunity": "Unirse a la Comunidad"
+  }
+}
