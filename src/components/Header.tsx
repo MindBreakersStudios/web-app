@@ -113,6 +113,7 @@ export const Header = () => {
         
         <div className="hidden md:flex items-center space-x-4">
           <LanguageSwitcher />
+          {/* TODO: Uncomment when dashboard is ready
           {loading ? (
             <div className="flex items-center space-x-2 bg-gray-800 text-gray-400 px-4 py-2 rounded-md">
               <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-400 border-t-blue-400"></div>
@@ -166,13 +167,14 @@ export const Header = () => {
               )}
             </div>
           ) : (
-            <button 
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium transition" 
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium transition"
               onClick={() => setIsLoginModalOpen(true)}
             >
               {t('header.login')}
             </button>
           )}
+          */}
         </div>
         
         {/* Mobile menu button and language switcher */}
@@ -237,6 +239,7 @@ export const Header = () => {
               {t('header.about')}
             </button>
             
+            {/* TODO: Uncomment when dashboard is ready
             {loading ? (
               <div className="pt-2 border-t border-gray-700 text-center">
                 <div className="flex items-center justify-center space-x-2 text-gray-400">
@@ -247,7 +250,7 @@ export const Header = () => {
             ) : user ? (
                 <div className="pt-2 border-t border-gray-700">
                   <div className="text-gray-300 text-sm mb-2">{t('header.signedInAs')} {user.email}</div>
-                  <button 
+                  <button
                     className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition w-full"
                     onClick={() => {
                       handleSignOut();
@@ -259,8 +262,8 @@ export const Header = () => {
                   </button>
                 </div>
               ) : (
-                <button 
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition w-full mt-2" 
+                <button
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition w-full mt-2"
                   onClick={() => {
                     setIsMenuOpen(false);
                     setIsLoginModalOpen(true);
@@ -270,6 +273,7 @@ export const Header = () => {
                 </button>
               )
             }
+            */}
           </div>
         </div>
       )}
