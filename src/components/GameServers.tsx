@@ -20,7 +20,7 @@ export const GameServers = () => {
           {/* Humanitz Server */}
           <div
             id="humanitz"
-            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300"
+            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col"
           >
             <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: 'url(/images/humanitz/title.jpg)' }}>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
@@ -28,7 +28,7 @@ export const GameServers = () => {
                 {t('home.gameServers.servers.humanitz.badge')}
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-grow">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-bold">{t('home.gameServers.servers.humanitz.title')}</h3>
                 <img
@@ -60,7 +60,7 @@ export const GameServers = () => {
               </div>
               <Link
                 to="/humanitz"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-medium transition block text-center"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-medium transition block text-center mt-auto"
               >
                 {t('home.gameServers.servers.humanitz.learnMore')}
               </Link>
@@ -70,7 +70,7 @@ export const GameServers = () => {
           {/* SCUM Server */}
           <div
             id="scum"
-            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300"
+            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col"
           >
             <div className="h-48 bg-[url('https://cdn.akamai.steamstatic.com/steam/apps/513710/header.jpg')] bg-cover bg-center relative">
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
@@ -78,7 +78,7 @@ export const GameServers = () => {
                 {t('home.gameServers.servers.scum.badge')}
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-grow">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-bold">{t('home.gameServers.servers.scum.title')}</h3>
                 <img
@@ -110,7 +110,7 @@ export const GameServers = () => {
               </div>
               <Link
                 to="/scum"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-medium transition block text-center"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-medium transition block text-center mt-auto"
               >
                 {t('home.gameServers.servers.scum.learnMore')}
               </Link>
@@ -120,7 +120,7 @@ export const GameServers = () => {
           {/* Hytale Server */}
           <div
             id="hytale"
-            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300"
+            className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col"
           >
             <div className="h-48 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
@@ -128,7 +128,7 @@ export const GameServers = () => {
                 {t('home.gameServers.servers.hytale.badge')}
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-grow">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-bold">{t('home.gameServers.servers.hytale.title')}</h3>
                 <div className="h-10 w-10 rounded bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
@@ -157,7 +157,7 @@ export const GameServers = () => {
                 </div>
               </div>
               <button
-                className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-md font-medium transition"
+                className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-md font-medium transition mt-auto"
                 disabled
               >
                 {t('home.gameServers.servers.hytale.newsComingSoon')}

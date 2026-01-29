@@ -1,10 +1,10 @@
 {
   "about": {
-    "headline": "Experiencias Hardcore para LATAM",
-    "body": "Desde 2020, MindBreakers ha construido una de las comunidades gaming más sólidas de Latinoamérica. Comenzamos con DayZ, evolucionamos con V Rising, y seguimos expandiendo nuestro universo.\n\nNo somos solo servidores—somos experiencias diseñadas para jugadores que buscan desafíos reales, comunidades activas y rendimiento sin excusas. Ping optimizado para LATAM, protección anti-cheat de nivel profesional, y un equipo que entiende lo que los verdaderos gamers necesitan.\n\n2026 marca nuestra mayor expansión: HumanitZ en febrero y SCUM en mayo.",
+    "headline": "Experiencias de la calidad de servidores emplemáticos de NA para LATAM",
+    "body": "Desde 2020, MindBreakers ha construido una de las comunidades gaming más sólidas de Latinoamérica. Comenzamos con DayZ, evolucionamos con V Rising, y seguimos expandiendo nuestro universo.\n\nNo somos solo servidores—somos experiencias diseñadas para jugadores que buscan desafíos reales, comunidades activas y rendimiento sin excusas. Ping optimizado para LATAM, y un equipo que entiende lo que los verdaderos gamers necesitan.\n\n2026 marca nuestra mayor expansión: HumanitZ en febrero y SCUM en mayo. Somos gamers cansados que los mejores servidores sean siempre en NA teniendo que jugar con ping para tener una experiencia de calidad.",
     "statsLine": "5+ años de operación · Múltiples títulos · Miles de jugadores activos",
     "cta": {
-      "question": "¿Sos creador de contenido o querés colaborar?",
+      "question": "¿Sos creador de contenido y queres desarrollar una serie o queres unirte al equipo de desarrollo de Mindbreakers?",
       "discord": "Únete a Discord",
       "email": "business@mindbreakers.net"
     }
@@ -45,12 +45,12 @@
       "titleHighlight": "Z",
       "subtitle": "SUPERVIVENCIA HARDCORE PARA CREADORES DE CONTENIDO",
       "description": {
-        "part1": "es un juego de supervivencia zombie de mundo abierto donde debes buscar recursos, construir y luchar para sobrevivir. Nuestro",
-        "whitelistedServer": "servidor con lista blanca",
+        "part1": "es un juego PvP de supervivencia zombie de mundo abierto donde debes buscar recursos, construir y luchar para sobrevivir. Nuestro",
+        "whitelistedServer": "servidor con whitelist",
         "part2": "está diseñado exclusivamente para creadores de contenido latinoamericanos y sus comunidades—sin pay-to-win, sin griefers aleatorios, solo supervivencia pura con gente que se lo toma en serio."
       },
       "keyPoints": {
-        "whitelistOnly": "Solo Lista Blanca",
+        "whitelistOnly": "Solo Whitelist",
         "latamServers": "Servidores LATAM",
         "creatorFocused": "Enfocado en Creadores"
       },
@@ -61,11 +61,11 @@
       "exploreButton": "EXPLORAR CARACTERÍSTICAS"
     },
     "whitelist": {
-      "badge": "SOLO LISTA BLANCA",
+      "badge": "SOLO WHITELIST",
       "title": "¿POR QUÉ",
-      "titleHighlight": "LISTA BLANCA?",
-      "description1": "No intentamos llenar slots—estamos construyendo una comunidad. Nuestro proceso de lista blanca asegura que cada jugador en el servidor esté aquí por las razones correctas: gran contenido, momentos épicos y gameplay de supervivencia genuino.",
-      "description2": "Se da prioridad a creadores de contenido, comunidades establecidas y jugadores recomendados por miembros existentes. Esto no es sobre exclusividad—es sobre calidad.",
+      "titleHighlight": "WHITELIST?",
+      "description1": "No intentamos llenar slots—estamos construyendo una comunidad. Nuestro proceso de whitelist asegura que cada jugador en el servidor esté aquí por las razones correctas: gran contenido, momentos épicos y gameplay de supervivencia genuino.",
+      "description2": "Se da prioridad a creadores de contenido, comunidades establecidas y jugadores recomendados por miembros existentes. Nos tomamos en serio asegurar una experiencia de calidad.",
       "features": {
         "noGriefers": {
           "title": "Sin Griefers Aleatorios",
@@ -82,11 +82,11 @@
       }
     },
     "majorFeatures": {
-      "badge": "LA VERSIÓN 1.0 ESTÁ AQUÍ",
+      "badge": "LA VERSIÓN 1.0 ESTÁ POR LLEGAR (06/02)",
       "title": "LA ACTUALIZACIÓN",
       "titleHighlight": "MÁS GRANDE",
       "titleSuffix": "HASTA AHORA",
-      "description": "Después de meses de Early Access, HumanitZ 1.0 trae contenido masivo nuevo, renovaciones de gameplay y el pulido que estabas esperando.",
+      "description": "Luego de 2 años de Ealy Access, 20 updates grandes e incontables chicos, HumanitZ llega con su tan esperada versión 1.0",
       "features": {
         "newIsland": {
           "title": "NUEVA ISLA",
@@ -195,14 +195,14 @@
           "after": "Centros comerciales detallados con vegetación exuberante, señalización mejorada, estacionamientos realistas y narrativa post-apocalíptica"
         },
         "gasStations": {
-          "location": "Estaciones de Servicio y Carreteras",
-          "before": "Áreas de estaciones de servicio dispersas con detalles ambientales mínimos",
-          "after": "Narrativa ambiental rica con líneas eléctricas, vehículos abandonados, pasto crecido y iluminación atmosférica"
+          "location": "Creación de Personaje",
+          "before": "Sistema básico de creación de personaje con opciones limitadas y personalización mínima",
+          "after": "Sistema de creacion de personaje mejorado con mayor importancia en las profesiones para esbloquear perks iniciales. Y un nuevo sistema de aflicciones para los mas experimentados."
         },
         "rural": {
-          "location": "Compuestos Rurales",
-          "before": "Áreas de granja abiertas con estructuras básicas y cobertura limitada",
-          "after": "Vegetación densa, cobertura de árboles realista, estructuras variadas y terreno táctico para gameplay de supervivencia intenso"
+          "location": "Sistema de Perks",
+          "before": "Sistema de perks básico con opciones limitadas y progresión simple",
+          "after": "Rework completo del sistema de perks para que sea más realista, con árboles de habilidades mejorados y progresión más profunda"
         }
       },
       "labels": {
@@ -213,8 +213,8 @@
     "community": {
       "title": "CONSTRUIDO PARA LA",
       "titleHighlight": "COMUNIDAD",
-      "description1": "No estamos aquí para ganar dinero. Estamos aquí porque amamos los juegos de supervivencia y queremos darles a los jugadores latinoamericanos el servidor que se merecen.",
-      "description2": "Mind Breakers Humanitz es una experiencia hardcore con lista blanca diseñada específicamente para creadores de contenido y sus comunidades. Alto loot, muchos zombies, máximo desafío.",
+      "description1": "Estamos aquí porque amamos los juegos de supervivencia y queremos darles a los jugadores latinoamericanos el servidor PvP que se merecen.",
+      "description2": "Mind Breakers Humanitz es una experiencia hardcore con whitelist diseñada específicamente para creadores de contenido y sus comunidades. Gameplay inmersivo, PvP intense y eventos especiales..",
       "description3": "Alojado en Argentina para el mejor ping en toda Latinoamérica. Sin pay-to-win, sin niveles VIP, sin costos ocultos. Solo supervivencia pura.",
       "stats": {
         "playerSlots": "SLOTS DE JUGADORES",
@@ -229,28 +229,28 @@
       "description": "Configuración cuidadosamente ajustada para la experiencia definitiva de supervivencia hardcore",
       "features": {
         "highLoot": {
-          "title": "ALTO LOOT",
-          "description": "Tasas de aparición aumentadas para armas, munición y suministros. Encuentra lo que necesitas para sobrevivir sin la rutina."
+          "title": "LOOT MEJORADO",
+          "description": "Ciclos desarrollados para alta cantidad de jugadores pero entendiendo que es un survival y no todo es conseguible inmediatamente. El trade será algo importante."
         },
         "highZombies": {
-          "title": "MUCHOS ZOMBIES",
+          "title": "ZOMBIES MEJORADOS",
           "description": "Poblaciones masivas de zombies crean peligro y tensión constantes. Cada paso podría ser tu último. Mantente alerta, muévete con inteligencia."
         },
         "highChallenge": {
           "title": "ALTO DESAFÍO",
-          "description": "Dificultad balanceada que recompensa habilidad y trabajo en equipo. No para jugadores casuales—esto es supervivencia hardcore."
+          "description": "Dificultad balanceada que recompensa habilidad y trabajo en equipo. Supervivencia con filosofia 'Gran Riesgo, Gran recompensa'."
         },
         "whitelisted": {
-          "title": "LISTA BLANCA",
+          "title": "WHITELIST",
           "description": "Acceso basado en aplicación asegura una comunidad de calidad. Sin griefers, sin trolls—solo supervivientes dedicados."
         },
         "latamOptimized": {
           "title": "OPTIMIZADO PARA LATAM",
-          "description": "Servidores basados en Argentina ofrecen ping menor a 50ms para la mayoría de jugadores latinoamericanos. Gameplay fluido y responsivo garantizado."
+          "description": "Servidores hosteados en la región ofrecen ping bajo para jugadores latinoamericanos. Gameplay fluido y responsivo garantizado."
         },
         "creatorFriendly": {
           "title": "AMIGABLE PARA CREADORES",
-          "description": "Construido para streamers y YouTubers. Trae tu comunidad, crea contenido épico, construye tu audiencia."
+          "description": "Construido para creadores de contenido. Trae tu comunidad, crea contenido épico, construye tu audiencia."
         }
       }
     },
@@ -262,7 +262,7 @@
         "Comunidades que quieren jugar juntas",
         "Entusiastas de supervivencia hardcore",
         "Jugadores cansados de servidores pay-to-win",
-        "Jugadores de habla hispana y portuguesa",
+        "Jugadores de habla hispana",
         "Cualquiera que ame un verdadero desafío"
       ],
       "latamSection": {
@@ -275,25 +275,25 @@
     "cta": {
       "title": "¿LISTO PARA",
       "titleHighlight": "SOBREVIVIR?",
-      "description": "Únete a nuestro Discord para solicitar acceso a la lista blanca y estar listo para el día del lanzamiento. La versión 1.0 sale el 6 de febrero de 2026.",
+      "description": "Únete a nuestro Discord para solicitar acceso a la whitelist y estar listo para el día del lanzamiento. La versión 1.0 sale el 6 de febrero de 2026.",
       "joinDiscord": "UNIRSE A DISCORD",
       "backToHome": "VOLVER AL INICIO"
     },
     "footer": {
-      "copyright": "© 2025-2026 Mind Breakers. Hecho con",
+      "copyright": "© 2020-2026 Mind Breakers. Hecho con",
       "copyrightSuffix": "para la comunidad gaming de LATAM."
     }
   },
   "home": {
     "hero": {
-      "title": "Mejora Tu Experiencia Gaming",
-      "description": "Hosting de servidores de juegos premium con rendimiento excepcional, confiabilidad y una experiencia centrada en la comunidad.",
+      "title": "Esto No Es Un Juego, Es Una Experiencia En Gaming",
+      "description": "Hosting de servidores de juegos premium. Rendimiento excepcional, confiabilidad y experiencia centrada en comunidades y creacion de contenido. Tenes una idea para una serie? Nosotros la hacemos realidad!~",
       "exploreServers": "Explorar Servidores",
       "joinCommunity": "Unirse a la Comunidad"
     },
     "gameServers": {
       "title": "Nuestros Servidores de Juegos",
-      "description": "Experimenta el gaming como nunca antes con nuestros servidores configurados personalmente diseñados para un gameplay óptimo y compromiso comunitario.",
+      "description": "Apuntamos a tener siempre experiencias únicas en los proyectos que seleccionamos. Hacemos la diferencia creando configuraciones propias y mods desarrollados por nosotros para ofrecer al jugador un gameplay diferente a lo que está acostumbrado.",
       "servers": {
         "humanitz": {
           "badge": "Próximamente 6 Feb, 2026",
@@ -301,35 +301,35 @@
           "description": "Servidor zombie de supervivencia 100% GRATIS con construcción de bases, PvP y una comunidad activa. ¡Lanzamiento el 6 de febrero de 2026!",
           "features": {
             "uptime": "Tiempo Activo 24/7",
-            "players": "60 Jugadores",
-            "freeAccess": "Acceso Gratis",
-            "customConfig": "Configuración Personalizada"
+            "players": "24+ Jugadores",
+            "freeAccess": "Creadores de Contenido",
+            "customConfig": "Vanilla Hardcore"
           },
           "learnMore": "Saber Más"
         },
         "scum": {
-          "badge": "Próximamente Mayo 2026",
+          "badge": "Próximamente Q2 2026",
           "title": "Servidor SCUM",
-          "description": "Sobrevive en nuestro servidor SCUM configurado personalmente con gameplay balanceado, eventos regulares y una comunidad activa. ¡Lanzamiento en mayo de 2026!",
+          "description": "Sobrevive en nuestro servidor SCUM configurado personalmente con gameplay balanceado, eventos regulares y una comunidad activa. ¡Lanzamiento en Q2 de 2026!",
           "features": {
             "uptime": "Tiempo Activo 24/7",
             "players": "64 Jugadores",
-            "antiCheat": "Anti-Trampas",
+            "antiCheat": "Publico",
             "customRules": "Reglas Personalizadas"
           },
           "learnMore": "Saber Más"
         },
         "hytale": {
-          "badge": "Próximamente Q4 2026",
-          "title": "Servidor Hytale",
-          "description": "Aventúrate, crea y sobrevive en nuestro servidor Hytale. Experimenta construcción con bloques, elementos RPG y minijuegos. ¡Lanzamiento Q4 2026!",
+          "badge": "En Desarrollo",
+          "title": "Servidor MMORPG Hytale",
+          "description": "Estamos desarrollando un MMORPG Sandbox que se sienta vivo basado en el PvP organico con clases definida y en donde la filosofia sea high risk, high reward.",
           "features": {
             "uptime": "Tiempo Activo 24/7",
-            "comingSoon": "Próximamente",
+            "comingSoon": "Escalable ilimitado",
             "customWorlds": "Mundos Personalizados",
-            "modSupport": "Soporte para Mods"
+            "modSupport": "100% Modeado"
           },
-          "newsComingSoon": "Noticias Próximamente"
+          "newsComingSoon": "Se parte del desarrollo!"
         },
         "dayz": {
           "badge": "Servidor #1 LATAM",
@@ -351,16 +351,16 @@
           "description": "Un servidor de supervivencia vampírica exitoso que funcionó en 2023. El top primer servidor mundial. Construye tu castillo, caza sangre y domina la noche.",
           "features": {
             "legacy": "Legado",
-            "active2023": "Activo 2023",
+            "active2023": "120 Jugadores",
             "castleBuilding": "Construcción de Castillos",
-            "pvpEnabled": "PvP Habilitado"
+            "pvpEnabled": "2023"
           },
           "legacyServer": "Servidor Legado"
         }
       },
       "previousServers": {
         "title": "Servidores Anteriores",
-        "description": "Nuestros servidores legado que ayudaron a construir la comunidad MindBreakers"
+        "description": "Los servidores que nos hicieron grandes y crearon la comunidad Mindbreakers (Volverán...)"
       }
     },
     "features": {
@@ -406,12 +406,12 @@
   },
   "scum": {
     "hero": {
-      "badge": "◄ PRÓXIMAMENTE — MAYO 2026 ►",
+      "badge": "◄ PRÓXIMAMENTE — Q2 2026 ►",
       "title": "SCUM",
       "subtitle": "SUPERVIVENCIA. COMBATE. DOMINACIÓN.",
       "launchDate": {
         "label": "LANZAMIENTO DEL SERVIDOR",
-        "date": "MAYO 2026"
+        "date": "Q2 2026"
       },
       "exploreButton": "EXPLORAR SERVIDOR"
     },
@@ -429,7 +429,7 @@
         "disabled": "Deshabilitado"
       },
       "whitelist": {
-        "label": "Lista Blanca:",
+        "label": "Whitelist:",
         "active": "Activa",
         "open": "Abierta"
       },
@@ -444,10 +444,10 @@
         "standard": "Estándar"
       },
       "fallback": {
-        "description": "Nuestro servidor SCUM se lanzará en mayo de 2026. Estamos preparando una experiencia de supervivencia balanceada con PvP activo, protección de lista blanca y una comunidad dedicada.",
+        "description": "Nuestro servidor SCUM se lanzará en Q2 de 2026. Estamos preparando una experiencia de supervivencia balanceada con PvP activo, protección de whitelist y una comunidad dedicada.",
         "cta": "¡Únete a la comunidad SCUM de MindBreakers y prepárate para el día del lanzamiento!",
         "launchDateLabel": "Fecha de Lanzamiento:",
-        "launchDate": "Mayo 2026"
+        "launchDate": "Q2 2026"
       },
       "stats": {
         "maxPlayers": "JUGADORES MÁXIMOS",
@@ -492,7 +492,7 @@
       "title": "¿LISTO PARA",
       "titleHighlight": "SOBREVIVIR",
       "titleSuffix": "?",
-      "description": "Únete a nuestro Discord para obtener acceso a la lista blanca y comenzar tu viaje de supervivencia en el servidor SCUM de MindBreakers",
+      "description": "Únete a nuestro Discord para obtener acceso a la whitelist y comenzar tu viaje de supervivencia en el servidor SCUM de MindBreakers",
       "joinDiscord": "UNIRSE A DISCORD",
       "backToHome": "VOLVER AL INICIO"
     },

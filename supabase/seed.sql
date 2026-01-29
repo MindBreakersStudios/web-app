@@ -78,7 +78,7 @@ INSERT INTO servers (slug, game_id, name, description, region, max_players, stat
     'HumanitZ LATAM',
     'Servidor de HumanitZ para LATAM. PvP habilitado, whitelist activa, acceso gratuito.',
     'latam',
-    60,
+    24,
     'offline',
     '{
       "pvp": true,

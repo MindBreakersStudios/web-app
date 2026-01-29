@@ -21,11 +21,12 @@ import {
   Building,
   Sparkles,
   Lock,
+  X,
 } from 'lucide-react';
 
 export const Humanitz = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null);
   const t = useTranslation();
   const { locale } = useLanguage();
 
@@ -33,34 +34,37 @@ export const Humanitz = () => {
     setIsVisible(true);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const openModal = (src: string, alt: string) => {
+    setModalImage({ src, alt });
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
   };
+
+  const closeModal = () => {
+    setModalImage(null);
+    document.body.style.overflow = 'unset'; // Restore scrolling
+  };
+
+  // Close modal on Escape key
+  useEffect(() => {
+    if (!modalImage) return;
+    
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [modalImage]);
 
   const serverStats = [
     {
       label: t('humanitz.community.stats.playerSlots'),
-      value: '60',
-    },
-    {
-      label: t('humanitz.community.stats.fortuneFree'),
-      value: 'OS',
+      value: '24+',
     },
     {
       label: t('humanitz.community.stats.serverLocation'),
-      value: 'ARG',
-    },
-    {
-      label: t('humanitz.community.stats.uptime'),
-      value: '24/7',
+      value: 'LAS',
     },
   ];
 
@@ -515,7 +519,8 @@ export const Humanitz = () => {
                     <img
                       src={comparison.beforeImage}
                       alt={`${comparison.location} - Before`}
-                      className="w-full h-64 object-cover opacity-70"
+                      className="w-full h-64 object-cover opacity-70 cursor-pointer hover:opacity-90 transition-opacity"
+                      onClick={() => openModal(comparison.beforeImage, `${comparison.location} - Before`)}
                     />
                     <div className="p-4 bg-gray-800/50">
                       <p className="text-gray-400 text-sm">{comparison.before}</p>
@@ -532,7 +537,8 @@ export const Humanitz = () => {
                     <img
                       src={comparison.afterImage}
                       alt={`${comparison.location} - After`}
-                      className="w-full h-64 object-cover"
+                      className="w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                      onClick={() => openModal(comparison.afterImage, `${comparison.location} - After`)}
                     />
                     <div className="p-4 bg-lime-400/5">
                       <p className="text-gray-300 text-sm">{comparison.after}</p>
@@ -665,7 +671,7 @@ export const Humanitz = () => {
                 </p>
                 <div className="grid grid-cols-2 gap-4 text-left">
                   <div className="bg-gray-900 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-lime-400">ARG</div>
+                    <div className="text-2xl font-bold text-lime-400">LAS</div>
                     <div className="text-xs text-gray-400">{t('humanitz.targetAudience.latamSection.serverLocation')}</div>
                   </div>
                   <div className="bg-gray-900 p-4 rounded-lg">
@@ -728,20 +734,35 @@ export const Humanitz = () => {
 
       <Footer />
 
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 bg-gray-800 border border-gray-700 hover:border-lime-400 rounded-full p-3 transition-all duration-300 z-50 ${
-          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-        aria-label="Scroll to top"
-      >
-        <img
-          src="/images/logos/Face-18.png"
-          alt="Scroll to top"
-          className="h-8 w-8 object-contain"
-        />
-      </button>
+      {/* Image Modal */}
+      {modalImage && (
+        <div
+          className="fixed inset-0 bg-black/75 z-[100] flex items-center justify-center p-4"
+          onClick={closeModal}
+          style={{
+            animation: 'fadeIn 0.2s ease-out',
+          }}
+        >
+          <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center">
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 z-10 bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full transition-all hover:scale-110"
+              aria-label="Close modal"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            
+            {/* Image */}
+            <img
+              src={modalImage.src}
+              alt={modalImage.alt}
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on image
+            />
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes fadeInUp {
@@ -755,6 +776,15 @@ export const Humanitz = () => {
           to {
             opacity: 1;
             transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
           }
         }
       `}</style>
