@@ -1,7 +1,7 @@
 {
   "about": {
     "headline": "Hardcore Experiences for LATAM",
-    "body": "Since 2020, MindBreakers has built one of Latin America's strongest gaming communities. We started with DayZ, evolved through V Rising, and continue expanding.\n\nWe're not just servers—we're experiences crafted for players seeking real challenges, active communities, and no-compromise performance. LATAM-optimized ping, professional anti-cheat, and a team that understands what hardcore gamers need.\n\n2026 marks our biggest expansion yet: HumanitZ in February, SCUM in May.",
+    "body": "Since 2020, MindBreakers has built one of Latin America's strongest gaming communities. We started with DayZ, evolved through V Rising, and continue expanding our universe.\n\nWe're not just servers—we're experiences designed for players seeking real challenges, active communities, and performance without excuses. LATAM-optimized ping, and a team that understands what true gamers need.\n\n2026 marks our biggest expansion: HumanitZ in February and SCUM in May. We are gamers tired that the best servers are always in NA, having to play with ping to have a quality experience.",
     "statsLine": "5+ years of operation · Multiple titles · Thousands of active players",
     "cta": {
       "question": "Are you a content creator or want to collaborate?",
@@ -82,11 +82,11 @@
       }
     },
     "majorFeatures": {
-      "badge": "VERSION 1.0 IS HERE",
+      "badge": "VERSION 1.0 IS COMING (02/06)",
       "title": "THE BIGGEST",
       "titleHighlight": "UPDATE",
       "titleSuffix": "YET",
-      "description": "After months of Early Access, HumanitZ 1.0 brings massive new content, gameplay overhauls, and the polish you've been waiting for.",
+      "description": "After 2 years of Early Access, 20 major updates and countless minor ones, HumanitZ arrives with its long-awaited version 1.0",
       "features": {
         "newIsland": {
           "title": "NEW ISLAND",
@@ -195,14 +195,14 @@
           "after": "Detailed strip malls with lush vegetation, improved signage, realistic parking lots, and post-apocalyptic storytelling"
         },
         "gasStations": {
-          "location": "Gas Stations & Roadside",
-          "before": "Sparse gas station areas with minimal environmental detail",
-          "after": "Rich environmental storytelling with power lines, abandoned vehicles, overgrown grass, and atmospheric lighting"
+          "location": "Character Creation",
+          "before": "Basic character creation system with limited options and minimal customization",
+          "after": "Improved character creation system with greater emphasis on professions to unlock initial perks. And a new afflictions system for experienced players."
         },
         "rural": {
-          "location": "Rural Compounds",
-          "before": "Open farm areas with basic structures and limited cover",
-          "after": "Dense vegetation, realistic tree coverage, varied structures, and tactical terrain for intense survival gameplay"
+          "location": "Perks System",
+          "before": "Basic perks system with limited options and simple progression",
+          "after": "Complete rework of the perks system to be more realistic and comprehensive, with improved skill trees and deeper progression"
         }
       },
       "labels": {
@@ -214,7 +214,7 @@
       "title": "BUILT FOR THE",
       "titleHighlight": "COMMUNITY",
       "description1": "We're not here to make money. We're here because we love survival games and want to give Latin American players the server they deserve.",
-      "description2": "Mind Breakers Humanitz is a whitelisted, hardcore experience designed specifically for content creators and their communities. High loot, high zombies, maximum challenge.",
+      "description2": "Mind Breakers Humanitz is a hardcore whitelisted experience designed specifically for content creators and their communities. Immersive gameplay, intense PvP and special events.",
       "description3": "Hosted in Argentina for the best ping across all of Latin America. No pay-to-win, no VIP tiers, no hidden costs. Just pure survival.",
       "stats": {
         "playerSlots": "PLAYER SLOTS",
@@ -229,8 +229,8 @@
       "description": "Carefully tuned settings for the ultimate hardcore survival experience",
       "features": {
         "highLoot": {
-          "title": "HIGH LOOT",
-          "description": "Increased spawn rates for weapons, ammo, and supplies. Find what you need to survive without the grind."
+          "title": "ENHANCED LOOT",
+          "description": "Cycles developed for high player count but understanding that it's a survival game and not everything is obtainable immediately. Trading will be important."
         },
         "highZombies": {
           "title": "HIGH ZOMBIES",
@@ -238,7 +238,7 @@
         },
         "highChallenge": {
           "title": "HIGH CHALLENGE",
-          "description": "Balanced difficulty that rewards skill and teamwork. Not for casual players—this is hardcore survival."
+          "description": "Balanced difficulty that rewards skill and teamwork. Survival with 'High Risk, High Reward' philosophy."
         },
         "whitelisted": {
           "title": "WHITELISTED",
@@ -280,20 +280,20 @@
       "backToHome": "BACK TO HOME"
     },
     "footer": {
-      "copyright": "© 2025-2026 Mind Breakers. Made with",
+      "copyright": "© 2020-2026 Mind Breakers. Made with",
       "copyrightSuffix": "for the LATAM gaming community."
     }
   },
   "home": {
     "hero": {
-      "title": "Level Up Your Gaming Experience",
-      "description": "Premium game server hosting with exceptional performance, reliability, and a community-focused experience.",
+      "title": "This Is Not A Game, It's A Gaming Experience",
+      "description": "Premium game server hosting. Exceptional performance, reliability and experience focused on communities and content creation. Have an idea for a series? We make it happen!",
       "exploreServers": "Explore Servers",
       "joinCommunity": "Join Community"
     },
     "gameServers": {
       "title": "Our Game Servers",
-      "description": "Experience gaming like never before with our custom-configured servers designed for optimal gameplay and community engagement.",
+      "description": "We aim to always have unique experiences in the projects we select. We make the difference by creating our own configurations and mods developed by us to offer players gameplay different from what they're used to.",
       "servers": {
         "humanitz": {
           "badge": "Coming Feb 6, 2026",
@@ -301,35 +301,35 @@
           "description": "100% FREE survival zombie server with base building, PvP, and an active community. Launching February 6, 2026!",
           "features": {
             "uptime": "24/7 Uptime",
-            "players": "60 Players",
-            "freeAccess": "Free Access",
-            "customConfig": "Custom Config"
+            "players": "24+ Players",
+            "freeAccess": "Content Creators",
+            "customConfig": "Vanilla Hardcore"
           },
           "learnMore": "Learn More"
         },
         "scum": {
-          "badge": "Coming May 2026",
+          "badge": "Coming Q2 2026",
           "title": "SCUM Server",
-          "description": "Survive in our custom-configured SCUM server with balanced gameplay, regular events, and an active community. Launching in May 2026!",
+          "description": "Survive in our custom-configured SCUM server with balanced gameplay, regular events, and an active community. Launching in Q2 2026!",
           "features": {
             "uptime": "24/7 Uptime",
             "players": "64 Players",
-            "antiCheat": "Anti-Cheat",
+            "antiCheat": "Public",
             "customRules": "Custom Rules"
           },
           "learnMore": "Learn More"
         },
         "hytale": {
-          "badge": "Coming Q4 2026",
-          "title": "Hytale Server",
-          "description": "Adventure, create, and survive in our Hytale server. Experience block-building, RPG elements, and minigames. Launching Q4 2026!",
+          "badge": "In Development",
+          "title": "Hytale MMORPG Server",
+          "description": "We're developing a Sandbox MMORPG that feels alive based on organic PvP with defined classes and where the philosophy is high risk, high reward.",
           "features": {
             "uptime": "24/7 Uptime",
-            "comingSoon": "Coming Soon",
+            "comingSoon": "Unlimited Scalable",
             "customWorlds": "Custom Worlds",
-            "modSupport": "Mod Support"
+            "modSupport": "100% Modded"
           },
-          "newsComingSoon": "News Coming Soon"
+          "newsComingSoon": "Be part of the development!"
         },
         "dayz": {
           "badge": "Top #1 LATAM Server",
@@ -360,12 +360,12 @@
       },
       "previousServers": {
         "title": "Previous Servers",
-        "description": "Our legacy servers that helped build the MindBreakers community"
+        "description": "The servers that made us great and created the MindBreakers community (They'll be back...)"
       }
     },
     "features": {
       "title": "Why Choose MindBreakers",
-      "description": "We provide more than just game servers. Join a community of gamers with custom configurations and exceptional support.",
+      "description": "We offer more than just game servers. Join a community of gamers with custom configurations and exceptional support.",
       "items": {
         "highPerformance": {
           "title": "High Performance",
@@ -406,12 +406,12 @@
   },
   "scum": {
     "hero": {
-      "badge": "◄ COMING SOON — MAY 2026 ►",
+      "badge": "◄ COMING SOON — Q2 2026 ►",
       "title": "SCUM",
       "subtitle": "SURVIVAL. COMBAT. DOMINATION.",
       "launchDate": {
         "label": "SERVER LAUNCH",
-        "date": "MAY 2026"
+        "date": "Q2 2026"
       },
       "exploreButton": "EXPLORE SERVER"
     },
@@ -444,10 +444,10 @@
         "standard": "Standard"
       },
       "fallback": {
-        "description": "Our SCUM server is launching in May 2026. We're preparing a balanced survival experience with active PvP, whitelist protection, and a dedicated community.",
+        "description": "Our SCUM server is launching in Q2 2026. We're preparing a balanced survival experience with active PvP, whitelist protection, and a dedicated community.",
         "cta": "Join the MindBreakers SCUM community and be ready for launch day!",
         "launchDateLabel": "Launch Date:",
-        "launchDate": "May 2026"
+        "launchDate": "Q2 2026"
       },
       "stats": {
         "maxPlayers": "MAX PLAYERS",
@@ -694,6 +694,40 @@
       "totalKills": "Total Kills",
       "playtime": "Playtime",
       "backToHome": "Back to Home"
+    }
+  },
+  "chatbot": {
+    "status": "Online",
+    "placeholder": "Type something...",
+    "greeting": "Hey! I'm MindBot 🤖 How can I help?",
+    "greetings": [
+      "Hey! I'm MindBot 🤖 How can I help?",
+      "Yo! Ready to crush it on the servers?",
+      "Welcome to MindBreakers, survivor 💀"
+    ],
+    "random": [
+      "Pro tip: If you hear footsteps... it's already too late 💀",
+      "Error 404: Skills not found. Keep practicing 😎",
+      "Lag is not an excuse. Well, sometimes it is.",
+      "GG EZ... said no one after a 3-hour raid",
+      "If you died, it's because you didn't have enough RGB",
+      "The real loot was the friends we made along the way",
+      "Camper? No, positional strategist 📍"
+    ],
+    "discord": "Join our Discord! We coordinate raids, share memes and organize events. We're waiting for you 🎮",
+    "servers": "We have HumanitZ servers (launching Feb 6, 2026) and SCUM (Q2 2026). Both optimized for LATAM with low ping 🌎",
+    "team": "Want to be part of the MindBreakers team? Join Discord and contact the admins. We're always looking for cool people 💪",
+    "default": [
+      "Hmm I didn't get that, but you're still a legend 💪",
+      "My CPU can't process that, but I got your back",
+      "I don't have that info, but you can ask on Discord 🤔",
+      "Answer not found. Have you tried turning it off and on again? 🔄"
+    ],
+    "buttons": {
+      "discord": "Discord",
+      "servers": "Servers",
+      "team": "Join the team",
+      "random": "Random quote"
     }
   }
 }

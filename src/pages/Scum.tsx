@@ -44,7 +44,6 @@ interface ServerData {
 
 export const Scum: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [gameData, setGameData] = useState<GameData | null>(null);
   const [serverData, setServerData] = useState<ServerData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -54,18 +53,6 @@ export const Scum: React.FC = () => {
     setIsVisible(true);
     fetchScumData();
   }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   const fetchScumData = async () => {
     try {
@@ -514,21 +501,6 @@ export const Scum: React.FC = () => {
       </div>
 
       <Footer />
-
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 bg-gray-800 border border-gray-700 hover:border-lime-400 rounded-full p-3 transition-all duration-300 z-50 ${
-          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-        aria-label="Scroll to top"
-      >
-        <img
-          src="/images/logos/Face-18.png"
-          alt="Scroll to top"
-          className="h-8 w-8 object-contain"
-        />
-      </button>
 
       <style>{`
         @keyframes fadeInUp {
