@@ -58,7 +58,8 @@
         "label": "SERVER LAUNCH WITH VERSION 1.0",
         "date": "FEBRUARY 6, 2026"
       },
-      "exploreButton": "EXPLORE FEATURES"
+      "exploreButton": "EXPLORE FEATURES",
+      "requestAccess": "REQUEST ACCESS"
     },
     "whitelist": {
       "badge": "WHITELIST ONLY",
@@ -272,11 +273,16 @@
         "averagePing": "Average Ping"
       }
     },
+    "whitelist": {
+      "title": "Request Whitelist Access",
+      "description": "Complete the form to request access to our HumanitZ server. The form takes only 2 minutes."
+    },
     "cta": {
       "title": "READY TO",
       "titleHighlight": "SURVIVE?",
       "description": "Join our Discord to apply for whitelist access and be ready for launch day. Version 1.0 drops February 6, 2026.",
       "joinDiscord": "JOIN DISCORD",
+      "requestAccess": "REQUEST ACCESS",
       "backToHome": "BACK TO HOME"
     },
     "footer": {
@@ -297,6 +303,7 @@
       "servers": {
         "humanitz": {
           "badge": "Coming Feb 6, 2026",
+          "whitelistOpen": "Whitelist Open",
           "title": "HumanitZ Server",
           "description": "100% FREE survival zombie server with base building, PvP, and an active community. Launching February 6, 2026!",
           "features": {
@@ -305,7 +312,8 @@
             "freeAccess": "Content Creators",
             "customConfig": "Vanilla Hardcore"
           },
-          "learnMore": "Learn More"
+          "learnMore": "Learn More",
+          "requestAccess": "Request Access"
         },
         "scum": {
           "badge": "Coming Q2 2026",

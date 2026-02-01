@@ -24,8 +24,13 @@ export const GameServers = () => {
           >
             <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: 'url(/images/humanitz/title.jpg)' }}>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-              <div className="absolute top-4 left-4 bg-lime-400 text-black px-3 py-1 rounded-md font-medium text-sm">
-                {t('home.gameServers.servers.humanitz.badge')}
+              <div className="absolute top-4 left-4 flex flex-col gap-2">
+                <div className="bg-lime-400 text-black px-3 py-1 rounded-md font-medium text-sm">
+                  {t('home.gameServers.servers.humanitz.badge')}
+                </div>
+                <div className="bg-blue-500 text-white px-3 py-1 rounded-md font-medium text-sm">
+                  {t('home.gameServers.servers.humanitz.whitelistOpen')}
+                </div>
               </div>
             </div>
             <div className="p-6 flex flex-col flex-grow">
@@ -58,12 +63,20 @@ export const GameServers = () => {
                   <span className="text-gray-300">{t('home.gameServers.servers.humanitz.features.customConfig')}</span>
                 </div>
               </div>
-              <Link
-                to="/humanitz"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-medium transition block text-center mt-auto"
-              >
-                {t('home.gameServers.servers.humanitz.learnMore')}
-              </Link>
+              <div className="flex gap-2 mt-auto">
+                <Link
+                  to="/humanitz#whitelist-form"
+                  className="flex-1 bg-lime-500 hover:bg-lime-600 text-black py-3 rounded-md font-medium transition block text-center"
+                >
+                  {t('home.gameServers.servers.humanitz.requestAccess')}
+                </Link>
+                <Link
+                  to="/humanitz"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-medium transition block text-center"
+                >
+                  {t('home.gameServers.servers.humanitz.learnMore')}
+                </Link>
+              </div>
             </div>
           </div>
 

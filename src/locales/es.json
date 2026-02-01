@@ -58,7 +58,8 @@
         "label": "LANZAMIENTO DEL SERVIDOR CON VERSIÓN 1.0",
         "date": "6 DE FEBRERO, 2026"
       },
-      "exploreButton": "EXPLORAR CARACTERÍSTICAS"
+      "exploreButton": "SOLICITAR ACCESO",
+      "requestAccess": "SOLICITAR ACCESO"
     },
     "whitelist": {
       "badge": "SOLO WHITELIST",
@@ -272,11 +273,16 @@
         "averagePing": "Ping Promedio"
       }
     },
+    "whitelist": {
+      "title": "Solicita Acceso a la Whitelist",
+      "description": "Completa el formulario para solicitar acceso a nuestro servidor de HumanitZ. El formulario toma solo 2 minutos."
+    },
     "cta": {
       "title": "¿LISTO PARA",
       "titleHighlight": "SOBREVIVIR?",
       "description": "Únete a nuestro Discord para solicitar acceso a la whitelist y estar listo para el día del lanzamiento. La versión 1.0 sale el 6 de febrero de 2026.",
       "joinDiscord": "UNIRSE A DISCORD",
+      "requestAccess": "SOLICITAR ACCESO",
       "backToHome": "VOLVER AL INICIO"
     },
     "footer": {
@@ -297,8 +303,10 @@
       "servers": {
         "humanitz": {
           "badge": "Próximamente 6 Feb, 2026",
+          "whitelistOpen": "Whitelist Abierta",
           "title": "Servidor HumanitZ",
           "description": "Servidor zombie de supervivencia 100% GRATIS con construcción de bases, PvP y una comunidad activa. ¡Lanzamiento el 6 de febrero de 2026!",
+          "requestAccess": "Solicitar Acceso",
           "features": {
             "uptime": "Tiempo Activo 24/7",
             "players": "24+ Jugadores",
