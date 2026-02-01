@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { images } from '../config/images';
@@ -27,8 +28,10 @@ import {
 export const Humanitz = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null);
+  const [showWhitelistModal, setShowWhitelistModal] = useState(false);
   const t = useTranslation();
   const { locale } = useLanguage();
+  const location = useLocation();
 
   useEffect(() => {
     setIsVisible(true);
@@ -44,18 +47,43 @@ export const Humanitz = () => {
     document.body.style.overflow = 'unset'; // Restore scrolling
   };
 
-  // Close modal on Escape key
+  const openWhitelistModal = () => {
+    setShowWhitelistModal(true);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  const closeWhitelistModal = () => {
+    setShowWhitelistModal(false);
+    document.body.style.overflow = 'unset'; // Restore scrolling
+  };
+
+  // Open whitelist modal if hash is present
   useEffect(() => {
-    if (!modalImage) return;
-    
+    if (location.hash === '#whitelist-form') {
+      setTimeout(() => {
+        setShowWhitelistModal(true);
+        document.body.style.overflow = 'hidden';
+        // Remove hash from URL without scrolling
+        window.history.replaceState(null, '', window.location.pathname);
+      }, 100);
+    }
+  }, [location.hash]);
+
+  // Close modals on Escape key
+  useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        closeModal();
+        if (modalImage) {
+          closeModal();
+        }
+        if (showWhitelistModal) {
+          closeWhitelistModal();
+        }
       }
     };
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [modalImage]);
+  }, [modalImage, showWhitelistModal]);
 
   const serverStats = [
     {
@@ -195,12 +223,6 @@ export const Humanitz = () => {
 
   const targetAudience = (getTranslation(locale, 'humanitz.targetAudience.items') || []) as string[];
 
-  const scrollToContent = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -303,7 +325,7 @@ export const Humanitz = () => {
             </div>
 
             <button
-              onClick={scrollToContent}
+              onClick={openWhitelistModal}
               className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-md font-bold text-lg transition-all transform hover:scale-105 inline-flex items-center group"
               style={{
                 opacity: isVisible ? 1 : 0,
@@ -311,8 +333,7 @@ export const Humanitz = () => {
                 transition: 'all 0.8s ease-out 1s',
               }}
             >
-              {t('humanitz.hero.exploreButton')}
-              <ChevronDown className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+              {t('humanitz.hero.requestAccess')}
             </button>
           </div>
         </div>
@@ -699,13 +720,16 @@ export const Humanitz = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-md font-bold text-lg transition-all transform hover:scale-105 flex items-center justify-center group">
+            <button
+              onClick={openWhitelistModal}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-md font-bold text-lg transition-all transform hover:scale-105 flex items-center justify-center group"
+            >
               <img
                 src="/images/logos/Face-19.png"
                 alt="MindBreakers"
                 className="h-5 w-5 mr-2 object-contain group-hover:rotate-12 transition-transform"
               />
-              {t('humanitz.cta.joinDiscord')}
+              {t('humanitz.cta.requestAccess')}
             </button>
             <a
               href="/"
@@ -760,6 +784,67 @@ export const Humanitz = () => {
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on image
             />
+          </div>
+        </div>
+      )}
+
+      {/* Whitelist Form Modal */}
+      {showWhitelistModal && (
+        <div
+          className="fixed inset-0 bg-black/75 z-[100] flex items-center justify-center p-4"
+          onClick={closeWhitelistModal}
+          style={{
+            animation: 'fadeIn 0.2s ease-out',
+          }}
+        >
+          <div
+            className="relative bg-gray-800 rounded-lg border border-gray-700 w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on modal content
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-700">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-black mb-2">
+                  {t('humanitz.whitelist.title')}
+                </h2>
+                <p className="text-gray-400 text-sm">
+                  {t('humanitz.whitelist.description')}
+                </p>
+              </div>
+              <button
+                onClick={closeWhitelistModal}
+                className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-full transition-all hover:scale-110"
+                aria-label="Close modal"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+
+            {/* Form Content */}
+            <div className="flex-1 overflow-y-auto p-4 md:p-6">
+              <div className="relative w-full">
+                {/* 
+                  Para obtener la URL correcta del formulario embebido:
+                  1. Abre el formulario en Google Forms
+                  2. Haz clic en "Enviar" (Send)
+                  3. Selecciona el ícono de código <> (Insertar)
+                  4. Copia la URL del atributo src del iframe
+                  5. Reemplaza la URL abajo con esa URL
+                */}
+                <iframe
+                  src="https://docs.google.com/forms/d/e/1FAIpQLScuo4J2zEVYKyVN4ppYCIfZkFmKeQc5mv2kswRu6MPw-WVS1g/viewform?embedded=true"
+                  className="w-full border-0 rounded-md"
+                  style={{ minHeight: '600px', height: '100%' }}
+                  title="HumanitZ Whitelist Application Form"
+                  allow="fullscreen"
+                  loading="lazy"
+                >
+                  <a href="https://forms.gle/ZmV8epRPXTqCUse99" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                    {t('humanitz.whitelist.title')}
+                  </a>
+                </iframe>
+              </div>
+            </div>
           </div>
         </div>
       )}
