@@ -266,15 +266,24 @@ export const Humanitz = () => {
           />
           {/* Logo Background - Similar to SCUM */}
           <div className="absolute inset-0 flex items-center justify-center z-[5] pointer-events-none">
-            <img
-              src="/images/humanitz/Humanitz-logo.jpg"
-              alt="Humanitz Logo"
-              className="w-full max-w-5xl h-auto opacity-[0.03]"
-              style={{
-                transform: isVisible ? 'scale(1)' : 'scale(0.95)',
-                transition: 'transform 1.5s ease-out',
-              }}
-            />
+            <div className="relative w-full h-full">
+              <img
+                src="/images/humanitz/Humanitz-logo.jpg"
+                alt="Humanitz Logo"
+                className="w-full h-full object-contain opacity-[0.25]"
+                style={{
+                  transform: isVisible ? 'scale(1)' : 'scale(0.95)',
+                  transition: 'transform 1.5s ease-out',
+                }}
+              />
+              {/* Gradient fade on sides */}
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to right, rgba(17, 24, 39, 1) 0%, transparent 15%, transparent 85%, rgba(17, 24, 39, 1) 100%)',
+                }}
+              />
+            </div>
           </div>
         </div>
 
