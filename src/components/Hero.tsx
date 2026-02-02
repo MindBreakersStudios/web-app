@@ -36,7 +36,7 @@ export const Hero = () => {
               {t('home.hero.exploreServers')}
             </button>
             <a
-              href="https://discord.gg/BV6hQ9AY"
+              href="https://discord.gg/gzzFP2SeXg"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-transparent hover:bg-gray-800 text-blue-400 border border-blue-400 px-8 py-3 rounded-md font-medium text-lg transition inline-block text-center"

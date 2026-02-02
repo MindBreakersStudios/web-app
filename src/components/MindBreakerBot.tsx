@@ -4,14 +4,17 @@ import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
 import { getTranslation } from '../i18n';
 
-const DISCORD_URL = 'https://discord.gg/BV6hQ9AY';
+const DISCORD_URL = 'https://discord.gg/gzzFP2SeXg';
 
 interface Message {
   text: string;
   isBot: boolean;
 }
 
-function pickRandom(arr: string[]): string {
+function pickRandom(arr: string[] | null | undefined): string {
+  if (!arr || arr.length === 0) {
+    return 'Hello! How can I help you?';
+  }
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
@@ -26,10 +29,10 @@ export const MindBreakerBot = () => {
   // Initialize with greeting when chat opens
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const greetings = getTranslation(locale, 'chatbot.greetings') as string[];
+      const greetings = getTranslation(locale, 'chatbot.greetings') as string[] | null;
       setMessages([{ text: pickRandom(greetings), isBot: true }]);
     }
-  }, [isOpen]);
+  }, [isOpen, locale]);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -53,11 +56,11 @@ export const MindBreakerBot = () => {
       return t('chatbot.team');
     }
     if (/hola|hello|hey|buenas|hi\b/.test(lower)) {
-      const greetings = getTranslation(locale, 'chatbot.greetings') as string[];
+      const greetings = getTranslation(locale, 'chatbot.greetings') as string[] | null;
       return pickRandom(greetings);
     }
 
-    const defaults = getTranslation(locale, 'chatbot.default') as string[];
+    const defaults = getTranslation(locale, 'chatbot.default') as string[] | null;
     return pickRandom(defaults);
   };
 
@@ -92,7 +95,7 @@ export const MindBreakerBot = () => {
         setTimeout(() => window.open(DISCORD_URL, '_blank'), 600);
         break;
       case 'random': {
-        const randoms = getTranslation(locale, 'chatbot.random') as string[];
+        const randoms = getTranslation(locale, 'chatbot.random') as string[] | null;
         addBotMessage(pickRandom(randoms));
         break;
       }
