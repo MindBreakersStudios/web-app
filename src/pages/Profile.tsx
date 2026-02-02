@@ -4,6 +4,7 @@ import { DashboardLayout } from '../components/dashboard/DashboardLayout';
 import { User, Mail, Calendar, Shield, Link as LinkIcon, Unlink, ExternalLink, Edit2, Save, X, LogIn, RefreshCw } from 'lucide-react';
 import { useAuth } from '../lib/auth';
 import { steamAPI, profileAPI } from '../lib/api';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface LinkedAccount {
   type: 'discord' | 'steam';
@@ -36,6 +37,7 @@ interface EnhancedProfile {
 export const Profile = () => {
   const { user, apiUserData, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const t = useTranslation();
   const [linkedAccounts, setLinkedAccounts] = useState<LinkedAccount[]>([]);
   const [enhancedProfile, setEnhancedProfile] = useState<EnhancedProfile | null>(null);
   const [loading, setLoading] = useState(false);
@@ -133,7 +135,7 @@ export const Profile = () => {
   const handleLinkSteam = async () => {
     // Check if user is logged in first
     if (!user) {
-      setError('You must be logged in to link your Steam account');
+      setError(t('profile.mustBeLoggedInToLink'));
       return;
     }
 
@@ -163,14 +165,14 @@ export const Profile = () => {
       // Check if it's an authentication error or already linked
       const errorMessage = err instanceof Error ? err.message : String(err);
       if (errorMessage.includes('authentication session') || errorMessage.includes('getSession timeout')) {
-        setError('Please log in to link your Steam account');
+        setError(t('profile.pleaseLoginToLink'));
       } else if (errorMessage.includes('already linked')) {
-        setSuccess('Steam account is already linked to your account!');
+        setSuccess(t('profile.steamAlreadyLinked'));
         // Refresh profile data to show the linked account
         await loadEnhancedProfile(true);
         setTimeout(() => setSuccess(''), 3000);
       } else {
-        setError('Failed to initiate Steam linking');
+        setError(t('profile.failedToInitiateSteamLinking'));
       }
       setLoading(false);
     }
@@ -178,7 +180,7 @@ export const Profile = () => {
 
   const handleRefreshPlatform = async (platform: 'steam' | 'discord') => {
     if (!user) {
-      setError('You must be logged in to refresh platform data');
+      setError(t('profile.mustBeLoggedInToRefresh'));
       return;
     }
 
@@ -189,13 +191,13 @@ export const Profile = () => {
       await profileAPI.refreshPlatform(platform);
       // Reload the profile data after refresh
       await loadEnhancedProfile(true);
-      setSuccess(`${platform} data refreshed successfully`);
+      setSuccess(t('profile.dataRefreshedSuccessfully').replace('{platform}', platform));
       
       setTimeout(() => setSuccess(''), 3000);
     } catch (err: unknown) {
       console.error(`${platform} refresh error:`, err);
       const errorMessage = err instanceof Error ? err.message : String(err);
-      setError(`Failed to refresh ${platform} data: ${errorMessage}`);
+      setError(t('profile.failedToRefreshData').replace('{platform}', platform).replace('{error}', errorMessage));
     } finally {
       setRefreshing(null);
     }
@@ -203,7 +205,7 @@ export const Profile = () => {
 
   const handleForceRefresh = async () => {
     if (!user) {
-      setError('You must be logged in to refresh profile data');
+      setError(t('profile.mustBeLoggedInToRefreshProfile'));
       return;
     }
 
@@ -212,13 +214,13 @@ export const Profile = () => {
     
     try {
       await loadEnhancedProfile(true);
-      setSuccess('Profile data refreshed successfully');
+      setSuccess(t('profile.profileDataRefreshedSuccessfully'));
       
       setTimeout(() => setSuccess(''), 3000);
     } catch (err: unknown) {
       console.error('Force refresh error:', err);
       const errorMessage = err instanceof Error ? err.message : String(err);
-      setError(`Failed to refresh profile data: ${errorMessage}`);
+      setError(t('profile.failedToRefreshProfileData').replace('{error}', errorMessage));
     } finally {
       setLoading(false);
     }
@@ -269,12 +271,12 @@ export const Profile = () => {
     try {
       // This would call your API to update display name
       console.log('Updating display name to:', displayName);
-      setSuccess('Display name updated successfully');
+      setSuccess(t('profile.displayNameUpdatedSuccessfully'));
       setIsEditing(false);
       
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
-      setError('Failed to update display name');
+      setError(t('profile.failedToUpdateDisplayName'));
     } finally {
       setLoading(false);
     }
@@ -321,7 +323,7 @@ export const Profile = () => {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-400">Loading your profile...</p>
+            <p className="text-gray-400">{t('profile.loading')}</p>
           </div>
         </div>
       </DashboardLayout>
@@ -336,15 +338,15 @@ export const Profile = () => {
           <div className="max-w-md w-full text-center">
             <div className="bg-gray-800 rounded-xl p-8 border border-gray-700">
               <LogIn className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-              <h1 className="text-2xl font-bold text-white mb-4">Login Required</h1>
+              <h1 className="text-2xl font-bold text-white mb-4">{t('profile.loginRequired')}</h1>
               <p className="text-gray-400 mb-6">
-                You need to be logged in to view and manage your profile.
+                {t('profile.loginRequiredMessage')}
               </p>
               <button
                 onClick={() => navigate('/')}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition"
               >
-                Go to Login
+                {t('profile.goToLogin')}
               </button>
             </div>
           </div>
@@ -364,7 +366,7 @@ export const Profile = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold">
-                {displayName || user?.email || 'User Profile'}
+                {displayName || user?.email || t('profile.userProfile')}
               </h1>
               <p className="text-blue-100">
                 {user?.email}
@@ -397,13 +399,13 @@ export const Profile = () => {
           <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
             <h2 className="text-xl font-bold mb-6 flex items-center">
               <User className="w-5 h-5 mr-2" />
-              Account Information
+              {t('profile.accountInformation')}
             </h2>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Display Name
+                  {t('profile.displayName')}
                 </label>
                 {isEditing ? (
                   <div className="flex space-x-2">
@@ -412,7 +414,7 @@ export const Profile = () => {
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
                       className="flex-1 bg-gray-900 border border-gray-700 rounded-md py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Enter display name"
+                      placeholder={t('profile.enterDisplayName')}
                     />
                     <button
                       onClick={handleSaveDisplayName}
@@ -430,7 +432,7 @@ export const Profile = () => {
                   </div>
                 ) : (
                   <div className="flex items-center justify-between bg-gray-900 border border-gray-700 rounded-md py-2 px-3">
-                    <span className="text-white">{displayName || 'Not set'}</span>
+                    <span className="text-white">{displayName || t('profile.notSet')}</span>
                     <button
                       onClick={() => setIsEditing(true)}
                       className="text-blue-400 hover:text-blue-300"
@@ -443,7 +445,7 @@ export const Profile = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Email Address
+                  {t('profile.emailAddress')}
                 </label>
                 <div className="bg-gray-900 border border-gray-700 rounded-md py-2 px-3 text-gray-400">
                   <Mail className="w-4 h-4 inline mr-2" />
@@ -453,11 +455,11 @@ export const Profile = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Member Since
+                  {t('profile.memberSince')}
                 </label>
                 <div className="bg-gray-900 border border-gray-700 rounded-md py-2 px-3 text-gray-400">
                   <Calendar className="w-4 h-4 inline mr-2" />
-                  {user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'Unknown'}
+                  {user?.created_at ? new Date(user.created_at).toLocaleDateString() : t('profile.unknown')}
                 </div>
               </div>
             </div>
@@ -468,16 +470,16 @@ export const Profile = () => {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold flex items-center">
                 <LinkIcon className="w-5 h-5 mr-2" />
-                Linked Accounts
+                {t('profile.linkedAccounts')}
               </h2>
               <button
                 onClick={handleForceRefresh}
                 disabled={loading}
                 className="flex items-center px-3 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white text-sm rounded-md transition"
-                title="Force refresh all platform data"
+                title={t('profile.forceRefreshAll')}
               >
                 <RefreshCw className={`w-3 h-3 mr-1 ${loading ? 'animate-spin' : ''}`} />
-                Refresh All
+                {t('profile.refreshAll')}
               </button>
             </div>
 
@@ -490,20 +492,20 @@ export const Profile = () => {
                       {getProviderIcon('discord')}
                     </div>
                     <div>
-                      <h3 className="font-medium">Discord</h3>
+                      <h3 className="font-medium">{t('profile.discord')}</h3>
                       {isAccountLinked('discord') ? (
                         <div>
                           <p className="text-sm text-gray-400">
-                            Connected as {linkedAccounts.find(acc => acc.type === 'discord')?.name}
+                            {t('profile.connectedAs').replace('{name}', linkedAccounts.find(acc => acc.type === 'discord')?.name || '')}
                           </p>
                           {linkedAccounts.find(acc => acc.type === 'discord')?.cached && (
                             <p className="text-xs text-yellow-400 mt-1">
-                              📄 Using cached data
+                              {t('profile.usingCachedData')}
                             </p>
                           )}
                         </div>
                       ) : (
-                        <p className="text-sm text-gray-400">Connect your Discord account</p>
+                        <p className="text-sm text-gray-400">{t('profile.connectDiscord')}</p>
                       )}
                     </div>
                   </div>
@@ -514,10 +516,10 @@ export const Profile = () => {
                         onClick={() => handleRefreshPlatform('discord')}
                         disabled={refreshing === 'discord' || loading}
                         className="flex items-center px-2 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white text-xs rounded-md transition"
-                        title="Refresh Discord data"
+                        title={t('profile.refreshDiscordData')}
                       >
                         <RefreshCw className={`w-3 h-3 mr-1 ${refreshing === 'discord' ? 'animate-spin' : ''}`} />
-                        Refresh
+                        {t('profile.refresh')}
                       </button>
                       <button
                         onClick={() => handleUnlinkAccount('discord')}
@@ -525,7 +527,7 @@ export const Profile = () => {
                         className="flex items-center px-3 py-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white text-sm rounded-md transition"
                       >
                         <Unlink className="w-3 h-3 mr-1" />
-                        Unlink
+                        {t('profile.unlink')}
                       </button>
                     </div>
                   ) : (
@@ -534,7 +536,7 @@ export const Profile = () => {
                       className="flex items-center px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-md transition opacity-50 cursor-not-allowed"
                     >
                       <LinkIcon className="w-3 h-3 mr-1" />
-                      Link
+                      {t('profile.link')}
                     </button>
                   )}
                 </div>
@@ -548,15 +550,15 @@ export const Profile = () => {
                       {getProviderIcon('steam')}
                     </div>
                     <div>
-                      <h3 className="font-medium">Steam</h3>
+                      <h3 className="font-medium">{t('profile.steam')}</h3>
                       {isAccountLinked('steam') ? (
                         <div>
                           <p className="text-sm text-gray-400">
-                            Connected as {linkedAccounts.find(acc => acc.type === 'steam')?.name}
+                            {t('profile.connectedAs').replace('{name}', linkedAccounts.find(acc => acc.type === 'steam')?.name || '')}
                           </p>
                           {linkedAccounts.find(acc => acc.type === 'steam')?.cached && (
                             <p className="text-xs text-yellow-400 mt-1">
-                              📄 Using cached data
+                              {t('profile.usingCachedData')}
                             </p>
                           )}
                           {linkedAccounts.find(acc => acc.type === 'steam')?.profileUrl && (
@@ -566,12 +568,12 @@ export const Profile = () => {
                               rel="noopener noreferrer"
                               className="text-xs text-blue-400 hover:text-blue-300 flex items-center mt-1"
                             >
-                              View Profile <ExternalLink className="w-3 h-3 ml-1" />
+                              {t('profile.viewProfile')} <ExternalLink className="w-3 h-3 ml-1" />
                             </a>
                           )}
                         </div>
                       ) : (
-                        <p className="text-sm text-gray-400">Connect your Steam account</p>
+                        <p className="text-sm text-gray-400">{t('profile.connectSteam')}</p>
                       )}
                     </div>
                   </div>
@@ -582,10 +584,10 @@ export const Profile = () => {
                         onClick={() => handleRefreshPlatform('steam')}
                         disabled={refreshing === 'steam' || loading}
                         className="flex items-center px-2 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white text-xs rounded-md transition"
-                        title="Refresh Steam data"
+                        title={t('profile.refreshSteamData')}
                       >
                         <RefreshCw className={`w-3 h-3 mr-1 ${refreshing === 'steam' ? 'animate-spin' : ''}`} />
-                        Refresh
+                        {t('profile.refresh')}
                       </button>
                       <button
                         onClick={() => handleUnlinkAccount('steam')}
@@ -593,7 +595,7 @@ export const Profile = () => {
                         className="flex items-center px-3 py-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white text-sm rounded-md transition"
                       >
                         <Unlink className="w-3 h-3 mr-1" />
-                        Unlink
+                        {t('profile.unlink')}
                       </button>
                     </div>
                   ) : (
@@ -607,7 +609,7 @@ export const Profile = () => {
                       }`}
                     >
                       <LinkIcon className="w-3 h-3 mr-1" />
-                      {!user ? 'Login Required' : 'Link'}
+                      {!user ? t('profile.loginRequiredButton') : t('profile.link')}
                     </button>
                   )}
                 </div>
@@ -615,18 +617,18 @@ export const Profile = () => {
             </div>
 
             <div className="mt-6 p-4 bg-blue-900/20 border border-blue-700 rounded-lg">
-              <h4 className="font-medium text-blue-400 mb-2">Why link accounts?</h4>
+              <h4 className="font-medium text-blue-400 mb-2">{t('profile.whyLinkAccounts')}</h4>
               <ul className="text-sm text-gray-300 space-y-1">
-                <li>• Single sign-on across all our services</li>
-                <li>• Access to platform-specific features</li>
-                <li>• Unified gaming profile and statistics</li>
-                <li>• Enhanced security and account recovery</li>
+                <li>• {t('profile.whyLinkReason1')}</li>
+                <li>• {t('profile.whyLinkReason2')}</li>
+                <li>• {t('profile.whyLinkReason3')}</li>
+                <li>• {t('profile.whyLinkReason4')}</li>
               </ul>
               
               {enhancedProfile && (
                 <div className="mt-4 pt-4 border-t border-blue-700/50">
                   <p className="text-xs text-blue-300">
-                    Profile ID: {enhancedProfile.user_id}
+                    {t('profile.profileId').replace('{id}', enhancedProfile.user_id)}
                   </p>
                 </div>
               )}

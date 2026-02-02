@@ -1,7 +1,9 @@
-import React from 'react';
 import { Gamepad2Icon } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const Hero = () => {
+  const t = useTranslation();
+
   return (
     <section className="relative bg-gradient-to-b from-gray-900 to-gray-800 overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1650&q=80')] bg-cover bg-center opacity-20"></div>
@@ -15,11 +17,10 @@ export const Hero = () => {
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-            Level Up Your Gaming Experience
+            {t('home.hero.title')}
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-10">
-            Premium game server hosting with exceptional performance,
-            reliability, and a community-focused experience.
+            {t('home.hero.description')}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button 
@@ -32,15 +33,15 @@ export const Hero = () => {
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md font-medium text-lg transition flex items-center justify-center"
             >
               <Gamepad2Icon className="mr-2 h-5 w-5" />
-              Explore Servers
+              {t('home.hero.exploreServers')}
             </button>
             <a
-              href="https://discord.gg/BV6hQ9AY"
+              href="https://discord.gg/gzzFP2SeXg"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-transparent hover:bg-gray-800 text-blue-400 border border-blue-400 px-8 py-3 rounded-md font-medium text-lg transition inline-block text-center"
             >
-              Join Community
+              {t('home.hero.joinCommunity')}
             </a>
           </div>
         </div>

@@ -12,7 +12,7 @@ export type SupportedLocale = 'en' | 'es';
 
 export const supportedLocales: SupportedLocale[] = ['en', 'es'];
 
-export const defaultLocale: SupportedLocale = 'en';
+export const defaultLocale: SupportedLocale = 'es';
 
 export const translations = {
   en: enTranslations,
@@ -34,9 +34,9 @@ export function t(locale: SupportedLocale, key: string, fallback?: string): stri
     if (value && typeof value === 'object' && k in value) {
       value = value[k as keyof typeof value];
     } else {
-      // Fallback to English if key not found
-      if (locale !== 'en') {
-        value = translations.en;
+      // Fallback to Spanish (default) if key not found
+      if (locale !== 'es') {
+        value = translations.es;
         for (const fallbackKey of keys) {
           if (value && typeof value === 'object' && fallbackKey in value) {
             value = value[fallbackKey as keyof typeof value];

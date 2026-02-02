@@ -39,19 +39,19 @@ export const Stats = () => {
               <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
                 10+
               </div>
-              <p className="text-gray-400">Years of Experience</p>
+              <p className="text-gray-400">{t('home.stats.yearsOfExperience')}</p>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
                 5+
               </div>
-              <p className="text-gray-400">Servers Managed</p>
+              <p className="text-gray-400">{t('home.stats.serversManaged')}</p>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
                 1000+
               </div>
-              <p className="text-gray-400">Happy Players</p>
+              <p className="text-gray-400">{t('home.stats.happyPlayers')}</p>
             </div>
           </div>
 
@@ -62,7 +62,7 @@ export const Stats = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a
-                href="https://discord.gg/BV6hQ9AY"
+                href="https://discord.gg/gzzFP2SeXg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md font-medium transition flex items-center justify-center group"

@@ -3,14 +3,16 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Loader, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { steamAPI } from '../lib/api';
 import { useAuth } from '../lib/auth';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const SteamCallback = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const t = useTranslation();
   
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [message, setMessage] = useState('Processing Steam authentication...');
+  const [message, setMessage] = useState(t('callbacks.steam.processing'));
   const [userInfo, setUserInfo] = useState<any>(null);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export const SteamCallback = () => {
 
         if (error) {
           setStatus('error');
-          setMessage(`Steam authentication failed: ${error}`);
+          setMessage(t('callbacks.steam.failed').replace('{error}', error));
           return;
         }
 
@@ -36,7 +38,7 @@ export const SteamCallback = () => {
             steam_id: steamId,
             is_new_user: isNewUser
           });
-          setMessage(isNewUser ? 'Welcome to MindBreakers!' : 'Welcome back!');
+          setMessage(isNewUser ? t('callbacks.steam.welcomeNew') : t('callbacks.steam.welcomeBack'));
           
           // Redirect after showing success
           setTimeout(() => {
@@ -61,7 +63,7 @@ export const SteamCallback = () => {
           if (result.success) {
             setStatus('success');
             setUserInfo(result);
-            setMessage(result.is_new_user ? 'Welcome to MindBreakers!' : 'Welcome back!');
+            setMessage(result.is_new_user ? t('callbacks.steam.welcomeNew') : t('callbacks.steam.welcomeBack'));
             
             // Redirect after showing success
             setTimeout(() => {
@@ -69,19 +71,19 @@ export const SteamCallback = () => {
             }, 2000);
           } else {
             setStatus('error');
-            setMessage('Steam authentication validation failed');
+            setMessage(t('callbacks.steam.validationFailed'));
           }
         } else if (openidParams['openid.mode'] === 'cancel') {
           setStatus('error');
-          setMessage('Steam authentication was cancelled');
+          setMessage(t('callbacks.steam.cancelled'));
         } else {
           setStatus('error');
-          setMessage('Invalid Steam authentication response');
+          setMessage(t('callbacks.steam.invalidResponse'));
         }
       } catch (error) {
         console.error('Steam callback error:', error);
         setStatus('error');
-        setMessage('An error occurred during Steam authentication');
+        setMessage(t('callbacks.steam.errorOccurred'));
       }
     };
 
@@ -127,9 +129,9 @@ export const SteamCallback = () => {
           </div>
           
           <h1 className={`text-2xl font-bold mb-4 ${getStatusColor()}`}>
-            {status === 'loading' && 'Processing Authentication'}
-            {status === 'success' && 'Authentication Successful!'}
-            {status === 'error' && 'Authentication Failed'}
+            {status === 'loading' && t('callbacks.steam.loading')}
+            {status === 'success' && t('callbacks.steam.success')}
+            {status === 'error' && t('callbacks.steam.error')}
           </h1>
           
           <p className="text-gray-300 mb-6">
@@ -138,20 +140,20 @@ export const SteamCallback = () => {
 
           {userInfo && status === 'success' && (
             <div className="bg-gray-700 rounded-lg p-4 mb-6 text-left">
-              <h3 className="font-semibold mb-2 text-green-400">Account Information</h3>
+              <h3 className="font-semibold mb-2 text-green-400">{t('callbacks.steam.accountInfo')}</h3>
               <div className="space-y-1 text-sm">
                 {userInfo.steam_name && (
-                  <div><span className="text-gray-400">Steam Name:</span> {userInfo.steam_name}</div>
+                  <div><span className="text-gray-400">{t('callbacks.steam.steamName')}</span> {userInfo.steam_name}</div>
                 )}
-                <div><span className="text-gray-400">Steam ID:</span> {userInfo.steam_id}</div>
+                <div><span className="text-gray-400">{t('callbacks.steam.steamId')}</span> {userInfo.steam_id}</div>
                 {userInfo.is_new_user && (
-                  <div className="text-blue-400 font-medium">New account created!</div>
+                  <div className="text-blue-400 font-medium">{t('callbacks.steam.newAccountCreated')}</div>
                 )}
               </div>
               {userInfo.avatar_url && (
                 <img 
                   src={userInfo.avatar_url} 
-                  alt="Steam Avatar" 
+                  alt={t('callbacks.steam.steamAvatar')} 
                   className="w-16 h-16 rounded-full mt-3"
                 />
               )}
@@ -160,7 +162,7 @@ export const SteamCallback = () => {
 
           {status === 'success' && (
             <div className="text-gray-400 text-sm">
-              Redirecting to dashboard in a moment...
+              {t('callbacks.steam.redirecting')}
             </div>
           )}
 
@@ -170,13 +172,13 @@ export const SteamCallback = () => {
                 onClick={handleRetry}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition"
               >
-                Return to Home
+                {t('callbacks.steam.returnHome')}
               </button>
               <button 
                 onClick={() => window.location.reload()}
                 className="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition"
               >
-                Try Again
+                {t('callbacks.steam.tryAgain')}
               </button>
             </div>
           )}
@@ -184,7 +186,7 @@ export const SteamCallback = () => {
 
         {status === 'loading' && (
           <div className="mt-4 text-gray-500 text-sm">
-            This may take a few seconds...
+            {t('callbacks.steam.mayTakeSeconds')}
           </div>
         )}
       </div>

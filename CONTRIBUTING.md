@@ -107,14 +107,49 @@ git push origin feature/tu-branch
 
 Luego, ve a GitHub y crea un **Pull Request** hacia la branch `main` del repositorio original.
 
-En tu PR incluye:
-- Descripción clara de los cambios
-- Screenshots si hay cambios visuales
-- Referencia a issues relacionados (si aplica)
+#### Requisitos del Pull Request
+
+En tu PR **debes incluir**:
+
+| Requisito | Descripción |
+|-----------|-------------|
+| **Descripción clara** | Explica qué cambios hiciste y por qué |
+| **Screenshots/Videos** | **Obligatorio** si hay cambios visuales (ver abajo) |
+| **Issues relacionados** | Referencia con `Closes #123` si aplica |
+
+#### 📸 Requisito de evidencia visual
+
+**Si tu PR modifica componentes visuales, UI, o estilos, DEBES incluir:**
+
+- **Screenshots** mostrando el antes y después del cambio, o
+- **Video/GIF** demostrando la funcionalidad (especialmente para animaciones o interacciones)
+
+Esto aplica a cambios en:
+- Componentes React con JSX/TSX
+- Archivos CSS o clases de Tailwind
+- Layouts o estructura de páginas
+- Animaciones o transiciones
+- Temas (colores, tipografía, espaciado)
+
+**Ejemplo de formato en el PR:**
+
+```markdown
+## Cambios visuales
+
+### Antes
+![antes](url-screenshot-antes.png)
+
+### Después
+![después](url-screenshot-despues.png)
+```
+
+> 💡 **Tip**: Puedes arrastrar imágenes directamente al campo de descripción del PR en GitHub.
 
 ### 5. Espera el review
 
 Un mantenedor revisará tu PR. Puede que te pidan cambios o mejoras. No te preocupes, es parte del proceso y estamos aquí para ayudarte.
+
+**PRs sin evidencia visual cuando corresponde serán devueltos para agregar screenshots/videos.**
 
 ---
 

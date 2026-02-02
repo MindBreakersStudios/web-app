@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { GameServers } from './components/GameServers';
@@ -7,7 +8,9 @@ import { Stats } from './components/Stats';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { DebugInfo } from './components/DebugInfo';
-import { Dashboard } from './pages/Dashboard';
+import { MindBreakerBot } from './components/MindBreakerBot';
+// TODO: Uncomment to enable dashboard development
+// import { Dashboard } from './pages/Dashboard';
 import { AuthProvider } from './lib/auth';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { Profile } from './pages/Profile';
@@ -16,16 +19,38 @@ import { Scum } from './pages/Scum';
 import { SteamCallback } from './pages/SteamCallback';
 import { SteamLinkCallback } from './pages/SteamLinkCallback';
 import { AuthCallback } from './pages/AuthCallback';
+// uncomment to see StatsDisplay working with StatsDisplay component render
+// import { StatsDisplay } from './components/StatsDisplay/StatsDisplay';
+// import { GameStats } from './fixtures/StatsDisplayFixture';
 
-const HomePage = () => (
-  <>
-    <Hero />
-    <GameServers />
-    <Features />
-    <Stats />
-    <CTA />
-  </>
-);
+const HomePage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash navigation when component mounts or hash changes
+    if (location.hash) {
+      const hash = location.hash.substring(1); // Remove the #
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location.hash]);
+
+  return (
+    <>
+      <Hero />
+      <GameServers />
+      {/* Uncomment with proper imports to see StatsDisplay working */}
+      {/* <StatsDisplay stats={GameStats} /> */}
+      <Features />
+      <Stats />
+      <CTA />
+    </>
+  );
+};
 
 export default function App() {
   return (
@@ -42,13 +67,14 @@ export default function App() {
                 <Footer />
               </>
             } />
-            <Route path="/dashboard" element={
+            {/* TODO: Uncomment to enable dashboard development */}
+            {/* <Route path="/dashboard" element={
               <>
                 <Header />
                 <Dashboard />
                 <Footer />
               </>
-            } />
+            } /> */}
             <Route path="/profile" element={
               <>
                 <Header />
@@ -62,6 +88,7 @@ export default function App() {
             <Route path="/auth/steam-callback" element={<SteamCallback />} />
             <Route path="/auth/steam-link-callback" element={<SteamLinkCallback />} />
           </Routes>
+          <MindBreakerBot />
         </div>
       </Router>
       </AuthProvider>
