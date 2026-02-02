@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { VIPPlans } from '../components/VIPPlans';
@@ -181,6 +182,24 @@ export const Scum: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      <Helmet>
+        <title>SCUM Server | MindBreakers</title>
+        <meta name="description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM. Lanzamiento Q2 2026." />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://mindbreakers.net/scum" />
+        <meta property="og:title" content="SCUM Server | MindBreakers" />
+        <meta property="og:description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM. Lanzamiento Q2 2026." />
+        <meta property="og:image" content="https://mindbreakers.net/images/scum/scum-logo.jpg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://mindbreakers.net/scum" />
+        <meta name="twitter:title" content="SCUM Server | MindBreakers" />
+        <meta name="twitter:description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM." />
+        <meta name="twitter:image" content="https://mindbreakers.net/images/scum/scum-logo.jpg" />
+      </Helmet>
       <Header />
 
       {/* Hero Section */}

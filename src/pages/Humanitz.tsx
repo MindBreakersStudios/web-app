@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { images } from '../config/images';
@@ -248,6 +249,24 @@ export const Humanitz = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      <Helmet>
+        <title>HumanitZ 1.0 - Frostbite - 06/02/2026 | MindBreakers</title>
+        <meta name="description" content="HumanitZ 1.0 - Frostbite Event. Lanzamiento del servidor con versión 1.0 el 6 de febrero de 2026. Servidor whitelist para creadores de contenido LATAM." />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://mindbreakers.net/humanitz" />
+        <meta property="og:title" content="HumanitZ 1.0 - Frostbite - 06/02/2026" />
+        <meta property="og:description" content="HumanitZ 1.0 - Frostbite Event. Lanzamiento del servidor con versión 1.0 el 6 de febrero de 2026. Servidor whitelist para creadores de contenido LATAM." />
+        <meta property="og:image" content="https://mindbreakers.net/images/humanitz/Humanitz-logo.jpg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://mindbreakers.net/humanitz" />
+        <meta name="twitter:title" content="HumanitZ 1.0 - Frostbite - 06/02/2026" />
+        <meta name="twitter:description" content="HumanitZ 1.0 - Frostbite Event. Lanzamiento del servidor con versión 1.0 el 6 de febrero de 2026." />
+        <meta name="twitter:image" content="https://mindbreakers.net/images/humanitz/Humanitz-logo.jpg" />
+      </Helmet>
       <Header />
 
       {/* Hero Section */}

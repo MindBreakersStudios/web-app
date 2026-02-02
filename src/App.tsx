@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { GameServers } from './components/GameServers';
@@ -41,6 +42,24 @@ const HomePage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>MindBreakers - Experiencia en Gaming</title>
+        <meta name="description" content="MindBreakers - Experiencia en gaming. Servidores de juegos survival con comunidad activa desde 2020. HumanitZ, SCUM y más." />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://mindbreakers.net/" />
+        <meta property="og:title" content="MindBreakers - Experiencia en Gaming" />
+        <meta property="og:description" content="MindBreakers - Experiencia en gaming. Servidores de juegos survival con comunidad activa desde 2020." />
+        <meta property="og:image" content="https://mindbreakers.net/images/logos/Logo-35.png" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://mindbreakers.net/" />
+        <meta name="twitter:title" content="MindBreakers - Experiencia en Gaming" />
+        <meta name="twitter:description" content="MindBreakers - Experiencia en gaming. Servidores de juegos survival con comunidad activa desde 2020." />
+        <meta name="twitter:image" content="https://mindbreakers.net/images/logos/Logo-35.png" />
+      </Helmet>
       <Hero />
       <GameServers />
       {/* Uncomment with proper imports to see StatsDisplay working */}
