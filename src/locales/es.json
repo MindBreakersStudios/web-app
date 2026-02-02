@@ -274,8 +274,29 @@
       }
     },
     "whitelist": {
-      "title": "Solicita Acceso a la Whitelist",
-      "description": "Completa el formulario para solicitar acceso a nuestro servidor de HumanitZ. El formulario toma solo 2 minutos."
+      "badge": "Servidor Whitelist",
+      "title": "Solicita Acceso",
+      "titleHighlight": "a la Whitelist",
+      "description1": "Nuestro servidor de HumanitZ es exclusivo y requiere acceso mediante whitelist. Esto garantiza una experiencia de juego de calidad con una comunidad comprometida y sin griefers.",
+      "description2": "Completa el formulario para solicitar acceso. El proceso toma solo 2 minutos y te notificaremos cuando tu solicitud sea aprobada.",
+      "description": "Completa el formulario para solicitar acceso a nuestro servidor de HumanitZ. El formulario toma solo 2 minutos.",
+      "features": {
+        "noGriefers": {
+          "title": "Sin Griefers",
+          "description": "Solo jugadores verificados pueden acceder, eliminando problemas de comportamiento tóxico."
+        },
+        "communityFirst": {
+          "title": "Comunidad Primero",
+          "description": "Priorizamos a jugadores que valoran el trabajo en equipo y la experiencia colaborativa."
+        },
+        "contentReady": {
+          "title": "Listo para Contenido",
+          "description": "Configuración optimizada para creadores de contenido que buscan grabar o transmitir."
+        }
+      }
+    },
+    "welcome": {
+      "dontShowAgain": "No mostrar más"
     },
     "cta": {
       "title": "¿LISTO PARA",
@@ -303,7 +324,7 @@
       "servers": {
         "humanitz": {
           "badge": "Próximamente 6 Feb, 2026",
-          "whitelistOpen": "Whitelist Abierta",
+          "whitelistOpen": "Inscripciones Abiertas",
           "title": "Servidor HumanitZ",
           "description": "Servidor zombie de supervivencia 100% GRATIS con construcción de bases, PvP y una comunidad activa. ¡Lanzamiento el 6 de febrero de 2026!",
           "requestAccess": "Solicitar Acceso",

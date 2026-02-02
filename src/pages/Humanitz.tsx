@@ -29,12 +29,21 @@ export const Humanitz = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null);
   const [showWhitelistModal, setShowWhitelistModal] = useState(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const t = useTranslation();
   const { locale } = useLanguage();
   const location = useLocation();
 
   useEffect(() => {
     setIsVisible(true);
+    // Show welcome modal on mount (every time unless user clicked "Don't show again")
+    const dontShowAgain = sessionStorage.getItem('humanitz-welcome-dont-show');
+    if (!dontShowAgain) {
+      setTimeout(() => {
+        setShowWelcomeModal(true);
+        document.body.style.overflow = 'hidden';
+      }, 500);
+    }
   }, []);
 
   const openModal = (src: string, alt: string) => {
@@ -55,6 +64,16 @@ export const Humanitz = () => {
   const closeWhitelistModal = () => {
     setShowWhitelistModal(false);
     document.body.style.overflow = 'unset'; // Restore scrolling
+  };
+
+  const closeWelcomeModal = () => {
+    setShowWelcomeModal(false);
+    document.body.style.overflow = 'unset'; // Restore scrolling
+  };
+
+  const handleDontShowAgain = () => {
+    sessionStorage.setItem('humanitz-welcome-dont-show', 'true');
+    closeWelcomeModal();
   };
 
   // Open whitelist modal if hash is present
@@ -79,11 +98,14 @@ export const Humanitz = () => {
         if (showWhitelistModal) {
           closeWhitelistModal();
         }
+        if (showWelcomeModal) {
+          closeWelcomeModal();
+        }
       }
     };
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [modalImage, showWhitelistModal]);
+  }, [modalImage, showWhitelistModal, showWelcomeModal]);
 
   const serverStats = [
     {
@@ -242,11 +264,23 @@ export const Humanitz = () => {
               transition: 'transform 1.5s ease-out',
             }}
           />
+          {/* Logo Background - Similar to SCUM */}
+          <div className="absolute inset-0 flex items-center justify-center z-[5] pointer-events-none">
+            <img
+              src="/images/humanitz/Humanitz-logo.jpg"
+              alt="Humanitz Logo"
+              className="w-full max-w-5xl h-auto opacity-[0.03]"
+              style={{
+                transform: isVisible ? 'scale(1)' : 'scale(0.95)',
+                transition: 'transform 1.5s ease-out',
+              }}
+            />
+          </div>
         </div>
 
         <div className="container mx-auto px-4 relative z-20">
           <div className="text-center max-w-4xl mx-auto">
-            <div
+            {/* <div
               className="inline-flex items-center bg-lime-400 text-black px-4 py-2 rounded-full text-xs md:text-sm font-bold mb-6"
               style={{
                 opacity: isVisible ? 1 : 0,
@@ -255,18 +289,22 @@ export const Humanitz = () => {
               }}
             >
               {t('humanitz.hero.badge')}
-            </div>
+            </div> */}
 
-            <h1
-              className="text-5xl md:text-7xl lg:text-8xl font-black mb-4"
+            <div
+              className="mb-4 flex justify-center"
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
                 transition: 'all 0.8s ease-out 0.4s',
               }}
             >
-              {t('humanitz.hero.title')}<span className="text-lime-400">{t('humanitz.hero.titleHighlight')}</span>
-            </h1>
+              <img
+                src="/images/humanitz/Frostbite.png"
+                alt="HumanitZ"
+                className="h-32 md:h-48 lg:h-64 xl:h-80 w-auto object-contain"
+              />
+            </div>
 
             {/* Enhanced Subtitle & Description */}
             <div
@@ -784,6 +822,73 @@ export const Humanitz = () => {
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on image
             />
+          </div>
+        </div>
+      )}
+
+      {/* Welcome Modal - Inscripcion Abierta Flyer */}
+      {showWelcomeModal && (
+        <div
+          className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4"
+          onClick={closeWelcomeModal}
+          style={{
+            animation: 'fadeIn 0.3s ease-out',
+          }}
+        >
+          <div
+            className="relative max-w-2xl w-full flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on image
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeWelcomeModal}
+              className="absolute bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full transition-all hover:scale-110 z-10"
+              style={{ top: '-4rem', right: '-4rem' }}
+              aria-label="Close modal"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            {/* Flyer Image with Vignette Effect */}
+            <div className="relative w-full mb-4">
+              <img
+                src="/images/humanitz/Inscripcion_abierta.png"
+                alt="Inscripciones Abiertas - HumanitZ"
+                className="w-full h-auto rounded-lg shadow-2xl"
+              />
+              {/* Vignette Overlay - Darker edges */}
+              <div 
+                className="absolute inset-0 rounded-lg pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.6) 100%)',
+                }}
+              />
+            </div>
+            
+            {/* Request Access Button */}
+            <button
+              onClick={() => {
+                closeWelcomeModal();
+                setTimeout(() => {
+                  openWhitelistModal();
+                }, 300);
+              }}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-md font-bold text-lg transition-all transform hover:scale-105 flex items-center justify-center group"
+            >
+              <img
+                src="/images/logos/Face-19.png"
+                alt="MindBreakers"
+                className="h-5 w-5 mr-2 object-contain group-hover:rotate-12 transition-transform"
+              />
+              {t('humanitz.cta.requestAccess')}
+            </button>
+            
+            {/* Don't show again button */}
+            <button
+              onClick={handleDontShowAgain}
+              className="text-gray-400 hover:text-gray-300 text-sm mt-4 underline transition-colors"
+            >
+              {t('humanitz.welcome.dontShowAgain')}
+            </button>
           </div>
         </div>
       )}
