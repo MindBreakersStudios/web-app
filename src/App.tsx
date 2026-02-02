@@ -46,12 +46,16 @@ const HomePage = () => {
         <title>MindBreakers - Experiencia en Gaming</title>
         <meta name="description" content="MindBreakers - Experiencia en gaming. Servidores de juegos survival con comunidad activa desde 2020. HumanitZ, SCUM y más." />
         
-        {/* Open Graph / Facebook */}
+        {/* Open Graph / Facebook / Discord */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://mindbreakers.net/" />
         <meta property="og:title" content="MindBreakers - Experiencia en Gaming" />
         <meta property="og:description" content="MindBreakers - Experiencia en gaming. Servidores de juegos survival con comunidad activa desde 2020." />
         <meta property="og:image" content="https://mindbreakers.net/images/logos/Logo-35.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="MindBreakers" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />

@@ -186,12 +186,16 @@ export const Scum: React.FC = () => {
         <title>SCUM Server | MindBreakers</title>
         <meta name="description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM. Lanzamiento Q2 2026." />
         
-        {/* Open Graph / Facebook */}
+        {/* Open Graph / Facebook / Discord */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://mindbreakers.net/scum" />
         <meta property="og:title" content="SCUM Server | MindBreakers" />
         <meta property="og:description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM. Lanzamiento Q2 2026." />
         <meta property="og:image" content="https://mindbreakers.net/images/scum/scum-logo.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="MindBreakers" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
