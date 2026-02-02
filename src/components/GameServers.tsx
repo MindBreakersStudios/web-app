@@ -22,7 +22,7 @@ export const GameServers = () => {
             id="humanitz"
             className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col"
           >
-            <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: 'url(/images/humanitz/title.jpg)' }}>
+            <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: 'url(/images/humanitz/Humanitz-logo.jpg)' }}>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
               <div className="absolute top-4 left-4 flex flex-col gap-2">
                 <div className="bg-lime-400 text-black px-3 py-1 rounded-md font-medium text-sm">
@@ -37,9 +37,9 @@ export const GameServers = () => {
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-bold">{t('home.gameServers.servers.humanitz.title')}</h3>
                 <img
-                  src="https://cdn.akamai.steamstatic.com/steam/apps/1711420/capsule_sm_120.jpg"
+                  src="/images/humanitz/Humanitz-icon.webp"
                   alt="HumanitZ Logo"
-                  className="h-10 w-10 rounded"
+                  className="h-10 w-10 rounded object-contain"
                 />
               </div>
               <p className="text-gray-400 mb-6">
@@ -85,7 +85,7 @@ export const GameServers = () => {
             id="scum"
             className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col"
           >
-            <div className="h-48 bg-[url('https://cdn.akamai.steamstatic.com/steam/apps/513710/header.jpg')] bg-cover bg-center relative">
+            <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: 'url(/images/scum/scum-logo.jpg)' }}>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
               <div className="absolute top-4 left-4 bg-lime-400 text-black px-3 py-1 rounded-md font-medium text-sm">
                 {t('home.gameServers.servers.scum.badge')}
@@ -95,9 +95,9 @@ export const GameServers = () => {
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-bold">{t('home.gameServers.servers.scum.title')}</h3>
                 <img
-                  src="https://cdn.akamai.steamstatic.com/steam/apps/513710/capsule_sm_120.jpg"
+                  src="/images/scum/scum-icon.webp"
                   alt="SCUM Logo"
-                  className="h-10 w-10 rounded"
+                  className="h-10 w-10 rounded object-contain"
                 />
               </div>
               <p className="text-gray-400 mb-6">
@@ -135,7 +135,7 @@ export const GameServers = () => {
             id="hytale"
             className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col"
           >
-            <div className="h-48 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative">
+            <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: 'url(/images/hytale/hytale-logo.png)' }}>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
               <div className="absolute top-4 left-4 bg-lime-400 text-black px-3 py-1 rounded-md font-medium text-sm">
                 {t('home.gameServers.servers.hytale.badge')}
@@ -144,9 +144,11 @@ export const GameServers = () => {
             <div className="p-6 flex flex-col flex-grow">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-bold">{t('home.gameServers.servers.hytale.title')}</h3>
-                <div className="h-10 w-10 rounded bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
-                  H
-                </div>
+                <img
+                  src="/images/hytale/hytale-icon.jpg"
+                  alt="Hytale Logo"
+                  className="h-10 w-10 rounded object-contain"
+                />
               </div>
               <p className="text-gray-400 mb-6">
                 {t('home.gameServers.servers.hytale.description')}
@@ -208,9 +210,9 @@ export const GameServers = () => {
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-2xl font-bold">{t('home.gameServers.servers.dayz.title')}</h3>
                   <img
-                    src="https://cdn.akamai.steamstatic.com/steam/apps/221100/capsule_sm_120.jpg"
+                    src="/images/dayz/dayz-icon.webp"
                     alt="DayZ Logo"
-                    className="h-10 w-10 rounded"
+                    className="h-10 w-10 rounded object-contain"
                   />
                 </div>
                 <p className="text-gray-400 mb-6">
@@ -261,9 +263,9 @@ export const GameServers = () => {
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-2xl font-bold">{t('home.gameServers.servers.vrising.title')}</h3>
                   <img
-                    src="https://cdn.akamai.steamstatic.com/steam/apps/1604030/capsule_sm_120.jpg"
+                    src="/images/vrising/vrising-icon.png"
                     alt="V Rising Logo"
-                    className="h-10 w-10 rounded"
+                    className="h-10 w-10 rounded object-contain"
                   />
                 </div>
                 <p className="text-gray-400 mb-6">
