@@ -19,6 +19,9 @@ import { Scum } from './pages/Scum';
 import { SteamCallback } from './pages/SteamCallback';
 import { SteamLinkCallback } from './pages/SteamLinkCallback';
 import { AuthCallback } from './pages/AuthCallback';
+// uncomment to see StatsDisplay working with StatsDisplay component render
+// import { StatsDisplay } from './components/StatsDisplay/StatsDisplay';
+// import { GameStats } from './fixtures/StatsDisplayFixture';
 
 const HomePage = () => {
   const location = useLocation();
@@ -40,6 +43,8 @@ const HomePage = () => {
     <>
       <Hero />
       <GameServers />
+      {/* Uncomment with proper imports to see StatsDisplay working */}
+      {/* <StatsDisplay stats={GameStats} /> */}
       <Features />
       <Stats />
       <CTA />
