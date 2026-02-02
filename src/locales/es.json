@@ -62,11 +62,12 @@
       "requestAccess": "SOLICITAR ACCESO"
     },
     "whitelist": {
-      "badge": "SOLO WHITELIST",
-      "title": "¿POR QUÉ",
-      "titleHighlight": "WHITELIST?",
-      "description1": "No intentamos llenar slots—estamos construyendo una comunidad. Nuestro proceso de whitelist asegura que cada jugador en el servidor esté aquí por las razones correctas: gran contenido, momentos épicos y gameplay de supervivencia genuino.",
-      "description2": "Se da prioridad a creadores de contenido, comunidades establecidas y jugadores recomendados por miembros existentes. Nos tomamos en serio asegurar una experiencia de calidad.",
+      "badge": "Servidor Whitelist",
+      "title": "Solicita Acceso",
+      "titleHighlight": "a la Whitelist",
+      "description1": "Nuestro servidor de HumanitZ es exclusivo y requiere acceso mediante whitelist. Esto garantiza una experiencia de juego de calidad con una comunidad comprometida y sin griefers.",
+      "description2": "Completa el formulario para solicitar acceso. El proceso toma solo 2 minutos y te notificaremos cuando tu solicitud sea aprobada.",
+      "description": "Completa el formulario para solicitar acceso a nuestro servidor de HumanitZ. El formulario toma solo 2 minutos.",
       "features": {
         "noGriefers": {
           "title": "Sin Griefers Aleatorios",
@@ -272,31 +273,6 @@
         "serverLocation": "Ubicación del Servidor",
         "averagePing": "Ping Promedio"
       }
-    },
-    "whitelist": {
-      "badge": "Servidor Whitelist",
-      "title": "Solicita Acceso",
-      "titleHighlight": "a la Whitelist",
-      "description1": "Nuestro servidor de HumanitZ es exclusivo y requiere acceso mediante whitelist. Esto garantiza una experiencia de juego de calidad con una comunidad comprometida y sin griefers.",
-      "description2": "Completa el formulario para solicitar acceso. El proceso toma solo 2 minutos y te notificaremos cuando tu solicitud sea aprobada.",
-      "description": "Completa el formulario para solicitar acceso a nuestro servidor de HumanitZ. El formulario toma solo 2 minutos.",
-      "features": {
-        "noGriefers": {
-          "title": "Sin Griefers",
-          "description": "Solo jugadores verificados pueden acceder, eliminando problemas de comportamiento tóxico."
-        },
-        "communityFirst": {
-          "title": "Comunidad Primero",
-          "description": "Priorizamos a jugadores que valoran el trabajo en equipo y la experiencia colaborativa."
-        },
-        "contentReady": {
-          "title": "Listo para Contenido",
-          "description": "Configuración optimizada para creadores de contenido que buscan grabar o transmitir."
-        }
-      }
-    },
-    "welcome": {
-      "dontShowAgain": "No mostrar más"
     },
     "cta": {
       "title": "¿LISTO PARA",
@@ -723,6 +699,40 @@
       "totalKills": "Total de Eliminaciones",
       "playtime": "Tiempo de Juego",
       "backToHome": "Volver al Inicio"
+    }
+  },
+  "chatbot": {
+    "status": "En línea",
+    "placeholder": "Escribe algo...",
+    "greeting": "¡Hola! Soy MindBot 🤖 ¿En qué puedo ayudarte?",
+    "greetings": [
+      "¡Hola! Soy MindBot 🤖 ¿En qué puedo ayudarte?",
+      "¡Ey! ¿Listo para arrasar en los servidores?",
+      "Bienvenido a MindBreakers, superviviente 💀"
+    ],
+    "random": [
+      "Pro tip: Si escuchas pasos... ya es demasiado tarde 💀",
+      "Error 404: Habilidades no encontradas. Sigue practicando 😎",
+      "El lag no es excusa. Bueno, a veces sí lo es.",
+      "GG EZ... dijo nadie después de un raid de 3 horas",
+      "Si moriste, es porque no tenías suficiente RGB",
+      "El verdadero botín fueron los amigos que hicimos en el camino",
+      "¿Camper? No, estratega posicional 📍"
+    ],
+    "discord": "¡Únete a nuestro Discord! Coordinamos raids, compartimos memes y organizamos eventos. Te estamos esperando 🎮",
+    "servers": "Tenemos servidores de HumanitZ (lanzamiento 6 feb 2026) y SCUM (Q2 2026). Ambos optimizados para LATAM con bajo ping 🌎",
+    "team": "¿Quieres ser parte del equipo MindBreakers? Únete a Discord y contacta a los administradores. Siempre estamos buscando gente genial 💪",
+    "default": [
+      "Hmm no entendí eso, pero sigues siendo una leyenda 💪",
+      "No estoy seguro de qué quieres decir, pero estoy aquí para ayudarte 🤖",
+      "Puedo ayudarte con información sobre servidores, Discord o el equipo. ¿Qué te interesa?",
+      "Intenta preguntarme sobre servidores, Discord o cómo unirte al equipo 💡"
+    ],
+    "buttons": {
+      "discord": "Discord",
+      "servers": "Servidores",
+      "team": "Equipo",
+      "random": "Random"
     }
   }
 }
