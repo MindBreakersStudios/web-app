@@ -146,8 +146,6 @@ export const Humanitz = () => {
               transition: 'transform 1.5s ease-out',
             }}
           />
-<<<<<<< Updated upstream
-=======
           {/* Logo Background - Similar to SCUM */}
           <div className="absolute inset-0 flex items-center justify-center z-[5] pointer-events-none">
             <div className="relative w-full h-full">
@@ -169,7 +167,6 @@ export const Humanitz = () => {
               />
             </div>
           </div>
->>>>>>> Stashed changes
         </div>
 
         <div className="container mx-auto px-4 relative z-20">
