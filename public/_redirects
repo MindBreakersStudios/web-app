@@ -1,0 +1,9 @@
+# AWS Amplify Redirects and Rewrites
+# This file should be in the public/ directory
+
+# SPA fallback - serve index.html for all routes (except static files)
+/*    /index.html   200
+
+# Serve static HTML files for bots (these have proper meta tags)
+# Note: AWS Amplify will serve these files directly when requested
+# Bots will see the meta tags, regular users will be redirected to SPA

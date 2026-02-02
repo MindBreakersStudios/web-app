@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/images/logos/Face-18.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Meta Tags for SCUM -->
+    <title>SCUM Server | MindBreakers</title>
+    <meta name="description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM. Lanzamiento Q2 2026." />
+    
+    <!-- Open Graph / Facebook / Discord / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mindbreakers.net/scum" />
+    <meta property="og:title" content="SCUM Server | MindBreakers" />
+    <meta property="og:description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM. Lanzamiento Q2 2026." />
+    <meta property="og:image" content="https://mindbreakers.net/images/scum/scum-logo.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="MindBreakers" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://mindbreakers.net/scum" />
+    <meta name="twitter:title" content="SCUM Server | MindBreakers" />
+    <meta name="twitter:description" content="SCUM Server by MindBreakers. Servidor de supervivencia hardcore optimizado para LATAM." />
+    <meta name="twitter:image" content="https://mindbreakers.net/images/scum/scum-logo.jpg" />
+    
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Load React App - Only for non-bot users -->
+    <script>
+      // Check if this is a bot/crawler
+      const isBot = /bot|crawler|spider|crawling|WhatsApp|Discordbot|facebookexternalhit|Twitterbot|LinkedInBot|Slackbot/i.test(navigator.userAgent);
+      
+      if (!isBot) {
+        // Redirect to SPA route for regular users
+        window.location.replace('/scum');
+      } else {
+        // For bots, show a simple page with the meta tags already in head
+        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#111827;color:white;font-family:sans-serif;"><div style="text-align:center;"><h1 style="font-size:3rem;margin-bottom:1rem;">SCUM Server</h1><p style="font-size:1.5rem;color:#84cc16;">MindBreakers</p><p style="margin-top:2rem;color:#9ca3af;">Servidor de supervivencia hardcore optimizado para LATAM</p></div></div>';
+      }
+    </script>
+  </body>
+</html>

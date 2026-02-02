@@ -253,12 +253,16 @@ export const Humanitz = () => {
         <title>HumanitZ 1.0 - Frostbite - 06/02/2026 | MindBreakers</title>
         <meta name="description" content="HumanitZ 1.0 - Frostbite Event. Lanzamiento del servidor con versión 1.0 el 6 de febrero de 2026. Servidor whitelist para creadores de contenido LATAM." />
         
-        {/* Open Graph / Facebook */}
+        {/* Open Graph / Facebook / Discord */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://mindbreakers.net/humanitz" />
         <meta property="og:title" content="HumanitZ 1.0 - Frostbite - 06/02/2026" />
         <meta property="og:description" content="HumanitZ 1.0 - Frostbite Event. Lanzamiento del servidor con versión 1.0 el 6 de febrero de 2026. Servidor whitelist para creadores de contenido LATAM." />
         <meta property="og:image" content="https://mindbreakers.net/images/humanitz/Humanitz-logo.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="MindBreakers" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
