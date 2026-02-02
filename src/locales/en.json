@@ -274,8 +274,29 @@
       }
     },
     "whitelist": {
-      "title": "Request Whitelist Access",
-      "description": "Complete the form to request access to our HumanitZ server. The form takes only 2 minutes."
+      "badge": "Whitelist Server",
+      "title": "Request Access",
+      "titleHighlight": "to the Whitelist",
+      "description1": "Our HumanitZ server is exclusive and requires whitelist access. This ensures a quality gaming experience with a committed community and no griefers.",
+      "description2": "Complete the form to request access. The process takes only 2 minutes and we'll notify you when your request is approved.",
+      "description": "Complete the form to request access to our HumanitZ server. The form takes only 2 minutes.",
+      "features": {
+        "noGriefers": {
+          "title": "No Griefers",
+          "description": "Only verified players can access, eliminating toxic behavior issues."
+        },
+        "communityFirst": {
+          "title": "Community First",
+          "description": "We prioritize players who value teamwork and collaborative experience."
+        },
+        "contentReady": {
+          "title": "Content Ready",
+          "description": "Optimized configuration for content creators looking to record or stream."
+        }
+      }
+    },
+    "welcome": {
+      "dontShowAgain": "Don't show again"
     },
     "cta": {
       "title": "READY TO",
@@ -303,7 +324,7 @@
       "servers": {
         "humanitz": {
           "badge": "Coming Feb 6, 2026",
-          "whitelistOpen": "Whitelist Open",
+          "whitelistOpen": "Registrations Open",
           "title": "HumanitZ Server",
           "description": "100% FREE survival zombie server with base building, PvP, and an active community. Launching February 6, 2026!",
           "features": {
