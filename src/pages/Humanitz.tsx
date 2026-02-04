@@ -334,7 +334,7 @@ export const Humanitz = () => {
               <img
                 src="/images/humanitz/Frostbite.png"
                 alt="HumanitZ"
-                className="h-32 md:h-48 lg:h-64 xl:h-80 w-auto object-contain"
+                className="h-48 md:h-64 lg:h-80 xl:h-96 w-auto object-contain"
               />
             </div>
 
