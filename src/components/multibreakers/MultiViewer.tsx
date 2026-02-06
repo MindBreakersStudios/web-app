@@ -88,11 +88,14 @@ export function WatchParty({
           </div>
           <div className="flex flex-wrap gap-2">
             {availableStreamers.map((streamer) => {
-              const isAdded = allStreamers.some(s => s.username === streamer.username);
+              const isAdded = allStreamers.some(
+                s => s.username.toLowerCase() === streamer.username.toLowerCase()
+              );
               const isLive = streamer.isLive ?? false;
               const isOnline = streamer.isOnlineInGame;
               const isOffline = !isOnline;
-              const isChatActive = state.activeChatStreamer === streamer.username;
+              const isChatActive =
+                state.activeChatStreamer?.toLowerCase() === streamer.username.toLowerCase();
               
               const handleClick = () => {
                 if (isAdded) {
@@ -304,7 +307,9 @@ export function WatchParty({
                         showCloseButton={true}
                         onClose={() => removeStreamer(streamer.username)}
                         onActivateChat={() => setActiveChatStreamer(streamer.username)}
-                        isChatActive={state.activeChatStreamer === streamer.username}
+                        isChatActive={
+                          state.activeChatStreamer?.toLowerCase() === streamer.username.toLowerCase()
+                        }
                         isLive={isLive}
                         onToggleMute={() => toggleMuteForStreamer(streamer.username)}
                       />
