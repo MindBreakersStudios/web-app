@@ -175,17 +175,19 @@ export function MultiViewer({
             </div>
           ) : (
             /* Streams grid */
-            <div className={`grid ${gridClasses[state.currentLayout.columns]} gap-4 auto-rows-fr`}>
+            <div className={`grid ${gridClasses[state.currentLayout.columns]} gap-4`}>
               {allStreamers.map((streamer) => (
-                <div key={streamer.username} className="aspect-video">
-                  <KickPlayer
-                    username={streamer.username}
-                    muted={state.isMuted}
-                    showCloseButton={true}
-                    onClose={() => removeStreamer(streamer.username)}
-                    onActivateChat={() => setActiveChatStreamer(streamer.username)}
-                    isChatActive={state.activeChatStreamer === streamer.username}
-                  />
+                <div key={streamer.username} className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                  <div className="absolute inset-0">
+                    <KickPlayer
+                      username={streamer.username}
+                      muted={state.isMuted}
+                      showCloseButton={true}
+                      onClose={() => removeStreamer(streamer.username)}
+                      onActivateChat={() => setActiveChatStreamer(streamer.username)}
+                      isChatActive={state.activeChatStreamer === streamer.username}
+                    />
+                  </div>
                 </div>
               ))}
             </div>

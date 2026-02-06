@@ -23,7 +23,7 @@ export const KickPlayer = memo(function KickPlayer({
   return (
     <div 
       className={`
-        relative group bg-black rounded-lg overflow-hidden
+        relative w-full h-full group bg-black rounded-lg overflow-hidden
         border-2 transition-all duration-200
         ${isChatActive 
           ? 'border-lime-400 shadow-lg shadow-lime-400/20' 
