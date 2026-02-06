@@ -75,6 +75,8 @@ export interface MultiViewerState {
   globalVolume: number;
   /** Si todos los streams están muteados */
   isMuted: boolean;
+  /** Map de streamers con mute individual */
+  mutedStreamers: Set<string>;
 }
 
 /** Props del componente KickPlayer */
@@ -93,6 +95,10 @@ export interface KickPlayerProps {
   onActivateChat?: () => void;
   /** Si el chat está activo para este stream */
   isChatActive?: boolean;
+  /** Si el streamer está en vivo (default: true) */
+  isLive?: boolean;
+  /** Callback para toggle mute individual */
+  onToggleMute?: () => void;
 }
 
 /** Props del componente KickChat */

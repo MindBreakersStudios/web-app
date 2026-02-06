@@ -5,6 +5,7 @@
 export { MultiViewer, default } from './MultiViewer.tsx';
 export { KickPlayer, KickPlayerSkeleton } from './KickPlayer.tsx';
 export { KickChat, KickChatPlaceholder } from './KickChat.tsx';
+export { OfflineStreamerCard } from './OfflineStreamerCard.tsx';
 
 // Hook
 export { useMultiViewer } from './useMultiViewer.ts';

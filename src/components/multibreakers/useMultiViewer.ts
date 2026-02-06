@@ -18,6 +18,7 @@ interface UseMultiViewerReturn {
   // State
   state: MultiViewerState;
   allStreamers: KickStreamer[];
+  availableStreamers: ActiveGameStreamer[];
   
   // Actions
   addStreamer: (username: string) => void;
@@ -27,10 +28,12 @@ interface UseMultiViewerReturn {
   toggleChat: () => void;
   setActiveChatStreamer: (username: string | null) => void;
   toggleMute: () => void;
+  toggleMuteForStreamer: (username: string) => void;
   
   // Utilities
   canAddMore: boolean;
   streamerCount: number;
+  isStreamerMuted: (username: string) => boolean;
 }
 
 export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiViewerReturn {
@@ -43,27 +46,49 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
   const [state, setState] = useState<MultiViewerState>({
     manualStreamers: [],
     activeGameStreamers: activeServerStreamers,
-    currentLayout: GRID_LAYOUTS[1], // 2x2 default
+    currentLayout: GRID_LAYOUTS[0], // Will be auto-calculated
     activeChatStreamer: null,
     showChat: true,
     showOnlyLive: false,
     globalVolume: 50,
     isMuted: true,
+    mutedStreamers: new Set<string>(),
   });
 
-  // Filter server streamers by game
-  const filteredServerStreamers = useMemo(() => {
+  // Auto-calculate layout based on number of streams
+  const autoLayout = useMemo(() => {
+    const count = state.manualStreamers.length;
+    if (count === 0) return GRID_LAYOUTS[0]; // 1x1
+    if (count === 1) return GRID_LAYOUTS[0]; // 1x1 - full screen
+    if (count === 2) return GRID_LAYOUTS[0]; // 1x1 - vertical split (uno arriba, otro abajo)
+    if (count <= 4) return GRID_LAYOUTS[1]; // 2x2
+    if (count <= 9) return GRID_LAYOUTS[2]; // 3x3
+    return GRID_LAYOUTS[3]; // 4x4
+  }, [state.manualStreamers.length]);
+
+  // Filter server streamers by game (for display in the list, not auto-added to grid)
+  const availableStreamers = useMemo(() => {
     return game
-      ? activeServerStreamers.filter(s => s.game === game && s.isOnlineInGame)
-      : activeServerStreamers.filter(s => s.isOnlineInGame);
+      ? activeServerStreamers.filter(s => s.game === game)
+      : activeServerStreamers;
   }, [activeServerStreamers, game]);
 
-  // Combine manual and server streamers
+  // Only show manually selected streamers in the grid
+  // Enrich with data from availableStreamers (isOnlineInGame, viewerCount, etc.)
   const allStreamers = useMemo(() => {
-    const manualUsernames = new Set(state.manualStreamers.map(s => s.username));
-    const filteredServer = filteredServerStreamers.filter(s => !manualUsernames.has(s.username));
-    return [...state.manualStreamers, ...filteredServer];
-  }, [state.manualStreamers, filteredServerStreamers]);
+    return state.manualStreamers.map(manual => {
+      const serverData = availableStreamers.find(s => s.username === manual.username);
+      return {
+        ...manual,
+        isLive: serverData?.isLive ?? false,
+        isOnlineInGame: serverData?.isOnlineInGame ?? false,
+        viewerCount: serverData?.viewerCount,
+        displayName: serverData?.displayName,
+        avatarUrl: serverData?.avatarUrl,
+        inGameName: serverData?.inGameName,
+      };
+    });
+  }, [state.manualStreamers, availableStreamers]);
 
   // Add streamer from server list
   const addStreamer = useCallback((username: string) => {
@@ -76,10 +101,14 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
         addedAt: Date.now(),
       };
 
+      const isFirstStreamer = prev.manualStreamers.length === 0;
+
       return {
         ...prev,
         manualStreamers: [...prev.manualStreamers, newStreamer],
         activeChatStreamer: prev.activeChatStreamer || username,
+        // Desmutear el primer stream automáticamente
+        isMuted: isFirstStreamer ? false : prev.isMuted,
       };
     });
   }, []);
@@ -134,7 +163,7 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
     }));
   }, []);
 
-  // Toggle mute
+  // Toggle mute global
   const toggleMute = useCallback(() => {
     setState(prev => ({
       ...prev,
@@ -142,9 +171,34 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
     }));
   }, []);
 
+  // Toggle mute para un streamer específico
+  const toggleMuteForStreamer = useCallback((username: string) => {
+    setState(prev => {
+      const newMutedStreamers = new Set(prev.mutedStreamers);
+      if (newMutedStreamers.has(username)) {
+        newMutedStreamers.delete(username);
+      } else {
+        newMutedStreamers.add(username);
+      }
+      return {
+        ...prev,
+        mutedStreamers: newMutedStreamers,
+      };
+    });
+  }, []);
+
+  // Check si un streamer está muteado
+  const isStreamerMuted = useCallback((username: string) => {
+    return state.isMuted || state.mutedStreamers.has(username);
+  }, [state.isMuted, state.mutedStreamers]);
+
   return {
-    state,
+    state: {
+      ...state,
+      currentLayout: autoLayout, // Use auto-calculated layout
+    },
     allStreamers,
+    availableStreamers,
     addStreamer,
     removeStreamer,
     clearAllStreamers,
@@ -152,6 +206,8 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
     toggleChat,
     setActiveChatStreamer,
     toggleMute,
+    toggleMuteForStreamer,
+    isStreamerMuted,
     canAddMore: allStreamers.length < MAX_STREAMERS,
     streamerCount: allStreamers.length,
   };

@@ -1,5 +1,5 @@
-import { memo } from 'react';
-import { X, MessageCircle } from 'lucide-react';
+import { memo, useState } from 'react';
+import { X, MessageCircle, Volume2, VolumeX, Maximize2, ExternalLink } from 'lucide-react';
 import { KickPlayerProps } from './multiviewer';
 
 /**
@@ -14,11 +14,34 @@ export const KickPlayer = memo(function KickPlayer({
   isPrimary = false,
   onActivateChat,
   isChatActive = false,
+  isLive = true,
+  onToggleMute,
 }: KickPlayerProps) {
+  // Estado local para mute individual (si no hay callback global)
+  const [isLocalMuted, setIsLocalMuted] = useState(muted);
+  const isMuted = onToggleMute ? muted : isLocalMuted;
+
   // Construir URL del player con parámetros
   const playerUrl = new URL(`https://player.kick.com/${username}`);
-  playerUrl.searchParams.set('muted', muted ? 'true' : 'false');
+  playerUrl.searchParams.set('muted', isMuted ? 'true' : 'false');
   playerUrl.searchParams.set('autoplay', 'true');
+
+  const handleToggleMute = () => {
+    if (onToggleMute) {
+      onToggleMute();
+    } else {
+      setIsLocalMuted(prev => !prev);
+    }
+  };
+
+  const handleFullscreen = () => {
+    const iframe = document.querySelector(`iframe[title="Kick stream: ${username}"]`) as HTMLIFrameElement;
+    if (iframe?.requestFullscreen) {
+      iframe.requestFullscreen();
+    }
+  };
+
+  const kickChannelUrl = `https://kick.com/${username}`;
 
   return (
     <div 
@@ -30,6 +53,7 @@ export const KickPlayer = memo(function KickPlayer({
           : 'border-gray-700 hover:border-gray-600'
         }
         ${isPrimary ? 'col-span-2 row-span-2' : ''}
+        ${!isLive ? 'opacity-60' : ''}
       `}
     >
       {/* Player iframe */}
@@ -46,23 +70,64 @@ export const KickPlayer = memo(function KickPlayer({
       {/* Overlay con controles - visible en hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
       
+      {/* OFFLINE overlay - siempre visible si no está en vivo */}
+      {!isLive && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/70 pointer-events-none">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800/90 border border-gray-700">
+              <div className="w-2 h-2 rounded-full bg-gray-500" />
+              <span className="text-gray-300 font-semibold uppercase text-sm">Offline</span>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Header con nombre y controles */}
-      <div className="absolute top-0 left-0 right-0 p-3 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10 pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 p-2 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10 pointer-events-none">
         {/* Username badge */}
         <a
-          href={`https://kick.com/${username}`}
+          href={kickChannelUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-md hover:bg-black/90 transition-colors pointer-events-auto"
         >
-          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          {isLive && <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />}
           <span className="text-white font-medium text-sm">{username}</span>
         </a>
 
         {/* Control buttons */}
-        <div className="flex items-center gap-2 pointer-events-auto">
+        <div className="flex items-center gap-1.5 pointer-events-auto">
+          {/* Mute/Unmute button */}
+          <button
+            onClick={handleToggleMute}
+            className="p-2 bg-black/80 backdrop-blur-sm rounded-md text-white hover:bg-black/90 transition-colors"
+            title={isMuted ? 'Activar audio' : 'Silenciar'}
+          >
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+          </button>
+
+          {/* Fullscreen button */}
+          <button
+            onClick={handleFullscreen}
+            className="p-2 bg-black/80 backdrop-blur-sm rounded-md text-white hover:bg-black/90 transition-colors"
+            title="Pantalla completa"
+          >
+            <Maximize2 className="w-4 h-4" />
+          </button>
+
+          {/* Open in Kick button */}
+          <a
+            href={kickChannelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 bg-black/80 backdrop-blur-sm rounded-md text-white hover:bg-black/90 transition-colors"
+            title="Abrir en Kick.com"
+          >
+            <ExternalLink className="w-4 h-4" />
+          </a>
+
           {/* Chat toggle button */}
-          {onActivateChat && (
+          {onActivateChat && isLive && (
             <button
               onClick={onActivateChat}
               className={`

@@ -1,8 +1,10 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, Radio, Tv, Users } from 'lucide-react';
+import { ArrowLeft, Radio, Loader2, AlertCircle } from 'lucide-react';
 import { MultiViewer } from './index';
 import { useTranslation } from '../../hooks/useTranslation';
+import { useActiveStreamers } from '../../hooks/useActiveStreamers';
+import type { ActiveGameStreamer } from './multiviewer';
 
 /**
  * WatchPage - Página dedicada para el MultiViewer de Kick
@@ -10,14 +12,33 @@ import { useTranslation } from '../../hooks/useTranslation';
  */
 export function WatchPage() {
   const t = useTranslation();
+  const [searchParams] = useSearchParams();
+  
+  // Get game filter from URL (optional)
+  const gameFilter = searchParams.get('game') || 'all';
 
-  // Hardcoded streamers list (temporal hasta que tengas Supabase)
-  // Puedes cambiar estos usernames por los que quieras mostrar
-  const hardcodedStreamers = [
-    { username: 'monoz_aoe', displayName: 'Monoz', game: 'humanitz' as const, isOnlineInGame: true, steamId: '123', lastSeenInGame: Date.now() },
-    { username: 'xqc', displayName: 'xQc', game: 'humanitz' as const, isOnlineInGame: true, steamId: '124', lastSeenInGame: Date.now() },
-    { username: 'trainwreckstv', displayName: 'Trainwreckstv', game: 'scum' as const, isOnlineInGame: true, steamId: '125', lastSeenInGame: Date.now() },
-  ];
+  // Fetch ALL streamers from Supabase with realtime updates
+  const { streamers, isLoading, error, realtimeStatus } = useActiveStreamers({
+    gameSlug: gameFilter,
+    filter: 'all', // Siempre mostrar todos
+    realtime: true,
+  });
+
+  // Transform Supabase data to MultiViewer format
+  const activeStreamers: ActiveGameStreamer[] = streamers.map((s) => ({
+    username: s.kick_username,
+    displayName: s.display_name || s.kick_username,
+    avatarUrl: s.avatar_url,
+    isLive: s.is_live, // True si está transmitiendo en Kick
+    viewerCount: s.kick_viewer_count,
+    streamTitle: s.kick_stream_title,
+    addedAt: new Date(s.connected_at || Date.now()).getTime(),
+    steamId: s.id, // Using id as steamId for now
+    inGameName: s.in_game_name || undefined,
+    game: s.game_slug as 'humanitz' | 'scum',
+    lastSeenInGame: s.last_seen_at ? new Date(s.last_seen_at).getTime() : Date.now(),
+    isOnlineInGame: s.is_connected, // True si está conectado al servidor
+  }));
 
   return (
     <>
@@ -66,64 +87,46 @@ export function WatchPage() {
           </div>
         </header>
 
-        {/* Main content */}
-        <main className="container mx-auto px-4 py-6">
-          {/* Info banner */}
-          <div className="bg-gradient-to-r from-lime-400/10 to-blue-500/10 border border-lime-400/20 rounded-xl p-4 mb-6">
-            <div className="flex flex-col md:flex-row md:items-center gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-lime-400/20 flex items-center justify-center">
-                  <Tv className="w-6 h-6 text-lime-400" />
-                </div>
-                <div>
-                  <h2 className="font-bold text-white">
-                    {t('multiviewer.title') || 'MultiViewer de Kick'}
-                  </h2>
-                  <p className="text-sm text-gray-400">
-                    {t('multiviewer.description') || 'Mira hasta 12 streams simultáneamente'}
-                  </p>
-                </div>
-              </div>
-              <div className="flex-1" />
-              <div className="flex items-center gap-4 text-sm">
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Users className="w-4 h-4" />
-                  <span>Máximo 12 streams</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Radio className="w-4 h-4" />
-                  <span>Streams de Kick.com</span>
-                </div>
-              </div>
+        {/* Main content - Full width */}
+        <main className="h-[calc(100vh-73px)]">
+          {/* Loading state */}
+          {isLoading && (
+            <div className="flex flex-col items-center justify-center h-full">
+              <Loader2 className="w-12 h-12 text-lime-400 animate-spin mb-4" />
+              <p className="text-gray-400">Cargando streamers activos...</p>
+              {realtimeStatus === 'connecting' && (
+                <p className="text-xs text-gray-500 mt-2">Conectando a actualizaciones en tiempo real...</p>
+              )}
             </div>
-          </div>
+          )}
+
+          {/* Error state */}
+          {error && !isLoading && (
+            <div className="flex flex-col items-center justify-center h-full">
+              <AlertCircle className="w-12 h-12 text-red-400 mb-4" />
+              <p className="text-white font-semibold mb-2">Error al cargar streamers</p>
+              <p className="text-gray-400 text-sm">{error.message}</p>
+            </div>
+          )}
 
           {/* MultiViewer component */}
-          <MultiViewer
-            activeServerStreamers={hardcodedStreamers}
-            showServerStreamers={true}
-            maxHeight="calc(100vh - 300px)"
-            className="shadow-2xl"
-          />
+          {!isLoading && !error && (
+            <MultiViewer
+              activeServerStreamers={activeStreamers}
+              showServerStreamers={true}
+              maxHeight="100%"
+              className=""
+            />
+          )}
 
+          {/* Realtime status indicator (optional, for debugging) */}
+          {realtimeStatus === 'connected' && (
+            <div className="fixed bottom-4 right-4 flex items-center gap-2 bg-gray-800/90 backdrop-blur-sm px-3 py-2 rounded-lg border border-gray-700">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-xs text-gray-300">Live updates activos</span>
+            </div>
+          )}
         </main>
-
-        {/* Footer */}
-        <footer className="border-t border-gray-700 mt-8 py-4">
-          <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-            <p>
-              MindBreakers MultiViewer • Powered by{' '}
-              <a 
-                href="https://kick.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-lime-400 hover:underline"
-              >
-                Kick.com
-              </a>
-            </p>
-          </div>
-        </footer>
       </div>
     </>
   );
