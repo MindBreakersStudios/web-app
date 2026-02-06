@@ -77,7 +77,9 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
   // Enrich with data from availableStreamers (isOnlineInGame, viewerCount, etc.)
   const allStreamers = useMemo(() => {
     return state.manualStreamers.map(manual => {
-      const serverData = availableStreamers.find(s => s.username === manual.username);
+      const serverData = availableStreamers.find(
+        s => s.username.toLowerCase() === manual.username.toLowerCase()
+      );
       return {
         ...manual,
         isLive: serverData?.isLive ?? false,
@@ -94,10 +96,11 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
   const addStreamer = useCallback((username: string) => {
     setState(prev => {
       if (prev.manualStreamers.length >= MAX_STREAMERS) return prev;
-      if (prev.manualStreamers.some(s => s.username === username)) return prev;
+      const usernameNorm = username.toLowerCase().trim();
+      if (prev.manualStreamers.some(s => s.username.toLowerCase() === usernameNorm)) return prev;
 
       const newStreamer: KickStreamer = {
-        username: username.toLowerCase().trim(),
+        username: usernameNorm,
         addedAt: Date.now(),
       };
 
