@@ -2,21 +2,23 @@
  * Internationalization (i18n) Configuration
  * 
  * This module provides translation functionality for the MindBreakers website.
- * Supports English (en) and Spanish (es) languages.
+ * Supports English (en), Spanish (es), and Brazilian Portuguese (pt-br) languages.
  */
 
 import enTranslations from '../locales/en.json';
 import esTranslations from '../locales/es.json';
+import ptBrTranslations from '../locales/pt-br.json';
 
-export type SupportedLocale = 'en' | 'es';
+export type SupportedLocale = 'en' | 'es' | 'pt-br';
 
-export const supportedLocales: SupportedLocale[] = ['en', 'es'];
+export const supportedLocales: SupportedLocale[] = ['en', 'es', 'pt-br'];
 
 export const defaultLocale: SupportedLocale = 'es';
 
 export const translations = {
   en: enTranslations,
   es: esTranslations,
+  'pt-br': ptBrTranslations,
 } as const;
 
 /**

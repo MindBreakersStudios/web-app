@@ -1,0 +1,762 @@
+{
+  "about": {
+    "headline": "Experiências Hardcore para LATAM",
+    "body": "Desde 2020, a MindBreakers construiu uma das comunidades de jogos mais fortes da América Latina. Começamos com DayZ, evoluímos com V Rising e continuamos expandindo nosso universo.\n\nNão somos apenas servidores—somos experiências projetadas para jogadores que buscam desafios reais, comunidades ativas e desempenho sem desculpas. Ping otimizado para LATAM e uma equipe que entende o que os verdadeiros gamers precisam.\n\n2026 marca nossa maior expansão: HumanitZ em fevereiro e SCUM em maio. Somos gamers cansados que os melhores servidores sempre sejam na NA, tendo que jogar com ping para ter uma experiência de qualidade.",
+    "statsLine": "5+ anos de operação · Múltiplos títulos · Milhares de jogadores ativos",
+    "cta": {
+      "question": "Você é criador de conteúdo ou quer colaborar?",
+      "discord": "Entrar no Discord",
+      "email": "business@mindbreakers.net"
+    }
+  },
+  "common": {
+    "home": "Início",
+    "servers": "Servidores",
+    "features": "Recursos",
+    "about": "Sobre",
+    "dashboard": "Painel",
+    "profile": "Perfil",
+    "login": "Entrar",
+    "logout": "Sair",
+    "joinCommunity": "Entrar na Comunidade"
+  },
+  "header": {
+    "home": "Início",
+    "servers": "Servidores",
+    "humanitz": "Humanitz",
+    "scum": "SCUM",
+    "features": "Recursos",
+    "about": "Sobre",
+    "loading": "Carregando...",
+    "loadingAuth": "Carregando autenticação...",
+    "signedInAs": "Conectado como:",
+    "admin": "ADMIN",
+    "profileSettings": "Perfil e Configurações",
+    "knowledgeBase": "Base de Conhecimento",
+    "signOut": "Sair",
+    "login": "Entrar",
+    "humanitzServer": "Servidor Humanitz",
+    "scumServer": "Servidor SCUM"
+  },
+  "humanitz": {
+    "hero": {
+      "badge": "◄ 100% GRÁTIS — SEM MONETIZAÇÃO ►",
+      "title": "HUMANIT",
+      "titleHighlight": "Z",
+      "subtitle": "SOBREVIVÊNCIA HARDCORE PARA CRIADORES DE CONTEÚDO",
+      "description": {
+        "part1": "é um jogo de sobrevivência zumbi de mundo aberto onde você coleta recursos, constrói e luta para sobreviver. Nosso",
+        "whitelistedServer": "servidor com whitelist",
+        "part2": "foi projetado exclusivamente para criadores de conteúdo latino-americanos e suas comunidades—sem pay-to-win, sem griefers aleatórios, apenas sobrevivência pura com pessoas que levam a sério."
+      },
+      "keyPoints": {
+        "whitelistOnly": "Apenas Whitelist",
+        "latamServers": "Servidores LATAM",
+        "creatorFocused": "Focado em Criadores"
+      },
+      "launchDate": {
+        "label": "LANÇAMENTO DO SERVIDOR COM VERSÃO 1.0",
+        "date": "6 DE FEVEREIRO, 2026"
+      },
+      "exploreButton": "EXPLORAR RECURSOS",
+      "requestAccess": "SOLICITAR ACESSO"
+    },
+    "whitelist": {
+      "badge": "APENAS WHITELIST",
+      "title": "POR QUE",
+      "titleHighlight": "WHITELIST?",
+      "description1": "Não estamos tentando preencher vagas—estamos construindo uma comunidade. Nosso processo de whitelist garante que cada jogador no servidor esteja aqui pelos motivos certos: ótimo conteúdo, momentos épicos e jogabilidade de sobrevivência genuína.",
+      "description2": "Prioridade é dada a criadores de conteúdo, comunidades estabelecidas e jogadores recomendados por membros existentes. Não se trata de exclusividade—é sobre qualidade.",
+      "features": {
+        "noGriefers": {
+          "title": "Sem Griefers Aleatórios",
+          "description": "Cada jogador é verificado. Comportamento tóxico = banimento permanente."
+        },
+        "communityFirst": {
+          "title": "Comunidade em Primeiro Lugar",
+          "description": "Streamers trazem suas audiências. Jogue com pessoas que importam."
+        },
+        "contentReady": {
+          "title": "Pronto para Conteúdo",
+          "description": "Momentos épicos acontecem quando todos estão investidos na experiência."
+        }
+      }
+    },
+    "majorFeatures": {
+      "badge": "VERSÃO 1.0 ESTÁ CHEGANDO (06/02)",
+      "title": "A MAIOR",
+      "titleHighlight": "ATUALIZAÇÃO",
+      "titleSuffix": "ATÉ AGORA",
+      "description": "Após 2 anos de Acesso Antecipado, 20 grandes atualizações e inúmeras menores, HumanitZ chega com sua tão esperada versão 1.0",
+      "features": {
+        "newIsland": {
+          "title": "NOVA ILHA",
+          "subtitle": "Conteúdo End-game",
+          "description": "Descubra e explore uma ilha totalmente nova com conteúdo end-game desafiador para sobreviventes veteranos."
+        },
+        "skillsProfessions": {
+          "title": "HABILIDADES E PROFISSÕES",
+          "subtitle": "Progressão de Personagem",
+          "description": "Novas árvores de habilidades e sistema de profissões. Especialize seu sobrevivente e desbloqueie habilidades únicas."
+        },
+        "hudsonCity": {
+          "title": "REFORMULAÇÃO DE HUDDSON CITY",
+          "subtitle": "Renovação Completa do Mapa",
+          "description": "Renovação completa do mapa principal incluindo uma Huddson City totalmente redesenhada. Exploração fresca te aguarda."
+        },
+        "controller": {
+          "title": "CONTROLE E STEAM DECK",
+          "subtitle": "Suporte Completo",
+          "description": "Jogue do seu jeito com suporte completo para controle e compatibilidade otimizada para Steam Deck."
+        }
+      },
+      "newBadge": "NOVO"
+    },
+    "allFeatures": {
+      "title": "TUDO NA",
+      "titleHighlight": "1.0",
+      "description": "De novas armas a mecânicas de natação, aqui está tudo que está chegando",
+      "categories": {
+        "combat": {
+          "name": "Combate",
+          "items": [
+            "Renovação de Armas e Munição",
+            "Balanço e recuo de armas",
+            "Munição especial (perfurante)",
+            "Novas armas",
+            "Balanceamento PvP"
+          ]
+        },
+        "aiEnemies": {
+          "name": "IA e Inimigos",
+          "items": [
+            "Atualizações de desempenho e movimento dos Zeek",
+            "Novas mecânicas de Zeek",
+            "Atiradores de Elite Bandidos",
+            "Chefe Bandido",
+            "Novos Zeeks"
+          ]
+        },
+        "survival": {
+          "name": "Sobrevivência",
+          "items": [
+            "Habilidade de curar outros jogadores",
+            "Mais opções de culinária e receitas",
+            "Natação básica",
+            "Mudanças no sistema de caça"
+          ]
+        },
+        "worldLore": {
+          "name": "Mundo e História",
+          "items": [
+            "Nova Ilha (end-game)",
+            "História Expandida (origens do surto)",
+            "Renovação completa do mapa",
+            "Reformulação de Huddson City",
+            "Novas Missões do Mundo"
+          ]
+        },
+        "systems": {
+          "name": "Sistemas",
+          "items": [
+            "Melhorias no sistema de construção",
+            "Correções de bases aéreas",
+            "Rebalanceamento de XP",
+            "Munição permanece nas armas ao largá-las"
+          ]
+        },
+        "qualityOfLife": {
+          "name": "Qualidade de Vida",
+          "items": [
+            "Grandes melhorias de desempenho",
+            "Atualizações de UI",
+            "Mapa do jogo atualizado",
+            "Suporte para controle",
+            "Suporte para Steam Deck",
+            "Novos personagens personalizados",
+            "Novas Revistas"
+          ]
+        }
+      },
+      "footerNote": "...e muitas mais correções de bugs, polimento e melhorias de qualidade de vida!"
+    },
+    "mapOverhaul": {
+      "title": "RENOVAÇÃO COMPLETA",
+      "titleHighlight": "DO MAPA",
+      "description": "Cada canto do mundo foi redesenhado. Veja a transformação dramática do Acesso Antecipado para a versão 1.0 em todos os tipos de localização.",
+      "comparisons": {
+        "residential": {
+          "location": "Áreas Residenciais",
+          "before": "Layouts suburbanos básicos com detalhes mínimos e ambientes esparsos",
+          "after": "Bairros redesenhados com postes de luz, desordem ambiental, desgaste realista e atmosfera melhorada"
+        },
+        "commercial": {
+          "location": "Distritos Comerciais",
+          "before": "Layouts de lojas simples com adereços básicos e arredores planos",
+          "after": "Centros comerciais detalhados com vegetação exuberante, sinalização melhorada, estacionamentos realistas e narrativa pós-apocalíptica"
+        },
+        "gasStations": {
+          "location": "Criação de Personagem",
+          "before": "Sistema básico de criação de personagem com opções limitadas e personalização mínima",
+          "after": "Sistema de criação de personagem melhorado com maior ênfase em profissões para desbloquear vantagens iniciais. E um novo sistema de aflições para jogadores experientes."
+        },
+        "rural": {
+          "location": "Sistema de Vantagens",
+          "before": "Sistema de vantagens básico com opções limitadas e progressão simples",
+          "after": "Reformulação completa do sistema de vantagens para ser mais realista e abrangente, com árvores de habilidades melhoradas e progressão mais profunda"
+        }
+      },
+      "labels": {
+        "earlyAccess": "ACESSO ANTECIPADO",
+        "version10": "VERSÃO 1.0"
+      }
+    },
+    "community": {
+      "title": "CONSTRUÍDO PARA A",
+      "titleHighlight": "COMUNIDADE",
+      "description1": "Não estamos aqui para ganhar dinheiro. Estamos aqui porque amamos jogos de sobrevivência e queremos dar aos jogadores latino-americanos o servidor que eles merecem.",
+      "description2": "Mind Breakers Humanitz é uma experiência hardcore com whitelist projetada especificamente para criadores de conteúdo e suas comunidades. Jogabilidade imersiva, PvP intenso e eventos especiais.",
+      "description3": "Hospedado na Argentina para o melhor ping em toda a América Latina. Sem pay-to-win, sem níveis VIP, sem custos ocultos. Apenas sobrevivência pura.",
+      "stats": {
+        "playerSlots": "VAGAS DE JOGADORES",
+        "fortuneFree": "FORTUNA GRÁTIS",
+        "serverLocation": "LOCALIZAÇÃO DO SERVIDOR",
+        "uptime": "TEMPO ATIVO"
+      }
+    },
+    "serverConfig": {
+      "title": "CONFIGURAÇÃO",
+      "titleHighlight": "DO SERVIDOR",
+      "description": "Configurações cuidadosamente ajustadas para a experiência definitiva de sobrevivência hardcore",
+      "features": {
+        "highLoot": {
+          "title": "SAQUE APRIMORADO",
+          "description": "Ciclos desenvolvidos para alta contagem de jogadores, mas entendendo que é um jogo de sobrevivência e nem tudo é obtível imediatamente. Negociação será importante."
+        },
+        "highZombies": {
+          "title": "MUITOS ZUMBIS",
+          "description": "Populações massivas de zumbis criam perigo e tensão constantes. Cada passo pode ser seu último. Fique alerta, mova-se com inteligência."
+        },
+        "highChallenge": {
+          "title": "ALTO DESAFIO",
+          "description": "Dificuldade balanceada que recompensa habilidade e trabalho em equipe. Sobrevivência com filosofia 'Alto Risco, Alta Recompensa'."
+        },
+        "whitelisted": {
+          "title": "COM WHITELIST",
+          "description": "Acesso baseado em aplicação garante uma comunidade de qualidade. Sem griefers, sem trolls—apenas sobreviventes dedicados."
+        },
+        "latamOptimized": {
+          "title": "OTIMIZADO PARA LATAM",
+          "description": "Servidores baseados na Argentina oferecem ping abaixo de 50ms para a maioria dos jogadores latino-americanos. Jogabilidade suave e responsiva garantida."
+        },
+        "creatorFriendly": {
+          "title": "AMIGÁVEL PARA CRIADORES",
+          "description": "Construído para streamers e YouTubers. Traga sua comunidade, crie conteúdo épico, construa seu público."
+        }
+      }
+    },
+    "targetAudience": {
+      "title": "PARA QUEM É",
+      "titleHighlight": "ISSO?",
+      "items": [
+        "Criadores de conteúdo procurando um servidor LATAM dedicado",
+        "Comunidades que querem jogar juntas",
+        "Entusiastas de sobrevivência hardcore",
+        "Jogadores cansados de servidores pay-to-win",
+        "Jogadores que falam espanhol e português",
+        "Qualquer um que ama um desafio real"
+      ],
+      "latamSection": {
+        "title": "LATAM",
+        "description": "Melhor ping para Argentina, Brasil, Uruguai, Chile, Peru, Colômbia, México e toda a América Latina",
+        "serverLocation": "Localização do Servidor",
+        "averagePing": "Ping Médio"
+      }
+    },
+    "whitelist": {
+      "badge": "Servidor Whitelist",
+      "title": "Solicitar Acesso",
+      "titleHighlight": "à Whitelist",
+      "description1": "Nosso servidor HumanitZ é exclusivo e requer acesso via whitelist. Isso garante uma experiência de jogo de qualidade com uma comunidade comprometida e sem griefers.",
+      "description2": "Complete o formulário para solicitar acesso. O processo leva apenas 2 minutos e notificaremos você quando sua solicitação for aprovada.",
+      "description": "Complete o formulário para solicitar acesso ao nosso servidor HumanitZ. O formulário leva apenas 2 minutos.",
+      "features": {
+        "noGriefers": {
+          "title": "Sem Griefers",
+          "description": "Apenas jogadores verificados podem acessar, eliminando problemas de comportamento tóxico."
+        },
+        "communityFirst": {
+          "title": "Comunidade em Primeiro Lugar",
+          "description": "Priorizamos jogadores que valorizam trabalho em equipe e experiência colaborativa."
+        },
+        "contentReady": {
+          "title": "Pronto para Conteúdo",
+          "description": "Configuração otimizada para criadores de conteúdo que procuram gravar ou fazer stream."
+        }
+      }
+    },
+    "welcome": {
+      "dontShowAgain": "Não mostrar novamente"
+    },
+    "cta": {
+      "title": "PRONTO PARA",
+      "titleHighlight": "SOBREVIVER?",
+      "description": "Entre no nosso Discord para solicitar acesso à whitelist e estar pronto para o dia do lançamento. Versão 1.0 chega em 6 de fevereiro de 2026.",
+      "joinDiscord": "ENTRAR NO DISCORD",
+      "requestAccess": "SOLICITAR ACESSO",
+      "backToHome": "VOLTAR AO INÍCIO"
+    },
+    "footer": {
+      "copyright": "© 2020-2026 Mind Breakers. Feito com",
+      "copyrightSuffix": "para a comunidade gamer da LATAM."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Isto Não É Um Jogo, É Uma Experiência de Gaming",
+      "description": "Hospedagem premium de servidores de jogos. Desempenho excepcional, confiabilidade e experiência focada em comunidades e criação de conteúdo. Tem uma ideia para uma série? Nós a tornamos realidade!",
+      "exploreServers": "Explorar Servidores",
+      "joinCommunity": "Entrar na Comunidade"
+    },
+    "gameServers": {
+      "title": "Nossos Servidores de Jogos",
+      "description": "Almejamos sempre ter experiências únicas nos projetos que selecionamos. Fazemos a diferença criando nossas próprias configurações e mods desenvolvidos por nós para oferecer aos jogadores uma jogabilidade diferente do que estão acostumados.",
+      "servers": {
+        "humanitz": {
+          "badge": "Em breve 6 de Fev, 2026",
+          "whitelistOpen": "Registros Abertos",
+          "title": "Servidor HumanitZ",
+          "description": "Servidor de sobrevivência zumbi 100% GRÁTIS com construção de base, PvP e uma comunidade ativa. Lançamento em 6 de fevereiro de 2026!",
+          "features": {
+            "uptime": "Tempo Ativo 24/7",
+            "players": "24+ Jogadores",
+            "freeAccess": "Criadores de Conteúdo",
+            "customConfig": "Vanilla Hardcore"
+          },
+          "learnMore": "Saber Mais",
+          "requestAccess": "Solicitar Acesso"
+        },
+        "scum": {
+          "badge": "Em breve Q2 2026",
+          "title": "Servidor SCUM",
+          "description": "Sobreviva em nosso servidor SCUM configurado personalizadamente com jogabilidade balanceada, eventos regulares e uma comunidade ativa. Lançamento no Q2 de 2026!",
+          "features": {
+            "uptime": "Tempo Ativo 24/7",
+            "players": "64 Jogadores",
+            "antiCheat": "Público",
+            "customRules": "Regras Personalizadas"
+          },
+          "learnMore": "Saber Mais"
+        },
+        "hytale": {
+          "badge": "Em Desenvolvimento",
+          "title": "Servidor MMORPG Hytale",
+          "description": "Estamos desenvolvendo um MMORPG Sandbox que parece vivo baseado em PvP orgânico com classes definidas e onde a filosofia é alto risco, alta recompensa.",
+          "features": {
+            "uptime": "Tempo Ativo 24/7",
+            "comingSoon": "Escalável Ilimitado",
+            "customWorlds": "Mundos Personalizados",
+            "modSupport": "100% Modado"
+          },
+          "newsComingSoon": "Faça parte do desenvolvimento!"
+        },
+        "dayz": {
+          "badge": "Servidor #1 LATAM",
+          "years": "2020-2021",
+          "title": "Servidor DayZ",
+          "description": "Nosso primeiro servidor que iniciou a comunidade MindBreakers. Um servidor DayZ LATAM de primeira linha de 2020-2021. Uma experiência super hardcore com 124 jogadores.",
+          "features": {
+            "legacy": "Legado",
+            "players": "124 Jogadores",
+            "topLatam": "Top LATAM",
+            "years": "2020-2021"
+          },
+          "legacyServer": "Servidor Legado"
+        },
+        "vrising": {
+          "badge": "Servidor #1 Mundial",
+          "year": "2023",
+          "title": "Servidor V Rising",
+          "description": "Um servidor de sobrevivência vampírica bem-sucedido que funcionou em 2023. O servidor número um mundial. Construa seu castelo, cace sangue e domine a noite.",
+          "features": {
+            "legacy": "Legado",
+            "active2023": "Ativo em 2023",
+            "castleBuilding": "Construção de Castelo",
+            "pvpEnabled": "PvP Habilitado"
+          },
+          "legacyServer": "Servidor Legado"
+        }
+      },
+      "previousServers": {
+        "title": "Servidores Anteriores",
+        "description": "Os servidores que nos tornaram grandes e criaram a comunidade MindBreakers (Eles voltarão...)"
+      }
+    },
+    "features": {
+      "title": "Por Que Escolher MindBreakers",
+      "description": "Oferecemos mais do que apenas servidores de jogos. Junte-se a uma comunidade de gamers com configurações personalizadas e suporte excepcional.",
+      "items": {
+        "highPerformance": {
+          "title": "Alto Desempenho",
+          "description": "Nossos servidores são alimentados por hardware de primeira linha para garantir uma jogabilidade suave com lag mínimo e tempo de inatividade."
+        },
+        "antiCheat": {
+          "title": "Proteção Anti-Trapaça",
+          "description": "Sistemas avançados anti-trapaça para manter o jogo justo e agradável para todos na comunidade."
+        },
+        "activeSupport": {
+          "title": "Suporte Ativo",
+          "description": "Nossa equipe dedicada está disponível para ajudar com qualquer problema e garantir que sua experiência de jogo seja perfeita."
+        },
+        "customConfigurations": {
+          "title": "Configurações Personalizadas",
+          "description": "Melhore sua jogabilidade com nossas configurações de jogo cuidadosamente elaboradas e recursos personalizados."
+        },
+        "statsDashboard": {
+          "title": "Painel de Estatísticas",
+          "description": "Acesse estatísticas detalhadas sobre sua jogabilidade, desempenho do servidor e engajamento da comunidade."
+        },
+        "communityEvents": {
+          "title": "Eventos da Comunidade",
+          "description": "Participe de eventos regulares da comunidade, competições e cenários de jogabilidade especiais."
+        }
+      }
+    },
+    "stats": {
+      "yearsOfExperience": "Anos de Experiência",
+      "serversManaged": "Servidores Gerenciados",
+      "happyPlayers": "Jogadores Felizes"
+    },
+    "cta": {
+      "title": "Junte-se à Equipe MindBreakers",
+      "description": "Pronto para elevar sua experiência de jogo? Crie uma conta para acessar nosso painel, gerenciar suas assinaturas e juntar-se à nossa próspera comunidade.",
+      "getStarted": "Começar Agora"
+    }
+  },
+  "scum": {
+    "hero": {
+      "badge": "◄ EM BREVE — Q2 2026 ►",
+      "title": "SCUM",
+      "subtitle": "SOBREVIVÊNCIA. COMBATE. DOMINAÇÃO.",
+      "launchDate": {
+        "label": "LANÇAMENTO DO SERVIDOR",
+        "date": "Q2 2026"
+      },
+      "exploreButton": "EXPLORAR SERVIDOR"
+    },
+    "serverInfo": {
+      "loading": "Carregando informações do servidor...",
+      "title": "NOSSO",
+      "titleHighlight": "SERVIDOR SCUM",
+      "status": "Status:",
+      "maxPlayers": "Jogadores Máximos:",
+      "region": "Região:",
+      "serverConfiguration": "Configuração do Servidor",
+      "pvp": {
+        "label": "PvP:",
+        "enabled": "Habilitado",
+        "disabled": "Desabilitado"
+      },
+      "whitelist": {
+        "label": "Whitelist:",
+        "active": "Ativa",
+        "open": "Aberta"
+      },
+      "loot": {
+        "label": "Saque:",
+        "high": "Alto",
+        "standard": "Padrão"
+      },
+      "mode": {
+        "label": "Modo:",
+        "hardcore": "Hardcore",
+        "standard": "Padrão"
+      },
+      "fallback": {
+        "description": "Nosso servidor SCUM será lançado no Q2 de 2026. Estamos preparando uma experiência de sobrevivência balanceada com PvP ativo, proteção de whitelist e uma comunidade dedicada.",
+        "cta": "Junte-se à comunidade SCUM da MindBreakers e esteja pronto para o dia do lançamento!",
+        "launchDateLabel": "Data de Lançamento:",
+        "launchDate": "Q2 2026"
+      },
+      "stats": {
+        "maxPlayers": "JOGADORES MÁXIMOS",
+        "region": "REGIÃO",
+        "status": "STATUS",
+        "uptime": "TEMPO ATIVO"
+      }
+    },
+    "gameFeatures": {
+      "title": "POR QUE",
+      "titleHighlight": "SCUM",
+      "titleSuffix": "?",
+      "description": "Descubra o que torna SCUM uma das experiências de sobrevivência mais imersivas disponíveis",
+      "features": {
+        "survival": {
+          "title": "SOBREVIVÊNCIA DO MAIS FORTE",
+          "description": "Domine o complexo sistema de metabolismo, gerencie as necessidades do seu personagem e sobreviva em um ambiente brutal de mundo aberto."
+        },
+        "combat": {
+          "title": "COMBATE PVP INTENSO",
+          "description": "Participe de combate tático com balística realista, personalização de armas e construção estratégica de base."
+        },
+        "crafting": {
+          "title": "CRIAÇÃO AVANÇADA",
+          "description": "Crie armas, ferramentas e estruturas usando um sistema de criação detalhado com centenas de receitas."
+        },
+        "baseBuilding": {
+          "title": "CONSTRUÇÃO DE BASE",
+          "description": "Construa e fortifique sua base com mecânicas de construção avançadas. Proteja seu saque e sobreviva a ataques."
+        },
+        "openWorld": {
+          "title": "MUNDO ABERTO MASSIVO",
+          "description": "Explore uma ilha de 144 km² com biomas diversos, instalações militares e localizações ocultas para descobrir."
+        },
+        "community": {
+          "title": "COMUNIDADE ATIVA",
+          "description": "Junte-se a uma próspera comunidade de sobreviventes. Forme alianças, negocie recursos e compita em eventos."
+        }
+      }
+    },
+    "cta": {
+      "title": "PRONTO PARA",
+      "titleHighlight": "SOBREVIVER",
+      "titleSuffix": "?",
+      "description": "Entre no nosso Discord para ser incluído na whitelist e começar sua jornada de sobrevivência no servidor SCUM da MindBreakers",
+      "joinDiscord": "ENTRAR NO DISCORD",
+      "backToHome": "VOLTAR AO INÍCIO"
+    },
+    "footer": {
+      "copyright": "© 2025-2026 Mind Breakers. Feito com",
+      "copyrightSuffix": "para a comunidade gamer da LATAM."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bem-vindo de Volta",
+      "subtitle": "Entre para acessar seus servidores de jogos",
+      "email": "Endereço de E-mail",
+      "emailPlaceholder": "nome@exemplo.com",
+      "password": "Senha",
+      "passwordPlaceholder": "Digite sua senha",
+      "rememberMe": "Lembrar de mim",
+      "forgotPassword": "Esqueceu a senha?",
+      "submit": "Entrar",
+      "processing": "Processando...",
+      "noAccount": "Não tem uma conta?",
+      "signUp": "Cadastre-se",
+      "success": "Login realizado com sucesso!",
+      "error": "Ocorreu um erro inesperado"
+    },
+    "register": {
+      "title": "Criar uma Conta",
+      "subtitle": "Junte-se à comunidade MindBreakers",
+      "displayName": "Nome de Exibição",
+      "displayNamePlaceholder": "Seu nome de jogador",
+      "email": "Endereço de E-mail",
+      "emailPlaceholder": "nome@exemplo.com",
+      "password": "Senha",
+      "passwordPlaceholder": "Crie uma senha forte",
+      "submit": "Criar Conta",
+      "processing": "Processando...",
+      "hasAccount": "Já tem uma conta?",
+      "signIn": "Entrar",
+      "success": "Conta criada! Por favor, verifique seu e-mail para verificar sua conta.",
+      "error": "Ocorreu um erro inesperado"
+    },
+    "social": {
+      "continueWith": "Ou continue com",
+      "discord": "Discord",
+      "steam": "Steam",
+      "discordError": "Falha na autenticação do Discord",
+      "steamError": "Falha na autenticação do Steam"
+    }
+  },
+  "footer": {
+    "description": "Hospedagem premium de servidores de jogos com desempenho excepcional e foco na comunidade.",
+    "quickLinks": {
+      "title": "Links Rápidos",
+      "home": "Início",
+      "servers": "Servidores",
+      "features": "Recursos",
+      "aboutUs": "Sobre Nós"
+    },
+    "servers": {
+      "title": "Servidores",
+      "humanitzServer": "Servidor Humanitz",
+      "scumServer": "Servidor SCUM"
+    },
+    "legal": {
+      "title": "Legal",
+      "termsOfService": "Termos de Serviço",
+      "privacyPolicy": "Política de Privacidade",
+      "refundPolicy": "Política de Reembolso"
+    },
+    "copyright": "© {year} MindBreakers. Todos os direitos reservados."
+  },
+  "callbacks": {
+    "steam": {
+      "processing": "Processando autenticação do Steam...",
+      "loading": "Processando Autenticação",
+      "success": "Autenticação Bem-sucedida!",
+      "error": "Falha na Autenticação",
+      "welcomeNew": "Bem-vindo à MindBreakers!",
+      "welcomeBack": "Bem-vindo de volta!",
+      "failed": "Falha na autenticação do Steam: {error}",
+      "validationFailed": "Falha na validação da autenticação do Steam",
+      "cancelled": "A autenticação do Steam foi cancelada",
+      "invalidResponse": "Resposta de autenticação do Steam inválida",
+      "errorOccurred": "Ocorreu um erro durante a autenticação do Steam",
+      "accountInfo": "Informações da Conta",
+      "steamName": "Nome no Steam:",
+      "steamId": "ID do Steam:",
+      "newAccountCreated": "Nova conta criada!",
+      "steamAvatar": "Avatar do Steam",
+      "redirecting": "Redirecionando para o painel em instantes...",
+      "returnHome": "Voltar ao Início",
+      "tryAgain": "Tentar Novamente",
+      "mayTakeSeconds": "Isso pode levar alguns segundos..."
+    },
+    "steamLink": {
+      "processing": "Processando autenticação do Steam...",
+      "verifying": "Verificando vinculação da conta do Steam...",
+      "loading": "Vinculando Conta do Steam",
+      "success": "Conta Vinculada!",
+      "error": "Falha na Vinculação",
+      "mustBeLoggedIn": "Você deve estar logado para vincular sua conta do Steam",
+      "linkedSuccessfully": "Conta do Steam vinculada com sucesso!",
+      "alreadyLinked": "A conta do Steam já está vinculada à sua conta!",
+      "linkingFailed": "Falha na vinculação do Steam: {error}",
+      "notCompleted": "A vinculação da conta do Steam não foi concluída",
+      "verifyFailed": "Falha ao verificar o status de vinculação do Steam",
+      "errorOccurred": "Ocorreu um erro ao vincular sua conta do Steam",
+      "steamAccount": "Conta do Steam",
+      "steamName": "Nome no Steam:",
+      "steamId": "ID do Steam:",
+      "profile": "Perfil:",
+      "viewOnSteam": "Ver no Steam",
+      "steamAvatar": "Avatar do Steam",
+      "redirecting": "Redirecionando para seu perfil...",
+      "backToProfile": "Voltar ao Perfil",
+      "tryAgain": "Tentar Novamente",
+      "goToLogin": "Ir para Login",
+      "mayTakeSeconds": "Isso pode levar alguns segundos..."
+    },
+    "auth": {
+      "processing": "Processando autenticação...",
+      "loading": "Processando Autenticação",
+      "success": "Autenticação Bem-sucedida!",
+      "error": "Falha na Autenticação",
+      "notConfigured": "Supabase não está configurado. Por favor, configure suas variáveis de ambiente.",
+      "failed": "Falha na autenticação: {error}",
+      "successful": "Autenticação bem-sucedida! Redirecionando...",
+      "noSession": "Nenhuma sessão de autenticação encontrada",
+      "errorOccurred": "Ocorreu um erro inesperado durante a autenticação",
+      "redirecting": "Redirecionando para o painel...",
+      "returnHome": "Voltar ao Início",
+      "tryAgain": "Tentar Novamente",
+      "mayTakeSeconds": "Isso pode levar alguns segundos..."
+    }
+  },
+  "profile": {
+    "loading": "Carregando seu perfil...",
+    "loginRequired": "Login Necessário",
+    "loginRequiredMessage": "Você precisa estar logado para ver e gerenciar seu perfil.",
+    "goToLogin": "Ir para Login",
+    "userProfile": "Perfil do Usuário",
+    "accountInformation": "Informações da Conta",
+    "displayName": "Nome de Exibição",
+    "enterDisplayName": "Digite o nome de exibição",
+    "notSet": "Não definido",
+    "emailAddress": "Endereço de E-mail",
+    "memberSince": "Membro desde",
+    "unknown": "Desconhecido",
+    "linkedAccounts": "Contas Vinculadas",
+    "refreshAll": "Atualizar Tudo",
+    "forceRefreshAll": "Forçar atualização de todos os dados da plataforma",
+    "discord": "Discord",
+    "connectedAs": "Conectado como {name}",
+    "usingCachedData": "📄 Usando dados em cache",
+    "connectDiscord": "Conecte sua conta do Discord",
+    "refresh": "Atualizar",
+    "refreshDiscordData": "Atualizar dados do Discord",
+    "unlink": "Desvincular",
+    "link": "Vincular",
+    "steam": "Steam",
+    "connectSteam": "Conecte sua conta do Steam",
+    "refreshSteamData": "Atualizar dados do Steam",
+    "viewProfile": "Ver Perfil",
+    "loginRequiredButton": "Login Necessário",
+    "whyLinkAccounts": "Por que vincular contas?",
+    "whyLinkReason1": "Login único em todos os nossos serviços",
+    "whyLinkReason2": "Acesso a recursos específicos da plataforma",
+    "whyLinkReason3": "Perfil de jogo unificado e estatísticas",
+    "whyLinkReason4": "Segurança aprimorada e recuperação de conta",
+    "profileId": "ID do Perfil: {id}",
+    "mustBeLoggedInToLink": "Você deve estar logado para vincular sua conta do Steam",
+    "pleaseLoginToLink": "Por favor, faça login para vincular sua conta do Steam",
+    "steamAlreadyLinked": "A conta do Steam já está vinculada à sua conta!",
+    "failedToInitiateSteamLinking": "Falha ao iniciar a vinculação do Steam",
+    "mustBeLoggedInToRefresh": "Você deve estar logado para atualizar os dados da plataforma",
+    "dataRefreshedSuccessfully": "Dados do {platform} atualizados com sucesso",
+    "failedToRefreshData": "Falha ao atualizar dados do {platform}: {error}",
+    "mustBeLoggedInToRefreshProfile": "Você deve estar logado para atualizar os dados do perfil",
+    "profileDataRefreshedSuccessfully": "Dados do perfil atualizados com sucesso",
+    "failedToRefreshProfileData": "Falha ao atualizar dados do perfil: {error}",
+    "confirmUnlink": "Tem certeza de que deseja desvincular sua conta do {accountType}?",
+    "steamUnlinkedSuccessfully": "Conta do Steam desvinculada com sucesso",
+    "accountUnlinkedSuccessfully": "Conta do {accountType} desvinculada com sucesso",
+    "failedToUnlinkAccount": "Falha ao desvincular conta do {accountType}: {error}",
+    "displayNameUpdatedSuccessfully": "Nome de exibição atualizado com sucesso",
+    "failedToUpdateDisplayName": "Falha ao atualizar nome de exibição"
+  },
+  "dashboard": {
+    "navigation": {
+      "dashboard": "Painel",
+      "leaderboards": "Classificações",
+      "community": "Comunidade",
+      "settings": "Configurações"
+    },
+    "sidebar": {
+      "premiumMember": "Membro Premium",
+      "gameStats": "Estatísticas do Jogo",
+      "level": "Nível",
+      "totalKills": "Total de Abates",
+      "playtime": "Tempo de Jogo",
+      "backToHome": "Voltar ao Início"
+    }
+  },
+  "chatbot": {
+    "status": "Online",
+    "placeholder": "Digite algo...",
+    "greeting": "Olá! Sou o MindBot 🤖 Como posso ajudar?",
+    "greetings": [
+      "Olá! Sou o MindBot 🤖 Como posso ajudar?",
+      "Ei! Pronto para dominar nos servidores?",
+      "Bem-vindo à MindBreakers, sobrevivente 💀"
+    ],
+    "random": [
+      "Dica profissional: Se você ouvir passos... já é tarde demais 💀",
+      "Erro 404: Habilidades não encontradas. Continue praticando 😎",
+      "Lag não é desculpa. Bem, às vezes é.",
+      "GG EZ... disse ninguém depois de um ataque de 3 horas",
+      "Se você morreu, é porque não tinha RGB suficiente",
+      "O verdadeiro saque foram os amigos que fizemos pelo caminho",
+      "Camper? Não, estrategista posicional 📍"
+    ],
+    "discord": "Entre no nosso Discord! Coordenamos ataques, compartilhamos memes e organizamos eventos. Estamos te esperando 🎮",
+    "servers": "Temos servidores de HumanitZ (lançamento 6 de fev 2026) e SCUM (Q2 2026). Ambos otimizados para LATAM com baixo ping 🌎",
+    "team": "Quer fazer parte da equipe MindBreakers? Entre no Discord e contate os administradores. Estamos sempre procurando pessoas legais 💪",
+    "default": [
+      "Hmm não entendi isso, mas você ainda é uma lenda 💪",
+      "Minha CPU não consegue processar isso, mas estou aqui para ajudar",
+      "Não tenho essa informação, mas você pode perguntar no Discord 🤔",
+      "Resposta não encontrada. Você já tentou desligar e ligar novamente? 🔄"
+    ],
+    "buttons": {
+      "discord": "Discord",
+      "servers": "Servidores",
+      "team": "Entrar na equipe",
+      "random": "Citação aleatória"
+    }
+  }
+}
