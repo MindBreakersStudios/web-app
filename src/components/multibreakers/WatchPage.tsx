@@ -1,13 +1,13 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Radio, Loader2, AlertCircle } from 'lucide-react';
-import { MultiViewer } from './index';
+import { WatchParty } from './index';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useActiveStreamers } from '../../hooks/useActiveStreamers';
 import type { ActiveGameStreamer } from './multiviewer';
 
 /**
- * WatchPage - Página dedicada para el MultiViewer de Kick
+ * WatchPage - Página dedicada para el WatchParty de Kick
  * Accesible en /watch o /watch?streamers=user1,user2&layout=2
  */
 export function WatchPage() {
@@ -24,7 +24,7 @@ export function WatchPage() {
     realtime: true,
   });
 
-  // Transform Supabase data to MultiViewer format
+  // Transform Supabase data to WatchParty format
   const activeStreamers: ActiveGameStreamer[] = streamers.map((s) => ({
     username: s.kick_username,
     displayName: s.display_name || s.kick_username,
@@ -43,10 +43,10 @@ export function WatchPage() {
   return (
     <>
       <Helmet>
-        <title>MultiViewer - MindBreakers</title>
+        <title>WatchParty - MindBreakers</title>
         <meta 
           name="description" 
-          content="Mira múltiples streams de Kick simultáneamente. MultiViewer de MindBreakers para la comunidad gaming de LATAM." 
+          content="Mira múltiples streams de Kick simultáneamente. WatchParty de MindBreakers para la comunidad gaming de LATAM." 
         />
       </Helmet>
 
@@ -78,7 +78,7 @@ export function WatchPage() {
               {/* Page title */}
               <div className="flex items-center gap-2">
                 <Radio className="w-5 h-5 text-lime-400" />
-                <h1 className="font-bold text-white">MultiViewer</h1>
+                <h1 className="font-bold text-white">WatchParty</h1>
               </div>
 
               {/* Right side placeholder */}
@@ -109,9 +109,9 @@ export function WatchPage() {
             </div>
           )}
 
-          {/* MultiViewer component */}
+          {/* WatchParty component */}
           {!isLoading && !error && (
-            <MultiViewer
+            <WatchParty
               activeServerStreamers={activeStreamers}
               showServerStreamers={true}
               maxHeight="100%"

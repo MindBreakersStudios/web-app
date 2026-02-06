@@ -1,5 +1,5 @@
 /**
- * MultiViewer Types
+ * WatchParty Types
  * Sistema de visualización múltiple de streams de Kick
  * Preparado para futura integración con API de steamIds de jugadores activos
  */
@@ -57,8 +57,8 @@ export const GRID_LAYOUTS: GridLayout[] = [
   { columns: 4, label: '4x4', icon: '▢▢▢▢' },
 ];
 
-/** Estado del MultiViewer */
-export interface MultiViewerState {
+/** Estado del WatchParty */
+export interface WatchPartyState {
   /** Lista de streamers agregados manualmente */
   manualStreamers: KickStreamer[];
   /** Lista de streamers activos del servidor (de la API futura) */
@@ -109,8 +109,8 @@ export interface KickChatProps {
   isVisible: boolean;
 }
 
-/** Props del componente principal MultiViewer */
-export interface MultiViewerProps {
+/** Props del componente principal WatchParty */
+export interface WatchPartyProps {
   /** Streamers iniciales (de URL params por ejemplo) */
   initialStreamers?: string[];
   /** Streamers activos del servidor (de API futura) */
@@ -149,12 +149,12 @@ export interface ShareableURLParams {
 }
 
 /** Helper para parsear URL params */
-export function parseShareableURL(searchParams: URLSearchParams): Partial<MultiViewerState> {
+export function parseShareableURL(searchParams: URLSearchParams): Partial<WatchPartyState> {
   const streamersParam = searchParams.get('streamers');
   const layoutParam = searchParams.get('layout');
   const chatParam = searchParams.get('chat');
 
-  const result: Partial<MultiViewerState> = {};
+  const result: Partial<WatchPartyState> = {};
 
   if (streamersParam) {
     const usernames = streamersParam.split(',').filter(Boolean);
@@ -180,7 +180,7 @@ export function parseShareableURL(searchParams: URLSearchParams): Partial<MultiV
 }
 
 /** Helper para generar URL compartible */
-export function generateShareableURL(state: MultiViewerState, baseURL: string): string {
+export function generateShareableURL(state: WatchPartyState, baseURL: string): string {
   const params = new URLSearchParams();
   
   const allStreamers = [...state.manualStreamers.map(s => s.username)];

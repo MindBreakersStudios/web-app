@@ -23,7 +23,7 @@
   "header": {
     "home": "Home",
     "servers": "Servers",
-    "humanitz": "Humanitz",
+    "humanitz": "Frostbite Humanitz",
     "scum": "SCUM",
     "features": "Features",
     "about": "About",
@@ -759,8 +759,8 @@
       "random": "Random quote"
     }
   },
-  "multiviewer": {
-    "title": "Kick MultiViewer",
+  "watchparty": {
+    "title": "Kick WatchParty",
     "description": "Watch up to 12 streams simultaneously",
     "addStreamer": "Add streamer",
     "addFirst": "Add first stream",
