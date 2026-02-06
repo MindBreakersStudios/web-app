@@ -335,4 +335,4 @@ export function WatchParty({
   );
 }
 
-export default MultiViewer;
+export default WatchParty;
