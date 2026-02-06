@@ -3,7 +3,7 @@ import {
   KickStreamer,
   ActiveGameStreamer,
   GridLayout,
-  MultiViewerState,
+  WatchPartyState,
   GRID_LAYOUTS,
 } from './multiviewer';
 
@@ -16,7 +16,7 @@ interface UseMultiViewerOptions {
 
 interface UseMultiViewerReturn {
   // State
-  state: MultiViewerState;
+  state: WatchPartyState;
   allStreamers: KickStreamer[];
   availableStreamers: ActiveGameStreamer[];
   
@@ -43,7 +43,7 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
   } = options;
 
   // Simple state without persistence
-  const [state, setState] = useState<MultiViewerState>({
+  const [state, setState] = useState<WatchPartyState>({
     manualStreamers: [],
     activeGameStreamers: activeServerStreamers,
     currentLayout: GRID_LAYOUTS[0], // Will be auto-calculated

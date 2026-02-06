@@ -759,8 +759,8 @@
       "random": "Citação aleatória"
     }
   },
-  "multiviewer": {
-    "title": "MultiViewer do Kick",
+  "watchparty": {
+    "title": "WatchParty do Kick",
     "description": "Assista até 12 streams simultaneamente",
     "addStreamer": "Adicionar streamer",
     "addFirst": "Adicionar primeira stream",

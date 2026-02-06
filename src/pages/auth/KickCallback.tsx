@@ -157,7 +157,7 @@ export function KickCallback() {
                 onClick={() => navigate('/watch', { replace: true })}
                 className="mt-4 px-4 py-2 bg-lime-400 text-black rounded-lg font-medium hover:bg-lime-500 transition-colors"
               >
-                Volver al MultiViewer
+                Volver al WatchParty
               </button>
             </>
           )}

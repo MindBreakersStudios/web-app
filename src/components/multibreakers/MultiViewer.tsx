@@ -22,12 +22,12 @@ import { useMultiViewer } from './useMultiViewer';
 import { KickPlayer } from './KickPlayer';
 import { KickChat, KickChatPlaceholder } from './KickChat';
 import { OfflineStreamerCard } from './OfflineStreamerCard';
-import { MultiViewerProps, GRID_LAYOUTS, ActiveGameStreamer } from './multiviewer';
+import { WatchPartyProps, GRID_LAYOUTS, ActiveGameStreamer } from './multiviewer';
 import { useTranslation } from '../../hooks/useTranslation';
 import { KickLoginButton } from '../KickLoginButton';
 
 /**
- * MultiViewer - Componente principal para ver múltiples streams de Kick
+ * WatchParty - Componente principal para ver múltiples streams de Kick
  * 
  * Features:
  * - Grilla responsive con layouts configurables (1x1, 2x2, 3x3, 4x4)
@@ -36,7 +36,7 @@ import { KickLoginButton } from '../KickLoginButton';
  * - URLs compartibles
  * - Preparado para integración con API de streamers activos del servidor
  */
-export function MultiViewer({
+export function WatchParty({
   initialStreamers = [],
   activeServerStreamers = [],
   game,
@@ -44,7 +44,7 @@ export function MultiViewer({
   showServerStreamers = false,
   maxHeight = '80vh',
   className = '',
-}: MultiViewerProps) {
+}: WatchPartyProps) {
   const t = useTranslation();
 
   const {
@@ -209,7 +209,7 @@ export function MultiViewer({
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <Radio className="w-5 h-5 text-lime-400" />
-              <h2 className="font-bold text-white">MultiViewer</h2>
+              <h2 className="font-bold text-white">WatchParty</h2>
             </div>
             <div className="flex items-center gap-1.5 bg-gray-700/50 px-2 py-1 rounded text-xs">
               <Users className="w-3 h-3 text-gray-400" />

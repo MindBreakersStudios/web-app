@@ -1,8 +1,8 @@
-// MultiViewer - Sistema de visualización múltiple de streams de Kick
+// WatchParty - Sistema de visualización múltiple de streams de Kick
 // Para MindBreakers Gaming Community
 
 // Componentes principales
-export { MultiViewer, default } from './MultiViewer.tsx';
+export { WatchParty, default } from './MultiViewer.tsx';
 export { KickPlayer, KickPlayerSkeleton } from './KickPlayer.tsx';
 export { KickChat, KickChatPlaceholder } from './KickChat.tsx';
 export { OfflineStreamerCard } from './OfflineStreamerCard.tsx';
@@ -15,10 +15,10 @@ export type {
   KickStreamer,
   ActiveGameStreamer,
   GridLayout,
-  MultiViewerState,
+  WatchPartyState,
   KickPlayerProps,
   KickChatProps,
-  MultiViewerProps,
+  WatchPartyProps,
   ActiveStreamersAPIResponse,
   ShareableURLParams,
 } from './multiviewer.ts';
