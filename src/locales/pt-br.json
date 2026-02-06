@@ -758,5 +758,62 @@
       "team": "Entrar na equipe",
       "random": "Citação aleatória"
     }
+  },
+  "multiviewer": {
+    "title": "MultiViewer do Kick",
+    "description": "Assista até 12 streams simultaneamente",
+    "addStreamer": "Adicionar streamer",
+    "addFirst": "Adicionar primeira stream",
+    "placeholder": "Nome de usuário do Kick (ex: xqc, adin...)",
+    "add": "Adicionar",
+    "cancel": "Cancelar",
+    "clearAll": "Limpar tudo",
+    "share": "Compartilhar layout",
+    "copied": "Copiado!",
+    "showChat": "Mostrar chat",
+    "hideChat": "Ocultar chat",
+    "mute": "Silenciar",
+    "unmute": "Ativar áudio",
+    "layout": "Layout",
+    "noStreams": {
+      "title": "Sem streams ativas",
+      "description": "Adicione streamers do Kick para começar a assistir múltiplas streams simultaneamente"
+    },
+    "chat": {
+      "title": "Chat de {username}",
+      "active": "Chat ativo",
+      "noActive": {
+        "title": "Sem chat ativo",
+        "description": "Clique no ícone de chat de qualquer stream para ativar seu chat aqui"
+      },
+      "openInKick": "Abrir no Kick.com"
+    },
+    "serverStreamers": {
+      "title": "Streamers no servidor",
+      "count": "{count} ao vivo"
+    },
+    "tips": {
+      "add": {
+        "title": "Adicionar streams",
+        "description": "Use o botão \"Adicionar\" e digite o nome de usuário do Kick do streamer que você quer assistir."
+      },
+      "layout": {
+        "title": "Mudar layout",
+        "description": "Escolha entre 1x1, 2x2, 3x3 ou 4x4 dependendo de quantas streams você quer assistir de uma vez."
+      },
+      "share": {
+        "title": "Compartilhar",
+        "description": "Compartilhe sua configuração com amigos usando o botão de compartilhar. A URL salva toda a sua configuração."
+      }
+    },
+    "banner": {
+      "maxStreams": "Máximo 12 streams",
+      "kickStreams": "Streams do Kick.com"
+    },
+    "player": {
+      "remove": "Remover stream",
+      "activateChat": "Ativar chat",
+      "live": "AO VIVO"
+    }
   }
 }

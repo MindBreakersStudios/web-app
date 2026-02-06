@@ -1,7 +1,7 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_KEY
 
 // Check if Supabase credentials are available
 const hasSupabaseCredentials = !!(supabaseUrl && supabaseAnonKey)
@@ -20,7 +20,7 @@ if (!hasSupabaseCredentials) {
   console.warn('⚠️ [SUPABASE] Missing environment variables. App will run without Supabase features.')
   console.info('💡 To enable Supabase features, create a .env file with:')
   console.info('   VITE_SUPABASE_URL=your-project-url')
-  console.info('   VITE_SUPABASE_ANON_KEY=your-anon-key')
+  console.info('   VITE_SUPABASE_KEY=your-anon-key')
 }
 
 /**

@@ -758,5 +758,62 @@
       "team": "Join the team",
       "random": "Random quote"
     }
+  },
+  "multiviewer": {
+    "title": "Kick MultiViewer",
+    "description": "Watch up to 12 streams simultaneously",
+    "addStreamer": "Add streamer",
+    "addFirst": "Add first stream",
+    "placeholder": "Kick username (e.g.: xqc, adin...)",
+    "add": "Add",
+    "cancel": "Cancel",
+    "clearAll": "Clear all",
+    "share": "Share layout",
+    "copied": "Copied!",
+    "showChat": "Show chat",
+    "hideChat": "Hide chat",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "layout": "Layout",
+    "noStreams": {
+      "title": "No active streams",
+      "description": "Add Kick streamers to start watching multiple streams simultaneously"
+    },
+    "chat": {
+      "title": "{username}'s Chat",
+      "active": "Active chat",
+      "noActive": {
+        "title": "No active chat",
+        "description": "Click on any stream's chat icon to activate its chat here"
+      },
+      "openInKick": "Open in Kick.com"
+    },
+    "serverStreamers": {
+      "title": "Streamers on server",
+      "count": "{count} live"
+    },
+    "tips": {
+      "add": {
+        "title": "Add streams",
+        "description": "Use the \"Add\" button and enter the Kick username of the streamer you want to watch."
+      },
+      "layout": {
+        "title": "Change layout",
+        "description": "Choose between 1x1, 2x2, 3x3 or 4x4 depending on how many streams you want to watch at once."
+      },
+      "share": {
+        "title": "Share",
+        "description": "Share your configuration with friends using the share button. The URL saves your entire setup."
+      }
+    },
+    "banner": {
+      "maxStreams": "Max 12 streams",
+      "kickStreams": "Kick.com streams"
+    },
+    "player": {
+      "remove": "Remove stream",
+      "activateChat": "Activate chat",
+      "live": "LIVE"
+    }
   }
 }
