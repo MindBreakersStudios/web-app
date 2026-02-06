@@ -102,40 +102,10 @@ export function WatchPage() {
           <MultiViewer
             activeServerStreamers={hardcodedStreamers}
             showServerStreamers={true}
-            maxHeight="calc(100vh - 200px)"
+            maxHeight="calc(100vh - 300px)"
             className="shadow-2xl"
           />
 
-          {/* Tips section */}
-          <div className="mt-6 grid md:grid-cols-3 gap-4">
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
-              <h3 className="font-bold text-white mb-2 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-lime-400 text-black text-sm flex items-center justify-center font-bold">1</span>
-                Agregar streams
-              </h3>
-              <p className="text-sm text-gray-400">
-                Usa el botón "Agregar" e ingresa el username de Kick del streamer que quieras ver.
-              </p>
-            </div>
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
-              <h3 className="font-bold text-white mb-2 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-lime-400 text-black text-sm flex items-center justify-center font-bold">2</span>
-                Cambiar layout
-              </h3>
-              <p className="text-sm text-gray-400">
-                Elige entre 1x1, 2x2, 3x3 o 4x4 según cuántos streams quieras ver a la vez.
-              </p>
-            </div>
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
-              <h3 className="font-bold text-white mb-2 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-lime-400 text-black text-sm flex items-center justify-center font-bold">3</span>
-                Compartir
-              </h3>
-              <p className="text-sm text-gray-400">
-                Comparte tu configuración con amigos usando el botón de compartir. La URL guarda todo tu setup.
-              </p>
-            </div>
-          </div>
         </main>
 
         {/* Footer */}

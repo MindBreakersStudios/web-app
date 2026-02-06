@@ -47,20 +47,20 @@ export const KickPlayer = memo(function KickPlayer({
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
       
       {/* Header con nombre y controles */}
-      <div className="absolute top-0 left-0 right-0 p-3 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+      <div className="absolute top-0 left-0 right-0 p-3 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10 pointer-events-none">
         {/* Username badge */}
         <a
           href={`https://kick.com/${username}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-md hover:bg-black/90 transition-colors"
+          className="flex items-center gap-2 bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-md hover:bg-black/90 transition-colors pointer-events-auto"
         >
           <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
           <span className="text-white font-medium text-sm">{username}</span>
         </a>
 
         {/* Control buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 pointer-events-auto">
           {/* Chat toggle button */}
           {onActivateChat && (
             <button
