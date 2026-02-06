@@ -20,6 +20,7 @@ import { Scum } from './pages/Scum';
 import { SteamCallback } from './pages/SteamCallback';
 import { SteamLinkCallback } from './pages/SteamLinkCallback';
 import { AuthCallback } from './pages/AuthCallback';
+import { WatchPage } from './components/multibreakers/WatchPage';
 // uncomment to see StatsDisplay working with StatsDisplay component render
 // import { StatsDisplay } from './components/StatsDisplay/StatsDisplay';
 // import { GameStats } from './fixtures/StatsDisplayFixture';
@@ -107,6 +108,7 @@ export default function App() {
             } />
             <Route path="/humanitz" element={<Humanitz />} />
             <Route path="/scum" element={<Scum />} />
+            <Route path="/watch" element={<WatchPage />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/auth/steam-callback" element={<SteamCallback />} />
             <Route path="/auth/steam-link-callback" element={<SteamLinkCallback />} />
