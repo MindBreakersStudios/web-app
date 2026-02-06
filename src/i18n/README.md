@@ -2,7 +2,7 @@
 
 ## Overview
 
-The MindBreakers website uses a custom i18n system supporting English (en) and Spanish (es). This system is designed to be scalable and ready for dashboard implementation.
+The MindBreakers website uses a custom i18n system supporting English (en), Spanish (es), and Brazilian Portuguese (pt-br). This system is designed to be scalable and ready for dashboard implementation.
 
 ## Structure
 
@@ -10,7 +10,8 @@ The MindBreakers website uses a custom i18n system supporting English (en) and S
 src/
 ├── locales/
 │   ├── en.json          # English translations
-│   └── es.json          # Spanish translations
+│   ├── es.json          # Spanish translations
+│   └── pt-br.json       # Brazilian Portuguese translations
 ├── i18n/
 │   ├── index.ts         # Translation utilities
 │   └── README.md        # This file
@@ -41,7 +42,7 @@ function MyComponent() {
 
 ### 2. Adding New Translations
 
-1. **Add to both locale files** (`src/locales/en.json` and `src/locales/es.json`):
+1. **Add to all locale files** (`src/locales/en.json`, `src/locales/es.json`, and `src/locales/pt-br.json`):
 
 ```json
 {
@@ -62,7 +63,7 @@ t('mySection.title')
 
 The `LanguageSwitcher` component is already integrated in the Header. It:
 - Shows current language flag and name
-- Toggles between English and Spanish
+- Toggles between English, Spanish, and Brazilian Portuguese
 - Persists selection in localStorage
 - Detects browser language on first visit
 
@@ -108,7 +109,7 @@ Organize translations by feature/page:
 1. **Use nested keys** for organization: `section.subsection.key`
 2. **Keep keys descriptive**: `about.headline` not `about.h1`
 3. **Group related content**: All about section keys under `about.*`
-4. **Add to both languages**: Always update `en.json` and `es.json`
+4. **Add to all languages**: Always update `en.json`, `es.json`, and `pt-br.json`
 5. **Use fallbacks**: The `t()` function falls back to English if a key is missing
 
 ## Future Dashboard Integration
@@ -137,6 +138,6 @@ t('dashboard.stats.playtime')
 ## Technical Details
 
 - **Storage**: Language preference stored in `localStorage` as `mindbreakers-locale`
-- **Default**: Falls back to English if no preference set
-- **Detection**: Automatically detects browser language on first visit
-- **Type Safety**: TypeScript types ensure locale safety (`'en' | 'es'`)
+- **Default**: Falls back to Spanish if no preference set
+- **Detection**: Automatically detects browser language on first visit (en, es, pt)
+- **Type Safety**: TypeScript types ensure locale safety (`'en' | 'es' | 'pt-br'`)

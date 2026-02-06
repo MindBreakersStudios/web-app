@@ -22,13 +22,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     // Get from localStorage or browser language, fallback to default (Spanish)
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem(STORAGE_KEY) as SupportedLocale;
-      if (stored && (stored === 'en' || stored === 'es')) {
+      if (stored && (stored === 'en' || stored === 'es' || stored === 'pt-br')) {
         return stored;
       }
       // Try to detect from browser, but default to Spanish
-      const browserLang = navigator.language.split('-')[0];
-      if (browserLang === 'en') {
+      const browserLang = navigator.language.toLowerCase();
+      if (browserLang.startsWith('en')) {
         return 'en';
+      }
+      if (browserLang.startsWith('pt')) {
+        return 'pt-br';
       }
       // Default to Spanish for all other cases
       return 'es';

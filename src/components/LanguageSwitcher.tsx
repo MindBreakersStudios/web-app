@@ -1,43 +1,53 @@
 /**
  * Language Switcher Component
  * 
- * Displays a flag icon button to switch between English and Spanish.
+ * Displays flag buttons to switch between English, Spanish, and Brazilian Portuguese.
  */
 
 import React from 'react';
-import { Globe } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { SupportedLocale, supportedLocales } from '../i18n';
 
-const localeFlags: Record<SupportedLocale, string> = {
-  en: '🇺🇸',
-  es: '🇪🇸',
-};
-
-const localeNames: Record<SupportedLocale, string> = {
-  en: 'English',
-  es: 'Español',
+const localeData: Record<SupportedLocale, { name: string; flag: string }> = {
+  en: { name: 'English', flag: 'US' },
+  es: { name: 'Español', flag: 'ES' },
+  'pt-br': { name: 'Português', flag: 'BR' },
 };
 
 export const LanguageSwitcher: React.FC = () => {
   const { locale, setLocale } = useLanguage();
 
-  const toggleLanguage = () => {
-    const currentIndex = supportedLocales.indexOf(locale);
-    const nextIndex = (currentIndex + 1) % supportedLocales.length;
-    setLocale(supportedLocales[nextIndex]);
-  };
-
   return (
-    <button
-      onClick={toggleLanguage}
-      className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-white px-3 py-2 rounded-md transition text-sm font-medium"
-      title={`Switch to ${locale === 'en' ? 'Español' : 'English'}`}
-      aria-label={`Current language: ${localeNames[locale]}. Click to switch.`}
-    >
-      <span className="text-lg">{localeFlags[locale]}</span>
-      <span className="hidden md:inline">{localeNames[locale]}</span>
-      <Globe className="h-4 w-4" />
-    </button>
+    <div className="flex items-center gap-2">
+      {supportedLocales.map((lang) => {
+        const data = localeData[lang];
+        const isActive = locale === lang;
+        
+        return (
+          <button
+            key={lang}
+            onClick={() => setLocale(lang)}
+            className={`
+              relative rounded-full transition-all duration-200
+              hover:scale-110
+              ${isActive
+                ? 'ring-2 ring-cyan-500 ring-offset-2 ring-offset-gray-900 scale-110' 
+                : 'opacity-60 hover:opacity-100'
+              }
+            `}
+            title={data.name}
+            aria-label={`Switch to ${data.name}`}
+            aria-current={isActive ? 'true' : 'false'}
+          >
+            <img 
+              src={`https://hatscripts.github.io/circle-flags/flags/${data.flag.toLowerCase()}.svg`}
+              alt={`${data.name} flag`}
+              className="w-8 h-8 rounded-full"
+              loading="lazy"
+            />
+          </button>
+        );
+      })}
+    </div>
   );
 };
