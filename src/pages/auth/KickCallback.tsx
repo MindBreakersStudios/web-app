@@ -63,11 +63,16 @@ export function KickCallback() {
           throw new Error(data.error || 'Error al completar autenticación');
         }
 
+        // Validar que los datos del usuario existen
+        if (!data.user.id || !data.user.username) {
+          throw new Error('Datos de usuario incompletos');
+        }
+
         // 4. Guardar usuario en localStorage
         saveKickUser({
-          id: data.user.id,
-          username: data.user.username,
-          profile_picture: data.user.profile_picture || null,
+          id: String(data.user.id),
+          username: String(data.user.username),
+          profile_picture: data.user.profile_picture ? String(data.user.profile_picture) : null,
         });
 
         // 5. Limpiar sessionStorage

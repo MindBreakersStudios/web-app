@@ -136,10 +136,15 @@ export function useKickAuth(): UseKickAuthReturn {
 // =============================================================================
 
 export function saveKickUser(user: KickUser): void {
+  if (!user || !user.id || !user.username) {
+    console.error('[saveKickUser] Invalid user data:', user);
+    throw new Error('Invalid user data');
+  }
+
   const state: KickAuthState = {
-    kick_user_id: user.id,
-    kick_username: user.username,
-    profile_picture: user.profile_picture,
+    kick_user_id: String(user.id),
+    kick_username: String(user.username),
+    profile_picture: user.profile_picture ? String(user.profile_picture) : null,
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
