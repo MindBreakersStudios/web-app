@@ -86,7 +86,7 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
         displayName: serverData?.displayName,
         avatarUrl: serverData?.avatarUrl,
         inGameName: serverData?.inGameName,
-      };
+      } as KickStreamer & { isOnlineInGame: boolean; inGameName?: string };
     });
   }, [state.manualStreamers, availableStreamers]);
 

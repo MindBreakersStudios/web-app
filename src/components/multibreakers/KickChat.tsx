@@ -1,22 +1,59 @@
-import { memo } from 'react';
-import { MessageCircle, ExternalLink } from 'lucide-react';
+import { memo, useState, FormEvent } from 'react';
+import { MessageCircle, ExternalLink, Send, Loader2 } from 'lucide-react';
 import { KickChatProps } from './multiviewer';
+import { useKickAuth, sendKickChatMessage } from '../../hooks/useKickAuth';
+import { KickLoginButton } from '../KickLoginButton';
 
 /**
- * KickChat - Embebe el chat de un canal de Kick.com
- * Nota: Kick no tiene un embed oficial de chat separado,
- * pero podemos usar un iframe con la página del canal
+ * KickChat - Embebe el chat de un canal de Kick.com con input para enviar mensajes
  */
 export const KickChat = memo(function KickChat({
   username,
   isVisible,
 }: KickChatProps) {
+  const { isConnected, user } = useKickAuth();
+  const [message, setMessage] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
+
   if (!isVisible || !username) {
     return null;
   }
 
   // Kick no tiene embed de chat oficial separado, usamos el popout
   const chatUrl = `https://kick.com/${username}/chatroom`;
+
+  const handleSendMessage = async (e: FormEvent) => {
+    e.preventDefault();
+    
+    if (!message.trim() || !user || !isConnected) {
+      return;
+    }
+
+    setIsSending(true);
+    setSendError(null);
+
+    try {
+      // TODO: Obtener channel_id real del streamer
+      // Por ahora usamos el username como channel_id
+      const success = await sendKickChatMessage({
+        kick_user_id: user.id,
+        channel_id: username,
+        message: message.trim(),
+      });
+
+      if (success) {
+        setMessage('');
+      } else {
+        setSendError('Error al enviar mensaje');
+      }
+    } catch (err) {
+      console.error('[KickChat] Send error:', err);
+      setSendError(err instanceof Error ? err.message : 'Error al enviar mensaje');
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <div className="flex flex-col h-full bg-gray-900 border-l border-gray-700">
@@ -38,7 +75,7 @@ export const KickChat = memo(function KickChat({
       </div>
 
       {/* Chat iframe */}
-      <div className="flex-1 relative">
+      <div className="flex-1 relative min-h-0">
         <iframe
           src={chatUrl}
           className="absolute inset-0 w-full h-full"
@@ -46,6 +83,74 @@ export const KickChat = memo(function KickChat({
           scrolling="yes"
           title={`Chat de ${username}`}
         />
+      </div>
+
+      {/* Message input area */}
+      <div className="border-t border-gray-700 bg-gray-800 p-3">
+        {!isConnected ? (
+          <div className="text-center">
+            <p className="text-gray-400 text-sm mb-3">
+              Conecta tu cuenta de Kick para chatear
+            </p>
+            <KickLoginButton
+              variant="primary"
+              size="sm"
+              loginText="Conectar con Kick"
+              showAvatar={false}
+            />
+          </div>
+        ) : (
+          <form onSubmit={handleSendMessage} className="space-y-2">
+            <div className="flex items-center gap-2">
+              {/* User avatar */}
+              {user?.profile_picture ? (
+                <img
+                  src={user.profile_picture}
+                  alt={user.username}
+                  className="w-8 h-8 rounded-full border border-lime-400"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-lime-400/20 border border-lime-400 flex items-center justify-center flex-shrink-0">
+                  <span className="text-lime-400 font-bold text-xs">
+                    {user?.username[0].toUpperCase()}
+                  </span>
+                </div>
+              )}
+
+              {/* Message input */}
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Escribe un mensaje..."
+                disabled={isSending}
+                className="flex-1 bg-gray-700 text-white px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lime-400 disabled:opacity-50"
+                maxLength={500}
+              />
+
+              {/* Send button */}
+              <button
+                type="submit"
+                disabled={!message.trim() || isSending}
+                className="p-2 rounded-lg bg-lime-400 text-black hover:bg-lime-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                title="Enviar mensaje"
+              >
+                {isSending ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Send className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+
+            {/* Error message */}
+            {sendError && (
+              <p className="text-red-400 text-xs">
+                {sendError}
+              </p>
+            )}
+          </form>
+        )}
       </div>
     </div>
   );

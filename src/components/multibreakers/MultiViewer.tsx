@@ -24,6 +24,7 @@ import { KickChat, KickChatPlaceholder } from './KickChat';
 import { OfflineStreamerCard } from './OfflineStreamerCard';
 import { MultiViewerProps, GRID_LAYOUTS, ActiveGameStreamer } from './multiviewer';
 import { useTranslation } from '../../hooks/useTranslation';
+import { KickLoginButton } from '../KickLoginButton';
 
 /**
  * MultiViewer - Componente principal para ver múltiples streams de Kick
@@ -218,6 +219,13 @@ export function MultiViewer({
 
           {/* Right side: Controls */}
           <div className="flex items-center gap-2">
+            {/* Kick Login Button */}
+            <KickLoginButton
+              variant="minimal"
+              size="sm"
+              showAvatar={true}
+            />
+
             {/* Chat toggle */}
             <button
               onClick={toggleChat}

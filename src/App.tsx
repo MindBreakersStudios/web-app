@@ -21,6 +21,7 @@ import { SteamCallback } from './pages/SteamCallback';
 import { SteamLinkCallback } from './pages/SteamLinkCallback';
 import { AuthCallback } from './pages/AuthCallback';
 import { WatchPage } from './components/multibreakers/WatchPage';
+import { KickCallback } from './pages/auth/KickCallback';
 // uncomment to see StatsDisplay working with StatsDisplay component render
 // import { StatsDisplay } from './components/StatsDisplay/StatsDisplay';
 // import { GameStats } from './fixtures/StatsDisplayFixture';
@@ -112,6 +113,7 @@ export default function App() {
             <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/auth/steam-callback" element={<SteamCallback />} />
             <Route path="/auth/steam-link-callback" element={<SteamLinkCallback />} />
+            <Route path="/auth/kick/callback" element={<KickCallback />} />
           </Routes>
           <MindBreakerBot />
         </div>
