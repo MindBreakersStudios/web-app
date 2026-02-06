@@ -118,14 +118,6 @@ export function WatchPage() {
               className=""
             />
           )}
-
-          {/* Realtime status indicator (optional, for debugging) */}
-          {realtimeStatus === 'connected' && (
-            <div className="fixed bottom-4 right-4 flex items-center gap-2 bg-gray-800/90 backdrop-blur-sm px-3 py-2 rounded-lg border border-gray-700">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs text-gray-300">Live updates activos</span>
-            </div>
-          )}
         </main>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { X, Send, MessageCircle } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -19,7 +20,11 @@ function pickRandom(arr: string[] | null | undefined): string {
 }
 
 export const MindBreakerBot = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Hide bot on WatchParty page to avoid overlapping with chat
+  const isWatchParty = location.pathname === '/watch' || location.pathname.startsWith('/watch/');
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -101,6 +106,8 @@ export const MindBreakerBot = () => {
       }
     }
   };
+
+  if (isWatchParty) return null;
 
   return (
     <>
