@@ -152,18 +152,23 @@ export function useActiveStreamers(
       }
       // filter === 'all' no filtra nada
 
-      // 6. Ordenar: LIVE primero, luego ONLINE, luego OFFLINE
+      // 6. Ordenar: LIVE primero (por viewers), luego ONLINE (por connected_at), luego OFFLINE
       combined.sort((a, b) => {
         // Primero por estado
         if (a.is_live !== b.is_live) return a.is_live ? -1 : 1;
         if (a.is_connected !== b.is_connected) return a.is_connected ? -1 : 1;
-        
-        // Dentro de LIVE: por viewers
+
+        // Dentro de LIVE: por viewers (más viewers primero)
         if (a.is_live && b.is_live) {
           return (b.kick_viewer_count || 0) - (a.kick_viewer_count || 0);
         }
-        
-        // Dentro de ONLINE/OFFLINE: alfabético
+
+        // Dentro de ONLINE: por connected_at (más reciente primero)
+        if (a.is_connected && b.is_connected) {
+          return new Date(b.connected_at).getTime() - new Date(a.connected_at).getTime();
+        }
+
+        // OFFLINE: alfabético
         return (a.display_name || a.kick_username).localeCompare(
           b.display_name || b.kick_username
         );

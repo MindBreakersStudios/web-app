@@ -53,7 +53,6 @@ export const KickPlayer = memo(function KickPlayer({
           : 'border-gray-700 hover:border-gray-600'
         }
         ${isPrimary ? 'col-span-2 row-span-2' : ''}
-        ${!isLive ? 'opacity-60' : ''}
       `}
     >
       {/* Player iframe */}
@@ -70,14 +69,12 @@ export const KickPlayer = memo(function KickPlayer({
       {/* Overlay con controles - visible en hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
       
-      {/* OFFLINE overlay - siempre visible si no está en vivo */}
+      {/* NOT LIVE badge - subtle indicator at bottom-left, no blocking overlay */}
       {!isLive && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/70 pointer-events-none">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800/90 border border-gray-700">
-              <div className="w-2 h-2 rounded-full bg-gray-500" />
-              <span className="text-gray-300 font-semibold uppercase text-sm">Offline</span>
-            </div>
+        <div className="absolute bottom-2 left-2 z-10 pointer-events-none">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-sm border border-lime-400/30">
+            <div className="w-1.5 h-1.5 rounded-full bg-lime-400" />
+            <span className="text-lime-400 font-medium uppercase text-[10px] tracking-wider">En servidor</span>
           </div>
         </div>
       )}

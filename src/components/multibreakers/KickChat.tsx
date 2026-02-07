@@ -74,11 +74,11 @@ export const KickChat = memo(function KickChat({
         </a>
       </div>
 
-      {/* Chat iframe */}
-      <div className="flex-1 relative min-h-0">
+      {/* Chat iframe - clipped to hide Kick's built-in input (bottom ~60px) */}
+      <div className="flex-1 relative min-h-0 overflow-hidden">
         <iframe
           src={chatUrl}
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-[calc(100%+60px)]"
           frameBorder="0"
           scrolling="yes"
           title={`Chat de ${username}`}
