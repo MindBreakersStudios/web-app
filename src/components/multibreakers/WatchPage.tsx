@@ -4,6 +4,7 @@ import { ArrowLeft, Radio, Loader2, AlertCircle } from 'lucide-react';
 import { WatchParty } from './index';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useActiveStreamers } from '../../hooks/useActiveStreamers';
+import { useKickLiveStatus } from '../../hooks/useKickLiveStatus';
 import type { ActiveGameStreamer } from './multiviewer';
 
 /**
@@ -22,6 +23,14 @@ export function WatchPage() {
     gameSlug: gameFilter,
     filter: 'all', // Siempre mostrar todos
     realtime: true,
+  });
+
+  // Check Kick live status from browser (server gets 403)
+  // This updates Supabase, which triggers realtime updates above
+  const kickGameSlug = gameFilter === 'all' ? 'humanitz' : gameFilter;
+  useKickLiveStatus(kickGameSlug, {
+    pollInterval: 60000, // Check every 60 seconds
+    enabled: streamers.length > 0, // Only poll when there are streamers
   });
 
   // Transform Supabase data to WatchParty format

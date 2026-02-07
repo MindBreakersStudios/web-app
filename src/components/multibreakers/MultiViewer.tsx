@@ -81,9 +81,9 @@ export function WatchParty({
       {showServerStreamers && availableStreamers.length > 0 && (
         <div className="border-b border-gray-700 px-4 py-3 bg-gray-800/30">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-lime-400 animate-pulse" />
             <span className="text-sm font-medium text-white">
-              Streamers disponibles ({availableStreamers.filter(s => s.isOnlineInGame).length} en vivo)
+              Streamers ({availableStreamers.filter(s => s.isLive).length} LIVE, {availableStreamers.filter(s => s.isOnlineInGame && !s.isLive).length} online)
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -109,9 +109,10 @@ export function WatchParty({
 
               const handleChatClick = (e: React.MouseEvent) => {
                 e.stopPropagation();
-                if (isAdded) {
-                  setActiveChatStreamer(streamer.username);
+                if (!isAdded && canAddMore) {
+                  addStreamer(streamer.username);
                 }
+                setActiveChatStreamer(streamer.username);
               };
               
               return (
@@ -123,17 +124,17 @@ export function WatchParty({
                     flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors
                     ${isAdded
                       ? isLive
-                        ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30 border border-green-500/30 cursor-pointer'
+                        ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/30 cursor-pointer'
                         : isOnline
-                          ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 border border-blue-500/30 cursor-pointer'
+                          ? 'bg-lime-400/10 text-lime-400 hover:bg-lime-400/20 border border-lime-400/30 cursor-pointer'
                           : 'bg-gray-700/20 text-gray-400 hover:bg-gray-700/30 border border-gray-600/30 cursor-pointer opacity-50'
                       : isLive
                         ? canAddMore
-                          ? 'bg-gray-700 text-white hover:bg-gray-600 border border-green-500/50'
+                          ? 'bg-gray-700 text-white hover:bg-gray-600 border border-red-500/50'
                           : 'bg-gray-700/50 text-gray-500 cursor-not-allowed border border-gray-700'
                         : isOnline
                           ? canAddMore
-                            ? 'bg-gray-700 text-white hover:bg-gray-600 border border-blue-500/50'
+                            ? 'bg-gray-700 text-white hover:bg-gray-600 border border-lime-400/50'
                             : 'bg-gray-700/50 text-gray-500 cursor-not-allowed border border-gray-700'
                           : canAddMore
                             ? 'bg-gray-800/50 text-gray-500 hover:bg-gray-700/50 border border-gray-700/50 opacity-50'
@@ -143,59 +144,66 @@ export function WatchParty({
                 >
                   {/* Status indicator */}
                   {isLive ? (
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                   ) : isOnline ? (
-                    <div className="w-2 h-2 rounded-full bg-blue-500" />
+                    <div className="w-2 h-2 rounded-full bg-lime-400" />
                   ) : (
                     <div className="w-2 h-2 rounded-full bg-gray-600" />
                   )}
                   
                   <span className={isOffline ? 'opacity-75' : ''}>{streamer.displayName || streamer.username}</span>
-                  
+
                   {/* Viewer count (solo si está LIVE) */}
-                  {streamer.viewerCount !== undefined && isLive && (
-                    <span className="text-xs text-gray-400">
-                      ({streamer.viewerCount.toLocaleString()} viewers)
+                  {isLive && streamer.viewerCount !== undefined && streamer.viewerCount > 0 && (
+                    <span className="text-xs text-red-400 font-semibold">
+                      {streamer.viewerCount.toLocaleString()}
                     </span>
                   )}
                   
                   {/* Status badges */}
                   {isLive && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 uppercase font-semibold border border-green-500/30">
-                      Live
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 uppercase font-semibold border border-red-500/30">
+                      LIVE
                     </span>
                   )}
                   {!isLive && isOnline && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 uppercase font-semibold border border-blue-500/30">
-                      In-Game
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-lime-400/20 text-lime-400 uppercase font-semibold border border-lime-400/30">
+                      ONLINE
                     </span>
                   )}
                   {isOffline && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-700 text-gray-400 uppercase font-semibold">
-                      Offline
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-700 text-gray-500 uppercase font-semibold">
+                      OFFLINE
                     </span>
                   )}
                   
                   {/* Add icon (solo si no está agregado y puede agregar más) */}
                   {!isAdded && canAddMore && <Plus className="w-3 h-3" />}
-                  
+
                   {/* Controls para streamers agregados */}
                   {isAdded && (
                     <div className="flex items-center gap-1">
-                      {isLive && (
-                        <button
-                          onClick={handleChatClick}
-                          className={`p-0.5 rounded transition-colors ${
-                            isChatActive 
-                              ? 'bg-green-400 text-black' 
-                              : 'hover:bg-green-400/20'
-                          }`}
-                          title="Ver chat"
-                        >
-                          <MessageCircle className="w-3 h-3" />
-                        </button>
-                      )}
-                      <X className="w-3 h-3" />
+                      <button
+                        onClick={handleChatClick}
+                        className={`p-0.5 rounded transition-colors ${
+                          isChatActive
+                            ? 'bg-lime-400 text-black'
+                            : 'hover:bg-lime-400/20 text-gray-400'
+                        }`}
+                        title={isChatActive ? 'Chat activo' : 'Activar chat'}
+                      >
+                        <MessageCircle className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeStreamer(streamer.username);
+                        }}
+                        className="p-0.5 rounded text-gray-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
+                        title="Quitar"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
                     </div>
                   )}
                 </button>
