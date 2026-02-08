@@ -26,11 +26,11 @@ export function WatchPage() {
   });
 
   // Check Kick live status from browser (server gets 403)
-  // This updates Supabase, which triggers realtime updates above
+  // Updates Supabase with real Kick status, triggers realtime refresh above
   const kickGameSlug = gameFilter === 'all' ? 'humanitz' : gameFilter;
   useKickLiveStatus(kickGameSlug, {
-    pollInterval: 60000, // Check every 60 seconds
-    enabled: streamers.length > 0, // Only poll when there are streamers
+    pollInterval: 60000,
+    enabled: streamers.length > 0,
   });
 
   // Transform Supabase data to WatchParty format
@@ -38,15 +38,15 @@ export function WatchPage() {
     username: s.kick_username,
     displayName: s.display_name || s.kick_username,
     avatarUrl: s.avatar_url,
-    isLive: s.is_live, // True si está transmitiendo en Kick
+    isLive: s.is_live,
     viewerCount: s.kick_viewer_count,
     streamTitle: s.kick_stream_title,
     addedAt: new Date(s.connected_at || Date.now()).getTime(),
-    steamId: s.id, // Using id as steamId for now
+    steamId: s.id,
     inGameName: s.in_game_name || undefined,
     game: s.game_slug as 'humanitz' | 'scum',
     lastSeenInGame: s.last_seen_at ? new Date(s.last_seen_at).getTime() : Date.now(),
-    isOnlineInGame: s.is_connected, // True si está conectado al servidor
+    isOnlineInGame: s.is_connected,
   }));
 
   return (
@@ -88,6 +88,9 @@ export function WatchPage() {
               <div className="flex items-center gap-2">
                 <Radio className="w-5 h-5 text-lime-400" />
                 <h1 className="font-bold text-white">WatchParty</h1>
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-lime-400/20 text-lime-400 uppercase font-bold tracking-widest border border-lime-400/30">
+                  BETA
+                </span>
               </div>
 
               {/* Right side placeholder */}
