@@ -160,11 +160,6 @@ export function WatchPage() {
                         className={`w-5 h-5 rounded object-cover ${isDisabled ? 'grayscale' : ''}`}
                       />
                       <span className="hidden sm:inline">{game.label}</span>
-                      {isDisabled && (
-                        <span className="text-[9px] px-1 py-0.5 rounded bg-gray-700 text-gray-500 uppercase font-bold hidden sm:inline">
-                          Soon
-                        </span>
-                      )}
                     </button>
                   );
                 })}
