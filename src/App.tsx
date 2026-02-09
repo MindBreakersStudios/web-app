@@ -109,7 +109,7 @@ export default function App() {
             } />
             <Route path="/humanitz" element={<Humanitz />} />
             <Route path="/scum" element={<Scum />} />
-            <Route path="/watch" element={<WatchPage />} />
+            <Route path="/watchparty" element={<WatchPage />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/auth/steam-callback" element={<SteamCallback />} />
             <Route path="/auth/steam-link-callback" element={<SteamLinkCallback />} />

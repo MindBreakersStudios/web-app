@@ -184,14 +184,15 @@ export function useKickLiveStatus(
         }
       }
 
-      // 3. Batch update Supabase
+      // 3. Batch update Supabase (if RPC exists)
       if (updates.length > 0) {
         const { error: updateError } = await supabase.rpc('batch_update_kick_status', {
           p_updates: updates,
         });
 
         if (updateError) {
-          console.error('Failed to update Kick status in Supabase:', updateError);
+          // RPC may not exist yet — not critical, hook still returns correct data in memory
+          console.debug('[KickStatus] batch_update_kick_status:', updateError.message);
         }
       }
 

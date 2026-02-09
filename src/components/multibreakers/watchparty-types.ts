@@ -1,41 +1,45 @@
 /**
  * WatchParty Types
- * Sistema de visualización múltiple de streams de Kick
- * Preparado para futura integración con API de steamIds de jugadores activos
+ * Sistema de visualización múltiple de streams (multi-platform)
+ * Integrado con connected_players y players vía Supabase RPCs
  */
 
-/** Representa un streamer de Kick */
+/** Representa un streamer en el sistema de streaming */
 export interface KickStreamer {
-  /** Username de Kick (slug del canal) */
+  /** Username del canal (Kick slug, Twitch username, etc.) */
   username: string;
-  /** Nombre para mostrar (opcional, si viene de API) */
+  /** Nombre para mostrar */
   displayName?: string;
-  /** URL del avatar (opcional, si viene de API) */
+  /** URL del avatar */
   avatarUrl?: string;
-  /** Si el stream está en vivo (opcional, si viene de API) */
+  /** Si el stream está en vivo */
   isLive?: boolean;
-  /** Viewers actuales (opcional, si viene de API) */
+  /** Viewers actuales */
   viewerCount?: number;
-  /** Título del stream (opcional, si viene de API) */
+  /** Título del stream */
   streamTitle?: string;
   /** Timestamp de cuando se agregó */
   addedAt: number;
+  /** Si está conectado al servidor de juego (viene de useWatchPartyViewer) */
+  isOnlineInGame?: boolean;
+  /** Nombre del personaje en el juego (viene de useWatchPartyViewer) */
+  inGameName?: string;
 }
 
-/** 
+/**
  * Streamer activo en el servidor de juego
- * Para futura integración con logs del servidor via steamId
+ * Datos combinados de connected_players + players
  */
 export interface ActiveGameStreamer extends KickStreamer {
   /** SteamID del jugador */
   steamId: string;
   /** Nombre del personaje en el juego */
   inGameName?: string;
-  /** Juego en el que está activo */
-  game: 'humanitz' | 'scum';
+  /** Game slug en el que está activo */
+  game: string;
   /** Timestamp de última actividad en el servidor */
   lastSeenInGame: number;
-  /** Si está actualmente conectado al servidor */ 
+  /** Si está actualmente conectado al servidor */
   isOnlineInGame: boolean;
 }
 
@@ -115,8 +119,8 @@ export interface WatchPartyProps {
   initialStreamers?: string[];
   /** Streamers activos del servidor (de API futura) */
   activeServerStreamers?: ActiveGameStreamer[];
-  /** Juego actual para filtrar streamers del servidor */
-  game?: 'humanitz' | 'scum';
+  /** Game slug para filtrar streamers del servidor */
+  game?: string;
   /** Callback cuando cambia la lista de streamers */
   onStreamersChange?: (streamers: string[]) => void;
   /** Si mostrar sección de streamers activos del servidor */
@@ -127,11 +131,11 @@ export interface WatchPartyProps {
   className?: string;
 }
 
-/** Respuesta de la API futura de streamers activos */
+/** Respuesta de la API de streamers activos */
 export interface ActiveStreamersAPIResponse {
   success: boolean;
   data: {
-    game: 'humanitz' | 'scum';
+    game: string;
     streamers: ActiveGameStreamer[];
     lastUpdated: string;
   };

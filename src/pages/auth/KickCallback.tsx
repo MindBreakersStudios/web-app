@@ -84,7 +84,7 @@ export function KickCallback() {
 
         // 7. Redirigir después de 2 segundos
         setTimeout(() => {
-          const returnUrl = sessionStorage.getItem('kick_oauth_return_url') || '/watch';
+          const returnUrl = sessionStorage.getItem('kick_oauth_return_url') || '/watchparty';
           sessionStorage.removeItem('kick_oauth_return_url');
           navigate(returnUrl, { replace: true });
         }, 2000);
@@ -95,7 +95,7 @@ export function KickCallback() {
 
         // Redirigir a /watch después de 5 segundos en caso de error
         setTimeout(() => {
-          navigate('/watch', { replace: true });
+          navigate('/watchparty', { replace: true });
         }, 5000);
       }
     };
@@ -154,7 +154,7 @@ export function KickCallback() {
                 Redirigiendo en 5 segundos...
               </p>
               <button
-                onClick={() => navigate('/watch', { replace: true })}
+                onClick={() => navigate('/watchparty', { replace: true })}
                 className="mt-4 px-4 py-2 bg-lime-400 text-black rounded-lg font-medium hover:bg-lime-500 transition-colors"
               >
                 Volver al WatchParty

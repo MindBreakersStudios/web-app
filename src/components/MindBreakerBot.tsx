@@ -24,7 +24,7 @@ export const MindBreakerBot = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   // Hide bot on WatchParty page to avoid overlapping with chat
-  const isWatchParty = location.pathname === '/watch' || location.pathname.startsWith('/watch/');
+  const isWatchParty = location.pathname === '/watchparty' || location.pathname.startsWith('/watchparty/');
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
