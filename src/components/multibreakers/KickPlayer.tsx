@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { X, MessageCircle, Volume2, VolumeX, Maximize2, ExternalLink } from 'lucide-react';
-import { KickPlayerProps } from './multiviewer';
+import { KickPlayerProps } from './watchparty-types';
 
 /**
  * KickPlayer - Embebe un stream individual de Kick.com

@@ -98,7 +98,7 @@ export const Header = () => {
             </div>
           </div>
           <Link
-            to="/watch"
+            to="/watchparty"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-2 text-gray-300 hover:text-white transition group"
           >
@@ -233,7 +233,7 @@ export const Header = () => {
               {t('header.scumServer')}
             </Link>
             <Link
-              to="/watch"
+              to="/watchparty"
               className="flex items-center gap-2 py-2 text-gray-300 hover:text-white"
               onClick={() => {
                 setIsMenuOpen(false);

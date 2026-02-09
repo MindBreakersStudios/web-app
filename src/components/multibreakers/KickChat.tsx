@@ -1,6 +1,6 @@
 import { memo, useState, FormEvent } from 'react';
 import { MessageCircle, ExternalLink, Send, Loader2 } from 'lucide-react';
-import { KickChatProps } from './multiviewer';
+import { KickChatProps } from './watchparty-types';
 import { useKickAuth, sendKickChatMessage } from '../../hooks/useKickAuth';
 import { KickLoginButton } from '../KickLoginButton';
 

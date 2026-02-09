@@ -1,10 +1,7 @@
 // TypeScript type definitions
 // Add type files and re-export them here
 
-// Example:
-// export * from './user'
-// export * from './game'
-// export * from './api'
+export * from './watchparty'
 
 // Common utility types
 export type Nullable<T> = T | null

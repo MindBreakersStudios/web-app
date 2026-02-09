@@ -5,13 +5,13 @@ import {
   GridLayout,
   WatchPartyState,
   GRID_LAYOUTS,
-} from './multiviewer';
+} from './watchparty-types';
 
 const MAX_STREAMERS = 12;
 
 interface UseMultiViewerOptions {
   activeServerStreamers?: ActiveGameStreamer[];
-  game?: 'humanitz' | 'scum';
+  game?: string;
 }
 
 interface UseMultiViewerReturn {
@@ -36,7 +36,7 @@ interface UseMultiViewerReturn {
   isStreamerMuted: (username: string) => boolean;
 }
 
-export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiViewerReturn {
+export function useWatchPartyViewer(options: UseMultiViewerOptions = {}): UseMultiViewerReturn {
   const {
     activeServerStreamers = [],
     game,
@@ -88,7 +88,7 @@ export function useMultiViewer(options: UseMultiViewerOptions = {}): UseMultiVie
         displayName: serverData?.displayName,
         avatarUrl: serverData?.avatarUrl,
         inGameName: serverData?.inGameName,
-      } as KickStreamer & { isOnlineInGame: boolean; inGameName?: string };
+      } as KickStreamer;
     });
   }, [state.manualStreamers, availableStreamers]);
 
