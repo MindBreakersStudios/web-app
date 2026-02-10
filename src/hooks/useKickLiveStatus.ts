@@ -40,22 +40,31 @@ interface KickStatus {
   thumbnailUrl: string | null;
 }
 
+/** Matches get_live_streamers() return columns */
 interface ActiveStreamer {
-  id: string;
-  kick_username: string;
-  display_name: string;
-  in_game_name: string;
-  server_name: string;
   steam_id: string;
-  is_live: boolean;
-  viewer_count: number;
-  stream_title: string | null;
-  thumbnail_url: string | null;
-  connected_at: string;
-  last_seen: string;
-  kick_last_checked: string | null;
-  game_slug: string;
-  game_name: string;
+  player_name: string;
+  // Kick
+  kick_username: string | null;
+  kick_is_live: boolean;
+  kick_stream_title: string | null;
+  kick_viewer_count: number;
+  kick_stream_url: string | null;
+  kick_thumbnail: string | null;
+  // Twitch
+  twitch_username: string | null;
+  twitch_display_name: string | null;
+  twitch_is_live: boolean;
+  twitch_stream_title: string | null;
+  twitch_game_name: string | null;
+  twitch_viewer_count: number;
+  twitch_stream_url: string | null;
+  twitch_thumbnail: string | null;
+  // General
+  is_streamer: boolean;
+  is_connected: boolean;
+  connected_server: string | null;
+  primary_platform: string | null;
 }
 
 interface UseKickLiveStatusOptions {
@@ -131,10 +140,9 @@ export function useKickLiveStatus(
     if (!enabled) return;
 
     try {
-      // 1. Get all active streamers for this game
+      // 1. Get all live streamers (no params — returns all)
       const { data: activeStreamers, error: fetchError } = await supabase.rpc(
-        'get_live_streamers',
-        { p_game_slug: gameSlug, p_filter: 'all' }
+        'get_live_streamers'
       );
 
       if (fetchError) throw fetchError;
@@ -147,11 +155,15 @@ export function useKickLiveStatus(
         return;
       }
 
-      // 2. Check Kick status for each streamer (in parallel, with limit)
+      // 2. Filter to only Kick streamers with a username
+      const kickStreamers = activeStreamers.filter(
+        (s: ActiveStreamer) => s.kick_username
+      );
+
+      // 3. Check Kick status for each streamer (in parallel, with limit)
       const BATCH_SIZE = 5;
       const updates: {
         kick_username: string;
-        game_slug: string;
         is_live: boolean;
         viewer_count: number;
         stream_title: string | null;
@@ -159,15 +171,14 @@ export function useKickLiveStatus(
       }[] = [];
 
       // Process in batches to avoid rate limiting
-      for (let i = 0; i < activeStreamers.length; i += BATCH_SIZE) {
-        const batch = activeStreamers.slice(i, i + BATCH_SIZE);
-        
+      for (let i = 0; i < kickStreamers.length; i += BATCH_SIZE) {
+        const batch = kickStreamers.slice(i, i + BATCH_SIZE);
+
         const batchResults = await Promise.all(
           batch.map(async (streamer: ActiveStreamer) => {
-            const status = await fetchKickStatus(streamer.kick_username);
+            const status = await fetchKickStatus(streamer.kick_username!);
             return {
-              kick_username: streamer.kick_username,
-              game_slug: gameSlug,
+              kick_username: streamer.kick_username!,
               is_live: status.isLive,
               viewer_count: status.viewerCount,
               stream_title: status.streamTitle,
@@ -179,12 +190,12 @@ export function useKickLiveStatus(
         updates.push(...batchResults);
 
         // Small delay between batches
-        if (i + BATCH_SIZE < activeStreamers.length) {
+        if (i + BATCH_SIZE < kickStreamers.length) {
           await new Promise((resolve) => setTimeout(resolve, 200));
         }
       }
 
-      // 3. Batch update Supabase (if RPC exists)
+      // 4. Batch update Supabase (if RPC exists)
       if (updates.length > 0) {
         const { error: updateError } = await supabase.rpc('batch_update_kick_status', {
           p_updates: updates,
@@ -196,27 +207,30 @@ export function useKickLiveStatus(
         }
       }
 
-      // 4. Merge updates with streamer data for immediate UI update
+      // 5. Merge updates with streamer data for immediate UI update
       const updatedStreamers = activeStreamers.map((streamer: ActiveStreamer) => {
         const update = updates.find((u) => u.kick_username === streamer.kick_username);
         if (update) {
           return {
             ...streamer,
-            is_live: update.is_live,
-            viewer_count: update.viewer_count,
-            stream_title: update.stream_title,
-            thumbnail_url: update.thumbnail_url,
-            kick_last_checked: new Date().toISOString(),
+            kick_is_live: update.is_live,
+            kick_viewer_count: update.viewer_count,
+            kick_stream_title: update.stream_title,
+            kick_thumbnail: update.thumbnail_url,
           };
         }
         return streamer;
       });
 
-      // Sort: live first, then by viewer count
+      // Sort: live first (kick or twitch), then by viewer count
       updatedStreamers.sort((a: ActiveStreamer, b: ActiveStreamer) => {
-        if (a.is_live && !b.is_live) return -1;
-        if (!a.is_live && b.is_live) return 1;
-        return b.viewer_count - a.viewer_count;
+        const aLive = a.kick_is_live || a.twitch_is_live;
+        const bLive = b.kick_is_live || b.twitch_is_live;
+        if (aLive && !bLive) return -1;
+        if (!aLive && bLive) return 1;
+        const aViewers = a.kick_viewer_count + a.twitch_viewer_count;
+        const bViewers = b.kick_viewer_count + b.twitch_viewer_count;
+        return bViewers - aViewers;
       });
 
       if (isMountedRef.current) {

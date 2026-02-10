@@ -50,17 +50,13 @@ function StreamerSidebar({
 }: StreamerSidebarProps) {
   const [offlineExpanded, setOfflineExpanded] = useState(false);
 
-  // Separate live/online streamers from offline
+  // Separate streamers: Live vs Offline (everyone not live)
   const liveStreamers = useMemo(
-    () => availableStreamers.filter(s => s.isLive),
-    [availableStreamers]
-  );
-  const onlineStreamers = useMemo(
-    () => availableStreamers.filter(s => s.isOnlineInGame && !s.isLive),
+    () => availableStreamers.filter(s => s.isLive).sort((a, b) => (b.viewerCount ?? 0) - (a.viewerCount ?? 0)),
     [availableStreamers]
   );
   const offlineStreamers = useMemo(
-    () => availableStreamers.filter(s => !s.isOnlineInGame),
+    () => availableStreamers.filter(s => !s.isLive),
     [availableStreamers]
   );
 
@@ -103,8 +99,8 @@ function StreamerSidebar({
             onClick={() => handleClick(s)}
             className={`relative w-8 h-8 rounded-full overflow-hidden border-2 transition-all flex-shrink-0 ${
               isAdded(s.username)
-                ? 'border-red-500 ring-1 ring-red-500/30'
-                : 'border-gray-600 hover:border-red-400'
+                ? 'border-green-500 ring-1 ring-green-500/30'
+                : 'border-gray-600 hover:border-green-400'
             }`}
             title={`${s.displayName || s.username} — LIVE (${s.viewerCount?.toLocaleString() || 0})`}
           >
@@ -116,31 +112,7 @@ function StreamerSidebar({
               </div>
             )}
             {/* Live dot */}
-            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-red-500 rounded-full border-2 border-gray-800" />
-          </button>
-        ))}
-
-        {/* Online streamers icons */}
-        {onlineStreamers.map((s) => (
-          <button
-            key={s.steamId}
-            onClick={() => handleClick(s)}
-            className={`relative w-8 h-8 rounded-full overflow-hidden border-2 transition-all flex-shrink-0 ${
-              isAdded(s.username)
-                ? 'border-lime-400 ring-1 ring-lime-400/30'
-                : 'border-gray-600 hover:border-lime-400'
-            }`}
-            title={`${s.displayName || s.username} — En servidor`}
-          >
-            {s.avatarUrl ? (
-              <img src={s.avatarUrl} alt={s.username} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full bg-gray-700 flex items-center justify-center text-[10px] text-white font-bold">
-                {(s.displayName || s.username).charAt(0).toUpperCase()}
-              </div>
-            )}
-            {/* Online dot */}
-            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-lime-400 rounded-full border-2 border-gray-800" />
+            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-800" />
           </button>
         ))}
 
@@ -181,8 +153,8 @@ function StreamerSidebar({
         {/* LIVE Section */}
         {liveStreamers.length > 0 && (
           <div className="py-1">
-            <div className="px-3 py-1.5 text-[10px] font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
+            <div className="px-3 py-1.5 text-[10px] font-bold text-green-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
               Live — {liveStreamers.length}
             </div>
             {liveStreamers.map((s) => {
@@ -194,14 +166,14 @@ function StreamerSidebar({
                   onClick={() => handleClick(s)}
                   className={`w-full flex items-center gap-2 px-3 py-1.5 text-left transition-colors ${
                     added
-                      ? 'bg-red-500/10 hover:bg-red-500/20'
+                      ? 'bg-green-500/10 hover:bg-green-500/20'
                       : 'hover:bg-gray-700/50'
                   }`}
                 >
                   {/* Avatar */}
                   <div className="relative flex-shrink-0">
                     <div className={`w-7 h-7 rounded-full overflow-hidden border-2 ${
-                      added ? 'border-red-500' : 'border-gray-600'
+                      added ? 'border-green-500' : 'border-gray-600'
                     }`}>
                       {s.avatarUrl ? (
                         <img src={s.avatarUrl} alt={s.username} className="w-full h-full object-cover" />
@@ -211,12 +183,12 @@ function StreamerSidebar({
                         </div>
                       )}
                     </div>
-                    <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border-[1.5px] border-gray-800" />
+                    <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-gray-800" />
                   </div>
 
                   {/* Name & Viewers */}
                   <div className="flex-1 min-w-0">
-                    <div className={`text-xs font-medium truncate ${added ? 'text-red-300' : 'text-white'}`}>
+                    <div className={`text-xs font-medium truncate ${added ? 'text-green-300' : 'text-white'}`}>
                       {s.displayName || s.username}
                     </div>
                     <div className="flex items-center gap-1 text-[10px] text-gray-500">
@@ -241,71 +213,6 @@ function StreamerSidebar({
                         onClick={(e) => { e.stopPropagation(); onRemoveStreamer(s.username); }}
                         className="p-0.5 rounded text-gray-500 hover:text-red-400 transition-colors"
                         title="Quitar"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ) : canAddMore ? (
-                    <Plus className="w-3 h-3 text-gray-500 flex-shrink-0" />
-                  ) : null}
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* ONLINE Section */}
-        {onlineStreamers.length > 0 && (
-          <div className="py-1">
-            <div className="px-3 py-1.5 text-[10px] font-bold text-lime-400 uppercase tracking-wider flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-lime-400 rounded-full" />
-              En servidor — {onlineStreamers.length}
-            </div>
-            {onlineStreamers.map((s) => {
-              const added = isAdded(s.username);
-              const chatActive = activeChatStreamer?.toLowerCase() === s.username.toLowerCase();
-              return (
-                <button
-                  key={s.steamId}
-                  onClick={() => handleClick(s)}
-                  className={`w-full flex items-center gap-2 px-3 py-1.5 text-left transition-colors ${
-                    added
-                      ? 'bg-lime-400/5 hover:bg-lime-400/10'
-                      : 'hover:bg-gray-700/50'
-                  }`}
-                >
-                  <div className="relative flex-shrink-0">
-                    <div className={`w-7 h-7 rounded-full overflow-hidden border-2 ${
-                      added ? 'border-lime-400' : 'border-gray-600'
-                    }`}>
-                      {s.avatarUrl ? (
-                        <img src={s.avatarUrl} alt={s.username} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="w-full h-full bg-gray-700 flex items-center justify-center text-[9px] text-white font-bold">
-                          {(s.displayName || s.username).charAt(0).toUpperCase()}
-                        </div>
-                      )}
-                    </div>
-                    <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-lime-400 rounded-full border-[1.5px] border-gray-800" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className={`text-xs font-medium truncate ${added ? 'text-lime-300' : 'text-gray-300'}`}>
-                      {s.displayName || s.username}
-                    </div>
-                  </div>
-                  {added ? (
-                    <div className="flex items-center gap-0.5 flex-shrink-0">
-                      <button
-                        onClick={(e) => handleChatClick(e, s)}
-                        className={`p-0.5 rounded transition-colors ${
-                          chatActive ? 'bg-lime-400 text-black' : 'text-gray-500 hover:text-lime-400'
-                        }`}
-                      >
-                        <MessageCircle className="w-3 h-3" />
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); onRemoveStreamer(s.username); }}
-                        className="p-0.5 rounded text-gray-500 hover:text-red-400 transition-colors"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -525,12 +432,10 @@ export function WatchParty({
             <div className={`grid ${gridClasses[state.currentLayout.columns]} gap-2 h-full`}>
               {allStreamers.map((streamer) => {
                 const isLive = streamer.isLive ?? false;
-                const isOnline = streamer.isOnlineInGame ?? false;
-                const isOffline = !isOnline;
 
                 return (
                   <div key={streamer.username} className="relative w-full h-full min-h-0">
-                    {isOffline ? (
+                    {!isLive ? (
                       <OfflineStreamerCard
                         username={streamer.username}
                         displayName={streamer.displayName}

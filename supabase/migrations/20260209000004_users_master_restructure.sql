@@ -450,7 +450,7 @@ BEGIN
 END;
 $$;
 
-COMMENT ON FUNCTION get_active_streamers IS 
+COMMENT ON FUNCTION get_active_streamers(text) IS 
   'Streamers que están LIVE y conectados al servidor. Endpoint principal para WatchParty.';
 
 
@@ -532,7 +532,7 @@ BEGIN
 END;
 $$;
 
-COMMENT ON FUNCTION get_connected_players IS 
+COMMENT ON FUNCTION get_connected_players(text) IS 
   'Todos los jugadores conectados. Para panel de admin.';
 
 
@@ -602,7 +602,7 @@ BEGIN
 END;
 $$;
 
-COMMENT ON FUNCTION get_registered_streamers IS 
+COMMENT ON FUNCTION get_registered_streamers(boolean) IS
   'Todos los streamers registrados. Incluye estado actual (conectado/live).';
 
 
@@ -673,7 +673,7 @@ BEGIN
 END;
 $$;
 
-COMMENT ON FUNCTION get_or_create_player IS 
+COMMENT ON FUNCTION get_or_create_player(text, text) IS 
   'Obtiene o crea un player por steam_id. Usado por LogWatcher.';
 
 
