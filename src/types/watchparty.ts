@@ -19,7 +19,8 @@
  *
  * RPCs:
  *   - get_active_streamers(p_game_slug?) → streamers LIVE + conectados (WatchParty)
- *   - get_registered_streamers(p_verified_only?) → todos los streamers registrados
+ *   - get_registered_streamers() → todos los streamers registrados (sin parámetros)
+ *   - get_live_streamers() → streamers en vivo (sin parámetros)
  *   - get_connected_players(p_game_slug?) → TODOS los jugadores conectados (admin)
  */
 
@@ -61,22 +62,53 @@ export interface ActiveStreamer {
 // =============================================================================
 
 export interface RegisteredStreamer {
-  id: string;
   steam_id: string;
-  username: string;
-  display_name: string;
-  avatar_url: string | null;
+  player_name: string;
+  is_streamer: boolean;
+  // Kick
   kick_username: string | null;
+  kick_verified_at: string | null;
+  kick_is_live: boolean;
+  // Twitch
   twitch_username: string | null;
-  youtube_channel_id: string | null;
-  streaming_platform: string | null;
-  is_verified: boolean;
-  registered_at: string;
-  // Estado actual (join con connected_players)
-  is_currently_connected: boolean;
-  is_currently_live: boolean;
-  current_game_slug: string | null;
-  current_viewer_count: number;
+  twitch_display_name: string | null;
+  twitch_verified_at: string | null;
+  twitch_is_live: boolean;
+  // Estado actual
+  is_connected: boolean;
+  connected_server: string | null;
+  platforms: string[];
+}
+
+// =============================================================================
+// LiveStreamer — Respuesta de get_live_streamers()
+// Streamers actualmente en vivo en cualquier plataforma
+// =============================================================================
+
+export interface LiveStreamer {
+  steam_id: string;
+  player_name: string;
+  // Kick
+  kick_username: string | null;
+  kick_is_live: boolean;
+  kick_stream_title: string | null;
+  kick_viewer_count: number;
+  kick_stream_url: string | null;
+  kick_thumbnail: string | null;
+  // Twitch
+  twitch_username: string | null;
+  twitch_display_name: string | null;
+  twitch_is_live: boolean;
+  twitch_stream_title: string | null;
+  twitch_game_name: string | null;
+  twitch_viewer_count: number;
+  twitch_stream_url: string | null;
+  twitch_thumbnail: string | null;
+  // General
+  is_streamer: boolean;
+  is_connected: boolean;
+  connected_server: string | null;
+  primary_platform: string | null;
 }
 
 // =============================================================================

@@ -5,7 +5,7 @@
  * Hook para obtener streamers activos con Realtime updates.
  * Combina datos de get_active_streamers (live + conectados) y
  * get_registered_streamers (todos los registrados) para mostrar
- * tres estados: LIVE, ONLINE (conectado pero no transmitiendo), OFFLINE.
+ * dos estados: LIVE y OFFLINE.
  *
  * ARQUITECTURA:
  * - LogWatcher (backend en Windows Server) es la UNICA fuente de verdad
@@ -21,7 +21,7 @@
  *
  * RPCs:
  * - get_active_streamers(p_game_slug?) → streamers LIVE + conectados
- * - get_registered_streamers(p_verified_only?) → todos los registrados
+ * - get_registered_streamers() → todos los registrados (sin parámetros)
  *
  * Uso:
  *   const { streamers, isLoading, error } = useActiveStreamers({ gameSlug: 'humanitz' });
@@ -117,9 +117,7 @@ export function useActiveStreamers(
           p_game_slug: gameSlug === 'all' ? null : gameSlug,
         }),
         // Todos los streamers registrados en el programa
-        supabase.rpc('get_registered_streamers', {
-          p_verified_only: false,
-        }),
+        supabase.rpc('get_registered_streamers'),
       ]);
 
       if (activeResult.error) {
@@ -133,37 +131,70 @@ export function useActiveStreamers(
       const activeStreamers: ActiveStreamer[] = activeResult.data || [];
       const registeredStreamers: RegisteredStreamer[] = registeredResult.data || [];
 
-      // 2. Crear Map de streamers activos por steam_id para lookup rápido
+      // 2. Crear Maps para lookup rápido
       const activeMap = new Map(
         activeStreamers.map((s) => [s.steam_id, s])
       );
+      const registeredSteamIds = new Set(
+        registeredStreamers.map((s) => s.steam_id)
+      );
 
-      // 3. Combinar los resultados
+      // 3. Combinar: empezar con registered streamers, enriquecer con active data
       let combined: CombinedStreamer[] = registeredStreamers.map((registered) => {
         const active = activeMap.get(registered.steam_id);
+        const isLive = active?.is_live || registered.kick_is_live || registered.twitch_is_live;
+        const displayName = active?.display_name || registered.twitch_display_name || registered.player_name || registered.kick_username || 'Unknown';
+        const streamingPlatform = active?.streaming_platform || (registered.kick_is_live ? 'kick' : registered.twitch_is_live ? 'twitch' : (registered.platforms?.[0] || null));
 
         return {
-          id: active?.id || registered.id,
+          id: active?.id || registered.steam_id,
           steam_id: registered.steam_id,
-          username: registered.username,
-          display_name: registered.display_name,
-          avatar_url: registered.avatar_url,
+          username: active?.username || registered.kick_username || registered.twitch_username || registered.player_name || registered.steam_id,
+          display_name: displayName,
+          avatar_url: active?.avatar_url || null,
           kick_username: registered.kick_username,
           twitch_username: registered.twitch_username,
-          streaming_platform: registered.streaming_platform,
-          game_slug: active?.game_slug || registered.current_game_slug || 'unknown',
+          streaming_platform: streamingPlatform,
+          game_slug: active?.game_slug || 'unknown',
           game_name: active?.game_name || '',
-          server_name: active?.server_name || '',
+          server_name: active?.server_name || registered.connected_server || '',
           in_game_name: active?.in_game_name || null,
-          is_live: registered.is_currently_live,
-          is_connected: registered.is_currently_connected,
-          viewer_count: active?.viewer_count || registered.current_viewer_count || 0,
+          is_live: isLive,
+          is_connected: active ? true : registered.is_connected,
+          viewer_count: active?.viewer_count || 0,
           stream_title: active?.stream_title || null,
           stream_thumbnail_url: active?.stream_thumbnail_url || null,
-          connected_at: active?.connected_at || registered.registered_at,
+          connected_at: active?.connected_at || new Date().toISOString(),
           last_seen: active?.last_seen || null,
         };
       });
+
+      // 4. Add active streamers NOT in registered list (they're live but not in the registered program)
+      for (const active of activeStreamers) {
+        if (!registeredSteamIds.has(active.steam_id)) {
+          combined.push({
+            id: active.id,
+            steam_id: active.steam_id,
+            username: active.username || active.kick_username || active.twitch_username || active.steam_id,
+            display_name: active.display_name || active.username || 'Unknown',
+            avatar_url: active.avatar_url,
+            kick_username: active.kick_username,
+            twitch_username: active.twitch_username,
+            streaming_platform: active.streaming_platform,
+            game_slug: active.game_slug,
+            game_name: active.game_name,
+            server_name: active.server_name,
+            in_game_name: active.in_game_name || null,
+            is_live: active.is_live,
+            is_connected: true,
+            viewer_count: active.viewer_count || 0,
+            stream_title: active.stream_title,
+            stream_thumbnail_url: active.stream_thumbnail_url,
+            connected_at: active.connected_at,
+            last_seen: active.last_seen,
+          });
+        }
+      }
 
       // 4. Filtrar por game_slug si es necesario
       if (gameSlug !== 'all') {
@@ -196,10 +227,10 @@ export function useActiveStreamers(
           return new Date(b.connected_at).getTime() - new Date(a.connected_at).getTime();
         }
 
-        // OFFLINE: alfabético
-        return (a.display_name || a.username).localeCompare(
-          b.display_name || b.username
-        );
+        // OFFLINE: alfabético (with null safety)
+        const aName = a.display_name || a.username || '';
+        const bName = b.display_name || b.username || '';
+        return aName.localeCompare(bName);
       });
 
       setStreamers(combined);
