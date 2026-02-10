@@ -74,15 +74,19 @@ export const KickChat = memo(function KickChat({
         </a>
       </div>
 
-      {/* Chat iframe - clipped to hide Kick's built-in input (bottom ~60px) */}
+      {/* Chat iframe - oversized to push Kick's built-in input/login out of view */}
       <div className="flex-1 relative min-h-0 overflow-hidden">
         <iframe
           src={chatUrl}
-          className="absolute inset-0 w-full h-[calc(100%+60px)]"
+          className="absolute inset-0 w-full h-[calc(100%+120px)]"
           frameBorder="0"
           scrolling="yes"
           title={`Chat de ${username}`}
         />
+        {/* Click-blocking overlay: prevents interaction with Kick's hidden input area */}
+        <div className="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-auto z-10" />
+        {/* Gradient fade at the bottom edge for a clean transition to our input */}
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-900 to-transparent z-20 pointer-events-none" />
       </div>
 
       {/* Message input area */}
