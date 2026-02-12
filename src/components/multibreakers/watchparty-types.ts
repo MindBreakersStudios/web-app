@@ -12,6 +12,8 @@ export interface KickStreamer {
   displayName?: string;
   /** URL del avatar */
   avatarUrl?: string;
+  /** Plataforma de streaming */
+  platform?: 'kick' | 'twitch' | 'youtube';
   /** Si el stream está en vivo */
   isLive?: boolean;
   /** Viewers actuales */

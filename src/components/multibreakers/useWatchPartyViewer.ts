@@ -74,14 +74,19 @@ export function useWatchPartyViewer(options: UseMultiViewerOptions = {}): UseMul
   }, [activeServerStreamers, game]);
 
   // Only show manually selected streamers in the grid
-  // Enrich with data from availableStreamers (isOnlineInGame, viewerCount, etc.)
+  // Enrich with data from availableStreamers (isOnlineInGame, viewerCount, platform, etc.)
   const allStreamers = useMemo(() => {
     return state.manualStreamers.map(manual => {
       const serverData = availableStreamers.find(
         s => s.username.toLowerCase() === manual.username.toLowerCase()
       );
+
+      // Determine platform from serverData or keep manual platform
+      const platform = serverData?.platform || manual.platform || 'kick';
+
       return {
         ...manual,
+        platform,
         isLive: serverData?.isLive ?? false,
         isOnlineInGame: serverData?.isOnlineInGame ?? false,
         viewerCount: serverData?.viewerCount,

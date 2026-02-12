@@ -4,8 +4,6 @@ import {
   X,
   MessageCircle,
   MessageCircleOff,
-  Volume2,
-  VolumeX,
   Users,
   Radio,
   ChevronLeft,
@@ -17,6 +15,8 @@ import {
 import { useWatchPartyViewer } from './useWatchPartyViewer';
 import { KickPlayer } from './KickPlayer';
 import { KickChat, KickChatPlaceholder } from './KickChat';
+import { TwitchPlayer } from './TwitchPlayer';
+import { TwitchChat, TwitchChatPlaceholder } from './TwitchChat';
 import { OfflineStreamerCard } from './OfflineStreamerCard';
 import { WatchPartyProps, ActiveGameStreamer } from './watchparty-types';
 import { KickLoginButton } from '../KickLoginButton';
@@ -324,9 +324,6 @@ export function WatchParty({
     removeStreamer,
     toggleChat,
     setActiveChatStreamer,
-    toggleMute,
-    toggleMuteForStreamer,
-    isStreamerMuted,
     canAddMore,
     streamerCount,
   } = useWatchPartyViewer({
@@ -378,19 +375,6 @@ export function WatchParty({
             >
               {state.showChat ? <MessageCircle className="w-4 h-4" /> : <MessageCircleOff className="w-4 h-4" />}
             </button>
-
-            {/* Mute toggle */}
-            <button
-              onClick={toggleMute}
-              className={`p-1.5 rounded-md transition-colors ${
-                state.isMuted
-                  ? 'bg-gray-700/50 text-gray-400 hover:text-white hover:bg-gray-600'
-                  : 'bg-blue-500 text-white'
-              }`}
-              title={state.isMuted ? 'Activar audio' : 'Silenciar'}
-            >
-              {state.isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-            </button>
           </div>
         </div>
       </div>
@@ -432,6 +416,7 @@ export function WatchParty({
             <div className={`grid ${gridClasses[state.currentLayout.columns]} gap-2 h-full`}>
               {allStreamers.map((streamer) => {
                 const isLive = streamer.isLive ?? false;
+                const platform = streamer.platform || 'kick';
 
                 return (
                   <div key={streamer.username} className="relative w-full h-full min-h-0">
@@ -444,10 +429,16 @@ export function WatchParty({
                         showCloseButton={true}
                         onClose={() => removeStreamer(streamer.username)}
                       />
+                    ) : platform === 'twitch' ? (
+                      <TwitchPlayer
+                        channel={streamer.username}
+                        showChat={false}
+                        onReady={() => console.log(`Twitch player ready: ${streamer.username}`)}
+                        onError={(err) => console.error(`Twitch player error:`, err)}
+                      />
                     ) : (
                       <KickPlayer
                         username={streamer.username}
-                        muted={isStreamerMuted(streamer.username)}
                         showCloseButton={true}
                         onClose={() => removeStreamer(streamer.username)}
                         onActivateChat={() => setActiveChatStreamer(streamer.username)}
@@ -455,7 +446,6 @@ export function WatchParty({
                           state.activeChatStreamer?.toLowerCase() === streamer.username.toLowerCase()
                         }
                         isLive={isLive}
-                        onToggleMute={() => toggleMuteForStreamer(streamer.username)}
                       />
                     )}
                   </div>
@@ -468,9 +458,19 @@ export function WatchParty({
         {/* Chat sidebar (right) */}
         {state.showChat && allStreamers.length > 0 && (
           <div className="w-80 min-w-[320px] border-l border-gray-700 flex-shrink-0">
-            {state.activeChatStreamer ? (
-              <KickChat username={state.activeChatStreamer} isVisible={true} />
-            ) : (
+            {state.activeChatStreamer ? (() => {
+              // Find the active streamer's platform
+              const activeStreamer = allStreamers.find(
+                s => s.username.toLowerCase() === state.activeChatStreamer?.toLowerCase()
+              );
+              const platform = activeStreamer?.platform || 'kick';
+
+              return platform === 'twitch' ? (
+                <TwitchChat channel={state.activeChatStreamer} darkMode={true} />
+              ) : (
+                <KickChat username={state.activeChatStreamer} isVisible={true} />
+              );
+            })() : (
               <KickChatPlaceholder />
             )}
           </div>

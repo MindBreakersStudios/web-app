@@ -82,20 +82,29 @@ export function WatchPage() {
   });
 
   // Transform Supabase data to WatchParty format
-  const activeStreamers: ActiveGameStreamer[] = streamers.map((s) => ({
-    username: s.kick_username || s.twitch_username || s.username,
-    displayName: s.display_name || s.username,
-    avatarUrl: s.avatar_url || undefined,
-    isLive: s.is_live,
-    viewerCount: s.viewer_count,
-    streamTitle: s.stream_title || undefined,
-    addedAt: new Date(s.connected_at || Date.now()).getTime(),
-    steamId: s.steam_id,
-    inGameName: s.in_game_name || undefined,
-    game: s.game_slug,
-    lastSeenInGame: s.last_seen ? new Date(s.last_seen).getTime() : Date.now(),
-    isOnlineInGame: s.is_connected,
-  }));
+  const activeStreamers: ActiveGameStreamer[] = streamers.map((s) => {
+    // Determine platform and username
+    const platform = s.streaming_platform || (s.twitch_username ? 'twitch' : 'kick');
+    const username = platform === 'twitch'
+      ? s.twitch_username || s.username
+      : s.kick_username || s.username;
+
+    return {
+      username,
+      platform,
+      displayName: s.display_name || s.username,
+      avatarUrl: s.avatar_url || undefined,
+      isLive: s.is_live,
+      viewerCount: s.viewer_count,
+      streamTitle: s.stream_title || undefined,
+      addedAt: new Date(s.connected_at || Date.now()).getTime(),
+      steamId: s.steam_id,
+      inGameName: s.in_game_name || undefined,
+      game: s.game_slug,
+      lastSeenInGame: s.last_seen ? new Date(s.last_seen).getTime() : Date.now(),
+      isOnlineInGame: s.is_connected,
+    };
+  });
 
   return (
     <>
