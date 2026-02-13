@@ -350,8 +350,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('[AUTH] Initiating Steam authentication...')
       console.log('[AUTH] Edge function URL:', edgeFunctionUrl)
 
-      // Redirect to Steam via edge function
-      window.location.href = edgeFunctionUrl
+      // Get anon key for edge function authentication
+      const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+      // Call edge function to get Steam auth URL
+      const response = await fetch(edgeFunctionUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${anonKey}`,
+          'apikey': anonKey,
+        },
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
+        console.error('[AUTH] Edge function error:', errorData)
+        return { error: errorData.message || 'Failed to initiate Steam authentication' }
+      }
+
+      const data = await response.json()
+
+      if (!data.success || !data.auth_url) {
+        console.error('[AUTH] Invalid response from edge function:', data)
+        return { error: 'Failed to get Steam authentication URL' }
+      }
+
+      console.log('[AUTH] Redirecting to Steam:', data.auth_url)
+
+      // Redirect to Steam OpenID
+      window.location.href = data.auth_url
       return {}
     } catch (err) {
       console.error('[AUTH] Steam authentication error:', err)
