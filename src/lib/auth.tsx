@@ -341,14 +341,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     try {
-      const returnUrl = `${window.location.origin}/auth/steam-callback`
-      const result = await steamAPI.initSecureLink(returnUrl)
-      
-      // Redirect to Steam
-      window.location.href = result.auth_url
-      
-      return {}
+      // For local development, use edge function
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const isLocalDev = supabaseUrl?.includes('127.0.0.1') || supabaseUrl?.includes('localhost')
+
+      if (isLocalDev) {
+        // Local development: use edge function
+        const returnUrl = `${window.location.origin}/auth/steam-callback`
+        const edgeFunctionUrl = `${supabaseUrl}/functions/v1/steam-auth?return_url=${encodeURIComponent(returnUrl)}`
+
+        // Redirect to Steam via edge function
+        window.location.href = edgeFunctionUrl
+        return {}
+      } else {
+        // Production: Steam authentication requires logged-in user to link account
+        // For sign-in without existing account, user should use email/password or Discord first
+        return { error: 'Steam authentication requires an existing account. Please sign in with email or Discord first, then link your Steam account from your profile.' }
+      }
     } catch (err) {
+      console.error('[AUTH] Steam authentication error:', err)
       return { error: 'Failed to initiate Steam authentication' }
     }
   }
