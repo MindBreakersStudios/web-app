@@ -246,7 +246,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 </span>
               </div>
             </div>
-            <div className="mt-6">
+            <div className="mt-6 grid grid-cols-2 gap-3">
               <button
                 onClick={handleDiscordLogin}
                 className="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-700 rounded-md shadow-sm bg-indigo-600 hover:bg-indigo-700 text-sm font-medium text-white disabled:opacity-50 transition-colors"
@@ -257,12 +257,16 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 </svg>
                 {t('auth.social.discord')}
               </button>
-
-              <div className="mt-3 p-3 bg-gray-900/50 border border-gray-700 rounded-md">
-                <p className="text-xs text-gray-400 text-center">
-                  💡 <strong>Steam Login:</strong> Currently requires Discord OAuth configuration. Please use email/password or Discord to sign in.
-                </p>
-              </div>
+              <button
+                onClick={handleSteamLogin}
+                className="w-full inline-flex justify-center items-center py-2 px-4 border border-gray-700 rounded-md shadow-sm bg-gray-900 hover:bg-gray-800 text-sm font-medium text-white disabled:opacity-50 transition-colors"
+                disabled={loading}
+              >
+                <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.5 20.535 6.344 24 11.979 24c6.624 0 11.999-5.375 11.999-12S18.603.001 11.979.001zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.405 1.472 1.009 2.428-.397.955-1.461 1.403-2.417 1.003-.957-.4-1.406-1.472-1.009-2.428.4-.957 1.471-1.406 2.428-1.009z"/>
+                </svg>
+                {t('auth.social.steam')}
+              </button>
             </div>
           </div>
         </div>
