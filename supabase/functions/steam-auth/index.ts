@@ -8,8 +8,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const STEAM_OPENID_URL = "https://steamcommunity.com/openid/login";
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "http://127.0.0.1:54321";
 const FRONTEND_URL = Deno.env.get("FRONTEND_URL") || "http://localhost:5173";
-const CALLBACK_URL = Deno.env.get("STEAM_CALLBACK_URL") || `${FRONTEND_URL}/auth/steam/callback`;
+// Steam should redirect to the EDGE FUNCTION callback, not the frontend
+const EDGE_CALLBACK_URL = `${SUPABASE_URL}/functions/v1/steam-callback`;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -36,13 +38,12 @@ serve(async (req: Request) => {
     // Required OpenID 2.0 parameters
     authUrl.searchParams.set("openid.ns", "http://specs.openid.net/auth/2.0");
     authUrl.searchParams.set("openid.mode", "checkid_setup");
-    authUrl.searchParams.set("openid.return_to", CALLBACK_URL);
-    authUrl.searchParams.set("openid.realm", new URL(CALLBACK_URL).origin);
+    authUrl.searchParams.set("openid.realm", new URL(EDGE_CALLBACK_URL).origin);
     authUrl.searchParams.set("openid.identity", "http://specs.openid.net/auth/2.0/identifier_select");
     authUrl.searchParams.set("openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select");
 
     // Store return_to in the callback URL as a query param
-    const callbackWithReturn = new URL(CALLBACK_URL);
+    const callbackWithReturn = new URL(EDGE_CALLBACK_URL);
     callbackWithReturn.searchParams.set("return_to", returnTo);
     authUrl.searchParams.set("openid.return_to", callbackWithReturn.toString());
 
@@ -52,7 +53,7 @@ serve(async (req: Request) => {
       JSON.stringify({
         success: true,
         auth_url: authUrl.toString(),
-        callback_url: CALLBACK_URL,
+        callback_url: EDGE_CALLBACK_URL,
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
