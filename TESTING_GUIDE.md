@@ -45,14 +45,17 @@ Then open: http://localhost:5173
 
 **Note:** Requires Discord OAuth configuration in Supabase (see `DISCORD_AUTH_SETUP.md`)
 
-### D. Test Steam OpenID (requires setup)
+**Status:** ⚠️ Configuration required (not set up by default)
 
-1. Click **"Login"** button
-2. Click the **Steam** button
-3. You'll be redirected to Steam for authentication
-4. After approval, you'll be redirected back and logged in
+### D. Test Steam OpenID (requires edge function deployment)
 
-**Note:** Requires Steam edge functions deployed (see `STEAM_AUTH_SETUP.md`)
+**Status:** ⚠️ Currently disabled in UI
+
+Steam authentication requires edge functions to be deployed and configured. For now:
+- **Recommended:** Use email/password or Discord OAuth
+- **Later:** Link Steam account from profile page (after logging in)
+
+See `STEAM_AUTH_SETUP.md` for full setup instructions.
 
 ---
 
