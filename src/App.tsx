@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -10,9 +10,10 @@ import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { DebugInfo } from './components/DebugInfo';
 import { MindBreakerBot } from './components/MindBreakerBot';
-// TODO: Uncomment to enable dashboard development
-// import { Dashboard } from './pages/Dashboard';
-import { AuthProvider } from './lib/auth';
+import { Dashboard } from './pages/Dashboard';
+import { Settings } from './pages/Settings';
+import { Leaderboards } from './pages/Leaderboards';
+import { AuthProvider, useAuth } from './lib/auth';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { Profile } from './pages/Profile';
 import { Humanitz } from './pages/Humanitz';
@@ -20,11 +21,21 @@ import { Scum } from './pages/Scum';
 import { SteamCallback } from './pages/SteamCallback';
 import { SteamLinkCallback } from './pages/SteamLinkCallback';
 import { AuthCallback } from './pages/AuthCallback';
+import { ServerManagement } from './pages/ServerManagement';
 import { WatchPage } from './components/multibreakers/WatchPage';
 import { KickCallback } from './pages/auth/KickCallback';
+import { ServerControl } from './pages/admin/ServerControl';
+import { AdminPage } from './pages/admin/AdminPage';
 // uncomment to see StatsDisplay working with StatsDisplay component render
 // import { StatsDisplay } from './components/StatsDisplay/StatsDisplay';
 // import { GameStats } from './fixtures/StatsDisplayFixture';
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+  if (loading) return <div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">Loading...</div>;
+  if (!user) return <Navigate to="/" replace />;
+  return <>{children}</>;
+};
 
 const HomePage = () => {
   const location = useLocation();
@@ -92,14 +103,36 @@ export default function App() {
                 <Footer />
               </>
             } />
-            {/* TODO: Uncomment to enable dashboard development */}
-            {/* <Route path="/dashboard" element={
-              <>
-                <Header />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
                 <Dashboard />
-                <Footer />
-              </>
-            } /> */}
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/leaderboards" element={
+              <ProtectedRoute>
+                <Leaderboards />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/servers" element={
+              <ProtectedRoute>
+                <ServerManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/settings" element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin" element={
+              <ProtectedRoute>
+                <AdminPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/server-control" element={
+              <ProtectedRoute>
+                <ServerControl />
+              </ProtectedRoute>
+            } />
             <Route path="/profile" element={
               <>
                 <Header />
