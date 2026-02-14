@@ -15,7 +15,6 @@ import { Settings } from './pages/Settings';
 import { Leaderboards } from './pages/Leaderboards';
 import { AuthProvider, useAuth } from './lib/auth';
 import { LanguageProvider } from './contexts/LanguageContext';
-import { Profile } from './pages/Profile';
 import { Humanitz } from './pages/Humanitz';
 import { Scum } from './pages/Scum';
 import { SteamCallback } from './pages/SteamCallback';
@@ -133,14 +132,7 @@ export default function App() {
                 <ServerControl />
               </ProtectedRoute>
             } />
-            <Route path="/profile" element={
-              <>
-                <Header />
-                <Profile />
-                <Footer />
-              </>
-            } />
-            <Route path="/humanitz" element={<Humanitz />} />
+<Route path="/humanitz" element={<Humanitz />} />
             <Route path="/scum" element={<Scum />} />
             <Route path="/watchparty" element={<WatchPage />} />
             <Route path="/auth/callback" element={<AuthCallback />} />

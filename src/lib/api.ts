@@ -240,3 +240,139 @@ export const steamAPI = {
 export const fetchWithAuth = async (endpoint: string, options: RequestInit = {}) => {
   return apiCall(endpoint, options);
 };
+
+// ── Admin: Server Stats ─────────────────────────────────────────────────────
+
+export interface ServerStats {
+  server_id: string;
+  server_name: string | null;
+  current_players: number;
+  max_players: number;
+  map_name: string | null;
+  game_mode: string | null;
+  version: string | null;
+  rcon_available: boolean;
+  last_rcon_error: string | null;
+  sync_interval_seconds: number;
+  last_updated: string;
+  game_data: Record<string, any>;
+  player_list: any[];
+}
+
+export const getServerStats = async (serverId: string): Promise<ServerStats | null> => {
+  if (!supabase) return null;
+  const { data, error } = await supabase
+    .from('server_stats')
+    .select('*')
+    .eq('server_id', serverId)
+    .single();
+  if (error) throw new Error(error.message);
+  return data as ServerStats;
+};
+
+export const subscribeToServerStats = (
+  serverId: string,
+  callback: (stats: ServerStats) => void,
+) => {
+  if (!supabase) return { unsubscribe: () => {} };
+  const channel = supabase
+    .channel(`server_stats:${serverId}`)
+    .on(
+      'postgres_changes' as any,
+      { event: '*', schema: 'public', table: 'server_stats', filter: `server_id=eq.${serverId}` },
+      (payload: any) => callback(payload.new as ServerStats),
+    )
+    .subscribe();
+  return { unsubscribe: () => { supabase!.removeChannel(channel); } };
+};
+
+// ── Admin: Server Commands ──────────────────────────────────────────────────
+
+export type CommandType = 'restart' | 'stop' | 'start' | 'message' | 'kick' | 'ban' | 'custom';
+
+export interface ServerCommand {
+  id: string;
+  server_id: string;
+  command_type: CommandType;
+  payload: Record<string, any>;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  result: string | null;
+  created_at: string;
+  started_at: string | null;
+  completed_at: string | null;
+  created_by: string;
+}
+
+export const createServerCommand = async (
+  serverId: string,
+  commandType: CommandType,
+  payload: Record<string, any> = {},
+): Promise<ServerCommand> => {
+  if (!supabase) throw new Error('Supabase not configured');
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not authenticated');
+  const { data, error } = await supabase
+    .from('server_commands')
+    .insert({ server_id: serverId, command_type: commandType, payload, created_by: session.user.id })
+    .select()
+    .single();
+  if (error) throw new Error(error.message);
+  return data as ServerCommand;
+};
+
+export const getCommandHistory = async (serverId?: string, limit = 50): Promise<ServerCommand[]> => {
+  if (!supabase) return [];
+  let query = supabase.from('server_commands').select('*').order('created_at', { ascending: false }).limit(limit);
+  if (serverId) query = query.eq('server_id', serverId);
+  const { data, error } = await query;
+  if (error) throw new Error(error.message);
+  return (data ?? []) as ServerCommand[];
+};
+
+export const subscribeToServerCommands = (
+  serverId: string | undefined,
+  callback: (command: ServerCommand) => void,
+) => {
+  if (!supabase) return { unsubscribe: () => {} };
+  const filter = serverId ? `server_id=eq.${serverId}` : undefined;
+  const channel = supabase
+    .channel(`server_commands:${serverId ?? 'all'}`)
+    .on(
+      'postgres_changes' as any,
+      { event: '*', schema: 'public', table: 'server_commands', ...(filter ? { filter } : {}) },
+      (payload: any) => callback(payload.new as ServerCommand),
+    )
+    .subscribe();
+  return { unsubscribe: () => { supabase!.removeChannel(channel); } };
+};
+
+// ── Admin: Command helpers ──────────────────────────────────────────────────
+
+export const formatCommandStatus = (status: string): string => {
+  switch (status) {
+    case 'pending': return 'Pending';
+    case 'running': return 'Running';
+    case 'completed': return 'Completed';
+    case 'failed': return 'Failed';
+    default: return status;
+  }
+};
+
+export const getStatusColor = (status: string): string => {
+  switch (status) {
+    case 'pending': return 'text-yellow-400';
+    case 'running': return 'text-blue-400';
+    case 'completed': return 'text-green-400';
+    case 'failed': return 'text-red-400';
+    default: return 'text-gray-400';
+  }
+};
+
+export const getCommandDuration = (command: ServerCommand): string | null => {
+  if (!command.started_at) return null;
+  const end = command.completed_at ? new Date(command.completed_at) : new Date();
+  const start = new Date(command.started_at);
+  const ms = end.getTime() - start.getTime();
+  if (ms < 1000) return `${ms}ms`;
+  return `${(ms / 1000).toFixed(1)}s`;
+};

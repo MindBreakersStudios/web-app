@@ -151,80 +151,94 @@ serve(async (req: Request) => {
     // Get Steam player info from Steam Web API (optional but recommended)
     const playerInfo = await getSteamPlayerInfo(steamId);
 
-    // Initialize Supabase client
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+    // Initialize Supabase Admin Client
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    });
 
-    // Get the current user from the request (if authenticated)
-    const authHeader = req.headers.get("Authorization");
-    const token = authHeader?.replace("Bearer ", "");
+    // Create or get user in Supabase Auth
+    // Use Steam ID as the email (since Steam doesn't provide email)
+    const email = `${steamId}@steam.local`;
+    const password = crypto.randomUUID(); // Random password (user won't use it)
 
+    console.log("[steam-callback] Creating/getting Supabase user for email:", email);
+
+    // Try to get existing user first
     let userId: string | null = null;
+    const { data: existingUsers } = await supabase.auth.admin.listUsers();
+    const existingUser = existingUsers?.users?.find(u => u.email === email);
 
-    if (token) {
-      const { data: { user }, error } = await supabase.auth.getUser(token);
-      if (!error && user) {
-        userId = user.id;
-      }
-    }
+    if (existingUser) {
+      console.log("[steam-callback] Found existing user:", existingUser.id);
+      userId = existingUser.id;
 
-    // Update or create user with Steam ID
-    if (userId) {
-      // User is authenticated - link Steam ID to existing profile
-      const { error: updateError } = await supabase
-        .from("users")
-        .update({
+      // Update user metadata with latest Steam info
+      await supabase.auth.admin.updateUserById(userId, {
+        user_metadata: {
           steam_id: steamId,
-          username: playerInfo?.personaname || undefined,
-          avatar_url: playerInfo?.avatarfull || undefined,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", userId);
-
-      if (updateError) {
-        console.error("[steam-callback] Error linking Steam ID:", updateError);
-        return redirectWithError(returnTo, "Failed to link Steam account");
-      }
-
-      console.log(`[steam-callback] Linked Steam ID ${steamId} to user ${userId}`);
-    } else {
-      // User not authenticated - this should trigger signup/login flow
-      // For now, we'll just store the Steam ID and redirect
-      // In production, you'd create a session or trigger email verification
-      console.log("[steam-callback] User not authenticated, Steam ID:", steamId);
-
-      // Check if user with this Steam ID already exists
-      const { data: existingUser } = await supabase
-        .from("users")
-        .select("id")
-        .eq("steam_id", steamId)
-        .maybeSingle();
-
-      if (existingUser) {
-        // User exists, they should log in first
-        return redirectWithError(
-          returnTo,
-          "A user with this Steam account already exists. Please log in first."
-        );
-      }
-
-      // New user - redirect to signup with Steam ID in query params
-      const signupUrl = new URL(`${FRONTEND_URL}/signup`);
-      signupUrl.searchParams.set("steam_id", steamId);
-      if (playerInfo) {
-        signupUrl.searchParams.set("steam_name", playerInfo.personaname);
-        signupUrl.searchParams.set("avatar", playerInfo.avatarfull);
-      }
-
-      return new Response(null, {
-        status: 302,
-        headers: {
-          Location: signupUrl.toString(),
-        },
+          steam_name: playerInfo?.personaname || `Steam User ${steamId.slice(-4)}`,
+          avatar_url: playerInfo?.avatarfull,
+          provider: 'steam'
+        }
       });
+    } else {
+      // Create new user
+      console.log("[steam-callback] Creating new user");
+      const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+        email: email,
+        password: password,
+        email_confirm: true, // Auto-confirm email
+        user_metadata: {
+          steam_id: steamId,
+          steam_name: playerInfo?.personaname || `Steam User ${steamId.slice(-4)}`,
+          avatar_url: playerInfo?.avatarfull,
+          provider: 'steam'
+        }
+      });
+
+      if (createError) {
+        console.error("[steam-callback] Error creating user:", createError);
+        return redirectWithError(returnTo, "Failed to create user account");
+      }
+
+      if (!newUser.user) {
+        console.error("[steam-callback] No user returned from createUser");
+        return redirectWithError(returnTo, "Failed to create user account");
+      }
+
+      userId = newUser.user.id;
+      console.log("[steam-callback] Created new user:", userId);
     }
 
-    // Redirect to success page
-    return redirectWithSuccess(returnTo, steamId, playerInfo?.personaname || "");
+    // Generate an email OTP for auto-login
+    console.log("[steam-callback] Generating email OTP for auto-login...");
+
+    const { data: otpData, error: otpError } = await supabase.auth.admin.generateLink({
+      type: 'magiclink',
+      email: email
+    });
+
+    if (otpError || !otpData) {
+      console.error("[steam-callback] Error generating OTP:", otpError);
+      return redirectWithError(returnTo, "Failed to generate login token");
+    }
+
+    // Extract the hash token from the magic link properties
+    // The hashed_token is what we need for verification
+    const hashedToken = otpData.properties?.hashed_token;
+
+    if (!hashedToken) {
+      console.error("[steam-callback] No hashed token in response");
+      return redirectWithError(returnTo, "Failed to extract login token");
+    }
+
+    console.log("[steam-callback] OTP generated successfully, redirecting to frontend");
+
+    // Redirect to frontend with OTP token that it can verify
+    return redirectWithOTP(returnTo, email, hashedToken, steamId, playerInfo?.personaname || "");
   } catch (error) {
     console.error("[steam-callback] Unexpected error:", error);
     const returnTo = `${FRONTEND_URL}/dashboard`;
@@ -248,6 +262,55 @@ function redirectWithSuccess(returnTo: string, steamId: string, steamName: strin
   const url = new URL(returnTo);
   url.searchParams.set("steam_success", "true");
   url.searchParams.set("steam_id", steamId);
+  if (steamName) {
+    url.searchParams.set("steam_name", steamName);
+  }
+
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: url.toString(),
+    },
+  });
+}
+
+function redirectWithSession(
+  returnTo: string,
+  accessToken: string,
+  refreshToken: string,
+  steamId: string,
+  steamName: string
+): Response {
+  const url = new URL(returnTo);
+  url.searchParams.set("steam_success", "true");
+  url.searchParams.set("steam_id", steamId);
+  url.searchParams.set("access_token", accessToken);
+  url.searchParams.set("refresh_token", refreshToken);
+  if (steamName) {
+    url.searchParams.set("steam_name", steamName);
+  }
+
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: url.toString(),
+    },
+  });
+}
+
+function redirectWithOTP(
+  returnTo: string,
+  email: string,
+  tokenHash: string,
+  steamId: string,
+  steamName: string
+): Response {
+  const url = new URL(returnTo);
+  url.searchParams.set("steam_success", "true");
+  url.searchParams.set("steam_id", steamId);
+  url.searchParams.set("email", email);
+  url.searchParams.set("token_hash", tokenHash);
+  url.searchParams.set("type", "magiclink");
   if (steamName) {
     url.searchParams.set("steam_name", steamName);
   }

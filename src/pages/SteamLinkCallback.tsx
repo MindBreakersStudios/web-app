@@ -80,7 +80,7 @@ export const SteamLinkCallback = () => {
           
           // Redirect after showing success
           setTimeout(() => {
-            navigate('/profile');
+            navigate('/dashboard/settings');
           }, 2000);
         } else if (callbackError) {
           // Backend reported an error
@@ -104,7 +104,7 @@ export const SteamLinkCallback = () => {
             
             // Redirect to profile after showing message
             setTimeout(() => {
-              navigate('/profile');
+              navigate('/dashboard/settings');
             }, 2000);
           } else {
             setStatus('error');
@@ -126,7 +126,7 @@ export const SteamLinkCallback = () => {
               });
               
               setTimeout(() => {
-                navigate('/profile');
+                navigate('/dashboard/settings');
               }, 2000);
             } else {
               setStatus('error');
@@ -148,7 +148,7 @@ export const SteamLinkCallback = () => {
   }, [searchParams, navigate, user]);
 
   const handleRetry = () => {
-    navigate('/profile');
+    navigate('/dashboard/settings');
   };
 
   const getStatusIcon = () => {

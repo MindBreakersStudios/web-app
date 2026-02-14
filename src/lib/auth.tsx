@@ -23,26 +23,56 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
   const [apiUserData, setApiUserData] = useState<any | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [, setRetryCount] = useState(0)
   const [initTimeout, setInitTimeout] = useState<NodeJS.Timeout | null>(null)
+
+  // Fetch admin status from users table
+  const fetchAdminStatus = async (userId: string) => {
+    if (!supabase) return
+    try {
+      console.log('[AUTH] Fetching admin status for user:', userId)
+      const { data, error } = await supabase
+        .from('users')
+        .select('is_admin')
+        .eq('id', userId)
+        .single()
+      console.log('[AUTH] Admin query result:', { data, error: error?.message })
+      if (!error && data) {
+        console.log('[AUTH] Setting isAdmin to:', data.is_admin === true)
+        setIsAdmin(data.is_admin === true)
+      }
+    } catch (err) {
+      console.error('[AUTH] Failed to fetch admin status:', err)
+    }
+  }
 
   // Handle successful login - sync with API
   const handleSuccessfulLogin = async (session: Session, retryAttempt = 0) => {
     console.log('[AUTH] Starting API sync for user:', session.user.email, `(attempt ${retryAttempt + 1})`);
-    
+
+    // Fetch admin status immediately (doesn't depend on API sync)
+    fetchAdminStatus(session.user.id);
+
+    // Skip API sync in dev mode (no backend running)
+    if (import.meta.env.VITE_DEV_MODE === 'true') {
+      console.log('[AUTH] Dev mode — skipping API sync');
+      return;
+    }
+
     try {
       // Sync user with backend API
       console.log('[AUTH] Calling syncUser...');
       const userData = await authAPI.syncUser();
       setApiUserData(userData);
       console.log('[AUTH] User synced to local database:', userData);
-      
+
       // Reset retry count on success
       setRetryCount(0);
     } catch (error) {
       console.error('[AUTH] Failed to sync user with API:', error);
       console.error('[AUTH] Error details:', error instanceof Error ? error.message : 'Unknown error');
-      
+
       // Retry logic for API failures
       if (retryAttempt < 2) {
         console.log(`[AUTH] Retrying API sync in 2 seconds... (attempt ${retryAttempt + 2})`);
@@ -52,7 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }, 2000);
         return;
       }
-      
+
       // Don't prevent login if API sync fails
       setApiUserData(null);
     }
@@ -238,6 +268,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setApiGlobalSession(null);
           setUser(null);
           setApiUserData(null);
+          setIsAdmin(false);
         } else {
           // For other events, just update the state
           setSession(session);
@@ -345,7 +376,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const returnUrl = `${window.location.origin}/auth/steam-callback`
 
       // Build edge function URL for Steam authentication
-      const edgeFunctionUrl = `${supabaseUrl}/functions/v1/steam-auth?return_url=${encodeURIComponent(returnUrl)}`
+      // Note: edge function expects "return_to" parameter
+      const edgeFunctionUrl = `${supabaseUrl}/functions/v1/steam-auth?return_to=${encodeURIComponent(returnUrl)}`
 
       console.log('[AUTH] Initiating Steam authentication...')
       console.log('[AUTH] Edge function URL:', edgeFunctionUrl)
@@ -398,7 +430,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     session,
     loading,
     apiUserData,
-    isAdmin: false, // Admin functionality removed for public repo
+    isAdmin,
     signIn,
     signUp,
     signInWithDiscord,
