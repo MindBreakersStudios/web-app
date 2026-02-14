@@ -8,10 +8,13 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const STEAM_OPENID_URL = "https://steamcommunity.com/openid/login";
+// Always use external URL for callbacks (not internal Docker hostname)
+// This ensures Steam redirects to the correct URL accessible from the browser
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "http://127.0.0.1:54321";
 const FRONTEND_URL = Deno.env.get("FRONTEND_URL") || "http://localhost:5173";
-// Steam should redirect to the EDGE FUNCTION callback, not the frontend
-const EDGE_CALLBACK_URL = `${SUPABASE_URL}/functions/v1/steam-callback`;
+// Force external URL for callback - override if Supabase sets internal URL
+const CALLBACK_BASE_URL = SUPABASE_URL.includes("kong") ? "http://127.0.0.1:54321" : SUPABASE_URL;
+const EDGE_CALLBACK_URL = `${CALLBACK_BASE_URL}/functions/v1/steam-callback`;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -29,7 +32,8 @@ serve(async (req: Request) => {
     const url = new URL(req.url);
 
     // Optional: Get return_to URL from query params (where to redirect after auth)
-    const returnTo = url.searchParams.get("return_to") || `${FRONTEND_URL}/dashboard`;
+    // Default to /auth/steam-callback so the frontend can process the result
+    const returnTo = url.searchParams.get("return_to") || `${FRONTEND_URL}/auth/steam-callback`;
 
     // Build Steam OpenID authentication URL
     // Steam OpenID 2.0 spec: https://openid.net/specs/openid-authentication-2_0.html

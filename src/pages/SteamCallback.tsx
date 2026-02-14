@@ -4,6 +4,7 @@ import { Loader, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { steamAPI } from '../lib/api';
 import { useAuth } from '../lib/auth';
 import { useTranslation } from '../hooks/useTranslation';
+import { supabase } from '../lib/supabase';
 
 export const SteamCallback = () => {
   const [searchParams] = useSearchParams();
@@ -18,11 +19,8 @@ export const SteamCallback = () => {
   useEffect(() => {
     const processSteamCallback = async () => {
       try {
-        // Check for direct success parameters (simplified callback)
-        const userId = searchParams.get('user_id');
-        const steamId = searchParams.get('steam_id');
-        const isNewUser = searchParams.get('new_user') === 'true';
-        const error = searchParams.get('error');
+        // Check for error first
+        const error = searchParams.get('error') || searchParams.get('steam_error');
 
         if (error) {
           setStatus('error');
@@ -30,8 +28,106 @@ export const SteamCallback = () => {
           return;
         }
 
+        // Check for success from edge function
+        const steamSuccess = searchParams.get('steam_success') === 'true';
+        const steamId = searchParams.get('steam_id');
+        const steamName = searchParams.get('steam_name');
+        const accessToken = searchParams.get('access_token');
+        const refreshToken = searchParams.get('refresh_token');
+        const email = searchParams.get('email');
+        const tokenHash = searchParams.get('token_hash');
+        const type = searchParams.get('type');
+
+        if (steamSuccess && steamId) {
+          // Edge function validated Steam successfully
+          console.log('[SteamCallback] Steam validation successful:', {
+            steamId,
+            steamName,
+            hasTokens: !!accessToken,
+            hasOTP: !!tokenHash
+          });
+
+          // Try to establish session with different methods
+          if (accessToken && refreshToken) {
+            // Method 1: Direct session tokens
+            console.log('[SteamCallback] Setting session with tokens...');
+
+            try {
+              const { data, error } = await supabase.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken
+              });
+
+              if (error) {
+                console.error('[SteamCallback] Error setting session:', error);
+                setStatus('error');
+                setMessage('Failed to establish session. Please try again.');
+                return;
+              }
+
+              console.log('[SteamCallback] Session established:', data.session?.user?.id);
+            } catch (sessionError) {
+              console.error('[SteamCallback] Session error:', sessionError);
+              setStatus('error');
+              setMessage('Failed to establish session. Please try again.');
+              return;
+            }
+          } else if (email && tokenHash && type) {
+            // Method 2: Verify OTP token
+            console.log('[SteamCallback] Verifying OTP token...');
+
+            try {
+              const { data, error } = await supabase.auth.verifyOtp({
+                email: email,
+                token: tokenHash,
+                type: type as any
+              });
+
+              if (error) {
+                console.error('[SteamCallback] Error verifying OTP:', error);
+                setStatus('error');
+                setMessage('Failed to verify login token. Please try again.');
+                return;
+              }
+
+              console.log('[SteamCallback] OTP verified, session established:', data.session?.user?.id);
+            } catch (otpError) {
+              console.error('[SteamCallback] OTP error:', otpError);
+              setStatus('error');
+              setMessage('Failed to verify login token. Please try again.');
+              return;
+            }
+          } else {
+            console.warn('[SteamCallback] No authentication method available, proceeding without session');
+          }
+
+          // Show success
+          setStatus('success');
+          setUserInfo({
+            steam_id: steamId,
+            steam_name: steamName || `Steam User ${steamId.slice(-4)}`,
+            is_new_user: true // For now, assume new user
+          });
+
+          const welcomeMessage = steamName
+            ? `Welcome, ${steamName}! Your Steam account has been verified.`
+            : 'Steam authentication successful!';
+
+          setMessage(welcomeMessage);
+
+          // Redirect after showing success
+          setTimeout(() => {
+            navigate('/dashboard');
+          }, 2000);
+          return;
+        }
+
+        // Legacy: Check for direct success parameters (old callback format)
+        const userId = searchParams.get('user_id');
+
         if (userId && steamId) {
-          // Direct success callback
+          // Direct success callback (legacy)
+          const isNewUser = searchParams.get('new_user') === 'true';
           setStatus('success');
           setUserInfo({
             user_id: userId,
@@ -39,7 +135,7 @@ export const SteamCallback = () => {
             is_new_user: isNewUser
           });
           setMessage(isNewUser ? t('callbacks.steam.welcomeNew') : t('callbacks.steam.welcomeBack'));
-          
+
           // Redirect after showing success
           setTimeout(() => {
             navigate('/dashboard');
